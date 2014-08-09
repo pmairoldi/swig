@@ -765,7 +765,6 @@
 			isa = PBXGroup;
 			children = (
 				A16704BF3FCD443388FD3B00 /* Swig.h */,
-				9D86276385A7417E8CE526E3 /* Support Files */,
 				069E1D331995CAB0003C3E47 /* SWUserAgent.h */,
 				069E1D341995CAB0003C3E47 /* SWUserAgent.m */,
 				069E1D361995CACB003C3E47 /* SWAccount.h */,
@@ -774,6 +773,7 @@
 				069E1D3A1995CB1F003C3E47 /* SWCall.m */,
 				069E1D3C1995CB38003C3E47 /* SWURI.h */,
 				069E1D3D1995CB38003C3E47 /* SWURI.m */,
+				9D86276385A7417E8CE526E3 /* Support Files */,
 			);
 			name = Swig;
 			path = ../..;
