@@ -24,5 +24,5 @@ Pierre-Marc Airoldi, pierremarcairoldi@gmail.com
 
 ## License
 
-Swig is available under the MIT license. See the LICENSE file for more info.
+Swig is available under the GPLv2 license. See the LICENSE file for more info.
 

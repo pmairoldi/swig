@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
                             DESC
     s.homepage         = "https://github.com/petester42/Swig"
     # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
-    s.license          = 'MIT'
+    s.license          = 'GPLv2'
     s.author           = { "Pierre-Marc Airoldi" => "pierremarcairoldi@gmail.com" }
     s.source           = { :git => "https://github.com/petester42/Swig.git", :tag => s.version.to_s }
     s.social_media_url = 'https://twitter.com/petester42'
@@ -26,9 +26,5 @@ Pod::Spec.new do |s|
 
     s.source_files = 'Pod/Classes'
     # s.resources = 'Pod/Assets/*.png'
-
-    # s.public_header_files = 'Pod/Classes/**/*.h'
-    # s.frameworks = 'UIKit', 'MapKit'
-    # s.dependency 'AFNetworking', '~> 2.3'
     s.dependency 'pjsip', '~> 2.2'
 end
