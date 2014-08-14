@@ -1,0 +1,618 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2B78417B199D4053008268B0 /* SWTransportConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B78417A199D4053008268B0 /* SWTransportConfiguration.mm */; };
+		2BD641C7199CE50C00589024 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641C6199CE50C00589024 /* main.m */; };
+		2BD641CA199CE50C00589024 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641C9199CE50C00589024 /* AppDelegate.m */; };
+		2BD641CD199CE50C00589024 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641CC199CE50C00589024 /* ViewController.m */; };
+		2BD641D0199CE50C00589024 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BD641CE199CE50C00589024 /* Main.storyboard */; };
+		2BD641D2199CE50C00589024 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BD641D1199CE50C00589024 /* Images.xcassets */; };
+		2BD641DE199CE50C00589024 /* swigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641DD199CE50C00589024 /* swigTests.m */; };
+		2BD641E8199CE54200589024 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641E7199CE54200589024 /* CFNetwork.framework */; };
+		2BD641EA199CE54A00589024 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641E9199CE54A00589024 /* AudioToolbox.framework */; };
+		2BD641EE199CE58D00589024 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641ED199CE58D00589024 /* AVFoundation.framework */; };
+		2BD64202199CE5AE00589024 /* libg7221codec-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F0199CE5AE00589024 /* libg7221codec-arm-apple-darwin9.a */; };
+		2BD64203199CE5AE00589024 /* libgsmcodec-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F1199CE5AE00589024 /* libgsmcodec-arm-apple-darwin9.a */; };
+		2BD64204199CE5AE00589024 /* libilbccodec-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F2199CE5AE00589024 /* libilbccodec-arm-apple-darwin9.a */; };
+		2BD64205199CE5AE00589024 /* libpj-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F3199CE5AE00589024 /* libpj-arm-apple-darwin9.a */; };
+		2BD64206199CE5AE00589024 /* libpjlib-util-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F4199CE5AE00589024 /* libpjlib-util-arm-apple-darwin9.a */; };
+		2BD64207199CE5AE00589024 /* libpjmedia-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F5199CE5AE00589024 /* libpjmedia-arm-apple-darwin9.a */; };
+		2BD64208199CE5AE00589024 /* libpjmedia-audiodev-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F6199CE5AE00589024 /* libpjmedia-audiodev-arm-apple-darwin9.a */; };
+		2BD64209199CE5AE00589024 /* libpjmedia-codec-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F7199CE5AE00589024 /* libpjmedia-codec-arm-apple-darwin9.a */; };
+		2BD6420A199CE5AE00589024 /* libpjmedia-videodev-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F8199CE5AE00589024 /* libpjmedia-videodev-arm-apple-darwin9.a */; };
+		2BD6420B199CE5AE00589024 /* libpjnath-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F9199CE5AE00589024 /* libpjnath-arm-apple-darwin9.a */; };
+		2BD6420C199CE5AE00589024 /* libpjsip-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641FA199CE5AE00589024 /* libpjsip-arm-apple-darwin9.a */; };
+		2BD6420D199CE5AE00589024 /* libpjsip-simple-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641FB199CE5AE00589024 /* libpjsip-simple-arm-apple-darwin9.a */; };
+		2BD6420E199CE5AE00589024 /* libpjsip-ua-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641FC199CE5AE00589024 /* libpjsip-ua-arm-apple-darwin9.a */; };
+		2BD6420F199CE5AE00589024 /* libpjsua-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641FD199CE5AE00589024 /* libpjsua-arm-apple-darwin9.a */; };
+		2BD64210199CE5AE00589024 /* libpjsua2-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641FE199CE5AE00589024 /* libpjsua2-arm-apple-darwin9.a */; };
+		2BD64211199CE5AE00589024 /* libresample-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641FF199CE5AE00589024 /* libresample-arm-apple-darwin9.a */; };
+		2BD64212199CE5AE00589024 /* libspeex-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD64200199CE5AE00589024 /* libspeex-arm-apple-darwin9.a */; };
+		2BD64213199CE5AE00589024 /* libsrtp-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD64201199CE5AE00589024 /* libsrtp-arm-apple-darwin9.a */; };
+		2BD64217199CE67A00589024 /* SWUserAgent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BD64216199CE67A00589024 /* SWUserAgent.mm */; };
+		2BD6421A199CE74100589024 /* SWAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD64219199CE74100589024 /* SWAccount.m */; };
+		2BD64227199CEBB700589024 /* SWAccountConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD64226199CEBB700589024 /* SWAccountConfiguration.m */; };
+		2BD6422A199CEBD300589024 /* SWLogConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BD64229199CEBD300589024 /* SWLogConfiguration.mm */; };
+		2BD6422D199CEBEB00589024 /* SWMediaConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BD6422C199CEBEB00589024 /* SWMediaConfiguration.mm */; };
+		2BD64231199CEC1C00589024 /* SWUserAgentConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BD64230199CEC1C00589024 /* SWUserAgentConfiguration.mm */; };
+		2BD64234199CF09C00589024 /* NSArray+StringVector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BD64233199CF09C00589024 /* NSArray+StringVector.mm */; };
+		2BD64239199CF45200589024 /* NSString+String.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BD64238199CF45200589024 /* NSString+String.mm */; };
+		2BD6423C199D094500589024 /* SWEndpoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BD6423B199D094500589024 /* SWEndpoint.mm */; };
+		2BD6423F199D0CA600589024 /* NSError+Error.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BD6423E199D0CA600589024 /* NSError+Error.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2BD641D8199CE50C00589024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2BD641B9199CE50C00589024 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2BD641C0199CE50C00589024;
+			remoteInfo = swig;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2B784179199D4053008268B0 /* SWTransportConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTransportConfiguration.h; sourceTree = "<group>"; };
+		2B78417A199D4053008268B0 /* SWTransportConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWTransportConfiguration.mm; sourceTree = "<group>"; };
+		2BD641C1199CE50C00589024 /* swig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swig.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BD641C5199CE50C00589024 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2BD641C6199CE50C00589024 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2BD641C8199CE50C00589024 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2BD641C9199CE50C00589024 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2BD641CB199CE50C00589024 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		2BD641CC199CE50C00589024 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		2BD641CF199CE50C00589024 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2BD641D1199CE50C00589024 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2BD641D7199CE50C00589024 /* swigTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swigTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BD641DC199CE50C00589024 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2BD641DD199CE50C00589024 /* swigTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = swigTests.m; sourceTree = "<group>"; };
+		2BD641E7199CE54200589024 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		2BD641E9199CE54A00589024 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		2BD641EB199CE55200589024 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		2BD641ED199CE58D00589024 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2BD641F0199CE5AE00589024 /* libg7221codec-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libg7221codec-arm-apple-darwin9.a"; path = "pjsip-lib/libg7221codec-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD641F1199CE5AE00589024 /* libgsmcodec-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libgsmcodec-arm-apple-darwin9.a"; path = "pjsip-lib/libgsmcodec-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD641F2199CE5AE00589024 /* libilbccodec-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libilbccodec-arm-apple-darwin9.a"; path = "pjsip-lib/libilbccodec-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD641F3199CE5AE00589024 /* libpj-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpj-arm-apple-darwin9.a"; path = "pjsip-lib/libpj-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD641F4199CE5AE00589024 /* libpjlib-util-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjlib-util-arm-apple-darwin9.a"; path = "pjsip-lib/libpjlib-util-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD641F5199CE5AE00589024 /* libpjmedia-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjmedia-arm-apple-darwin9.a"; path = "pjsip-lib/libpjmedia-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD641F6199CE5AE00589024 /* libpjmedia-audiodev-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjmedia-audiodev-arm-apple-darwin9.a"; path = "pjsip-lib/libpjmedia-audiodev-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD641F7199CE5AE00589024 /* libpjmedia-codec-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjmedia-codec-arm-apple-darwin9.a"; path = "pjsip-lib/libpjmedia-codec-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD641F8199CE5AE00589024 /* libpjmedia-videodev-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjmedia-videodev-arm-apple-darwin9.a"; path = "pjsip-lib/libpjmedia-videodev-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD641F9199CE5AE00589024 /* libpjnath-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjnath-arm-apple-darwin9.a"; path = "pjsip-lib/libpjnath-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD641FA199CE5AE00589024 /* libpjsip-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjsip-arm-apple-darwin9.a"; path = "pjsip-lib/libpjsip-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD641FB199CE5AE00589024 /* libpjsip-simple-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjsip-simple-arm-apple-darwin9.a"; path = "pjsip-lib/libpjsip-simple-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD641FC199CE5AE00589024 /* libpjsip-ua-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjsip-ua-arm-apple-darwin9.a"; path = "pjsip-lib/libpjsip-ua-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD641FD199CE5AE00589024 /* libpjsua-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjsua-arm-apple-darwin9.a"; path = "pjsip-lib/libpjsua-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD641FE199CE5AE00589024 /* libpjsua2-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjsua2-arm-apple-darwin9.a"; path = "pjsip-lib/libpjsua2-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD641FF199CE5AE00589024 /* libresample-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libresample-arm-apple-darwin9.a"; path = "pjsip-lib/libresample-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD64200199CE5AE00589024 /* libspeex-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libspeex-arm-apple-darwin9.a"; path = "pjsip-lib/libspeex-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD64201199CE5AE00589024 /* libsrtp-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libsrtp-arm-apple-darwin9.a"; path = "pjsip-lib/libsrtp-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		2BD64215199CE67A00589024 /* SWUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUserAgent.h; sourceTree = "<group>"; };
+		2BD64216199CE67A00589024 /* SWUserAgent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWUserAgent.mm; sourceTree = "<group>"; };
+		2BD64218199CE74100589024 /* SWAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAccount.h; sourceTree = "<group>"; };
+		2BD64219199CE74100589024 /* SWAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWAccount.m; sourceTree = "<group>"; };
+		2BD64225199CEBB700589024 /* SWAccountConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAccountConfiguration.h; sourceTree = "<group>"; };
+		2BD64226199CEBB700589024 /* SWAccountConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWAccountConfiguration.m; sourceTree = "<group>"; };
+		2BD64228199CEBD300589024 /* SWLogConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWLogConfiguration.h; sourceTree = "<group>"; };
+		2BD64229199CEBD300589024 /* SWLogConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWLogConfiguration.mm; sourceTree = "<group>"; };
+		2BD6422B199CEBEB00589024 /* SWMediaConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWMediaConfiguration.h; sourceTree = "<group>"; };
+		2BD6422C199CEBEB00589024 /* SWMediaConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWMediaConfiguration.mm; sourceTree = "<group>"; };
+		2BD6422F199CEC1C00589024 /* SWUserAgentConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUserAgentConfiguration.h; sourceTree = "<group>"; };
+		2BD64230199CEC1C00589024 /* SWUserAgentConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWUserAgentConfiguration.mm; sourceTree = "<group>"; };
+		2BD64232199CF09C00589024 /* NSArray+StringVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+StringVector.h"; sourceTree = "<group>"; };
+		2BD64233199CF09C00589024 /* NSArray+StringVector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSArray+StringVector.mm"; sourceTree = "<group>"; };
+		2BD64235199CF1E700589024 /* Swig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Swig.h; sourceTree = "<group>"; };
+		2BD64236199CF25900589024 /* PJSUA2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PJSUA2.h; sourceTree = "<group>"; };
+		2BD64237199CF45200589024 /* NSString+String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+String.h"; sourceTree = "<group>"; };
+		2BD64238199CF45200589024 /* NSString+String.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSString+String.mm"; sourceTree = "<group>"; };
+		2BD6423A199D094500589024 /* SWEndpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWEndpoint.h; sourceTree = "<group>"; };
+		2BD6423B199D094500589024 /* SWEndpoint.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWEndpoint.mm; sourceTree = "<group>"; };
+		2BD6423D199D0CA600589024 /* NSError+Error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+Error.h"; sourceTree = "<group>"; };
+		2BD6423E199D0CA600589024 /* NSError+Error.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSError+Error.mm"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2BD641BE199CE50C00589024 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2BD64203199CE5AE00589024 /* libgsmcodec-arm-apple-darwin9.a in Frameworks */,
+				2BD641EE199CE58D00589024 /* AVFoundation.framework in Frameworks */,
+				2BD64207199CE5AE00589024 /* libpjmedia-arm-apple-darwin9.a in Frameworks */,
+				2BD64202199CE5AE00589024 /* libg7221codec-arm-apple-darwin9.a in Frameworks */,
+				2BD6420B199CE5AE00589024 /* libpjnath-arm-apple-darwin9.a in Frameworks */,
+				2BD6420E199CE5AE00589024 /* libpjsip-ua-arm-apple-darwin9.a in Frameworks */,
+				2BD64213199CE5AE00589024 /* libsrtp-arm-apple-darwin9.a in Frameworks */,
+				2BD6420F199CE5AE00589024 /* libpjsua-arm-apple-darwin9.a in Frameworks */,
+				2BD64209199CE5AE00589024 /* libpjmedia-codec-arm-apple-darwin9.a in Frameworks */,
+				2BD641EA199CE54A00589024 /* AudioToolbox.framework in Frameworks */,
+				2BD6420C199CE5AE00589024 /* libpjsip-arm-apple-darwin9.a in Frameworks */,
+				2BD64204199CE5AE00589024 /* libilbccodec-arm-apple-darwin9.a in Frameworks */,
+				2BD6420D199CE5AE00589024 /* libpjsip-simple-arm-apple-darwin9.a in Frameworks */,
+				2BD64205199CE5AE00589024 /* libpj-arm-apple-darwin9.a in Frameworks */,
+				2BD64206199CE5AE00589024 /* libpjlib-util-arm-apple-darwin9.a in Frameworks */,
+				2BD6420A199CE5AE00589024 /* libpjmedia-videodev-arm-apple-darwin9.a in Frameworks */,
+				2BD64208199CE5AE00589024 /* libpjmedia-audiodev-arm-apple-darwin9.a in Frameworks */,
+				2BD641E8199CE54200589024 /* CFNetwork.framework in Frameworks */,
+				2BD64211199CE5AE00589024 /* libresample-arm-apple-darwin9.a in Frameworks */,
+				2BD64212199CE5AE00589024 /* libspeex-arm-apple-darwin9.a in Frameworks */,
+				2BD64210199CE5AE00589024 /* libpjsua2-arm-apple-darwin9.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2BD641D4199CE50C00589024 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2BD641B8199CE50C00589024 = {
+			isa = PBXGroup;
+			children = (
+				2BD641C3199CE50C00589024 /* swig */,
+				2BD641DA199CE50C00589024 /* swigTests */,
+				2BD641EF199CE59500589024 /* Frameworks */,
+				2BD641C2199CE50C00589024 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2BD641C2199CE50C00589024 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2BD641C1199CE50C00589024 /* swig.app */,
+				2BD641D7199CE50C00589024 /* swigTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2BD641C3199CE50C00589024 /* swig */ = {
+			isa = PBXGroup;
+			children = (
+				2BD641C8199CE50C00589024 /* AppDelegate.h */,
+				2BD641C9199CE50C00589024 /* AppDelegate.m */,
+				2BD641CB199CE50C00589024 /* ViewController.h */,
+				2BD641CC199CE50C00589024 /* ViewController.m */,
+				2BD641CE199CE50C00589024 /* Main.storyboard */,
+				2BD641D1199CE50C00589024 /* Images.xcassets */,
+				2BD64214199CE65300589024 /* Swig */,
+				2BD641C4199CE50C00589024 /* Supporting Files */,
+			);
+			path = swig;
+			sourceTree = "<group>";
+		};
+		2BD641C4199CE50C00589024 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2BD641C5199CE50C00589024 /* Info.plist */,
+				2BD641C6199CE50C00589024 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2BD641DA199CE50C00589024 /* swigTests */ = {
+			isa = PBXGroup;
+			children = (
+				2BD641DD199CE50C00589024 /* swigTests.m */,
+				2BD641DB199CE50C00589024 /* Supporting Files */,
+			);
+			path = swigTests;
+			sourceTree = "<group>";
+		};
+		2BD641DB199CE50C00589024 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2BD641DC199CE50C00589024 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2BD641EF199CE59500589024 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2BD641F0199CE5AE00589024 /* libg7221codec-arm-apple-darwin9.a */,
+				2BD641F1199CE5AE00589024 /* libgsmcodec-arm-apple-darwin9.a */,
+				2BD641F2199CE5AE00589024 /* libilbccodec-arm-apple-darwin9.a */,
+				2BD641F3199CE5AE00589024 /* libpj-arm-apple-darwin9.a */,
+				2BD641F4199CE5AE00589024 /* libpjlib-util-arm-apple-darwin9.a */,
+				2BD641F5199CE5AE00589024 /* libpjmedia-arm-apple-darwin9.a */,
+				2BD641F6199CE5AE00589024 /* libpjmedia-audiodev-arm-apple-darwin9.a */,
+				2BD641F7199CE5AE00589024 /* libpjmedia-codec-arm-apple-darwin9.a */,
+				2BD641F8199CE5AE00589024 /* libpjmedia-videodev-arm-apple-darwin9.a */,
+				2BD641F9199CE5AE00589024 /* libpjnath-arm-apple-darwin9.a */,
+				2BD641FA199CE5AE00589024 /* libpjsip-arm-apple-darwin9.a */,
+				2BD641FB199CE5AE00589024 /* libpjsip-simple-arm-apple-darwin9.a */,
+				2BD641FC199CE5AE00589024 /* libpjsip-ua-arm-apple-darwin9.a */,
+				2BD641FD199CE5AE00589024 /* libpjsua-arm-apple-darwin9.a */,
+				2BD641FE199CE5AE00589024 /* libpjsua2-arm-apple-darwin9.a */,
+				2BD641FF199CE5AE00589024 /* libresample-arm-apple-darwin9.a */,
+				2BD64200199CE5AE00589024 /* libspeex-arm-apple-darwin9.a */,
+				2BD64201199CE5AE00589024 /* libsrtp-arm-apple-darwin9.a */,
+				2BD641ED199CE58D00589024 /* AVFoundation.framework */,
+				2BD641EB199CE55200589024 /* CoreAudio.framework */,
+				2BD641E9199CE54A00589024 /* AudioToolbox.framework */,
+				2BD641E7199CE54200589024 /* CFNetwork.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2BD64214199CE65300589024 /* Swig */ = {
+			isa = PBXGroup;
+			children = (
+				2BD64235199CF1E700589024 /* Swig.h */,
+				2BD64236199CF25900589024 /* PJSUA2.h */,
+				2BD64215199CE67A00589024 /* SWUserAgent.h */,
+				2BD64216199CE67A00589024 /* SWUserAgent.mm */,
+				2BD6422E199CEC0100589024 /* Endpoint */,
+				2BD64218199CE74100589024 /* SWAccount.h */,
+				2BD64219199CE74100589024 /* SWAccount.m */,
+				2BD64225199CEBB700589024 /* SWAccountConfiguration.h */,
+				2BD64226199CEBB700589024 /* SWAccountConfiguration.m */,
+				2BD64232199CF09C00589024 /* NSArray+StringVector.h */,
+				2BD64233199CF09C00589024 /* NSArray+StringVector.mm */,
+				2BD64237199CF45200589024 /* NSString+String.h */,
+				2BD64238199CF45200589024 /* NSString+String.mm */,
+				2BD6423D199D0CA600589024 /* NSError+Error.h */,
+				2BD6423E199D0CA600589024 /* NSError+Error.mm */,
+			);
+			path = Swig;
+			sourceTree = "<group>";
+		};
+		2BD6422E199CEC0100589024 /* Endpoint */ = {
+			isa = PBXGroup;
+			children = (
+				2BD6423A199D094500589024 /* SWEndpoint.h */,
+				2BD6423B199D094500589024 /* SWEndpoint.mm */,
+				2BD6422F199CEC1C00589024 /* SWUserAgentConfiguration.h */,
+				2BD64230199CEC1C00589024 /* SWUserAgentConfiguration.mm */,
+				2BD64228199CEBD300589024 /* SWLogConfiguration.h */,
+				2BD64229199CEBD300589024 /* SWLogConfiguration.mm */,
+				2BD6422B199CEBEB00589024 /* SWMediaConfiguration.h */,
+				2BD6422C199CEBEB00589024 /* SWMediaConfiguration.mm */,
+				2B784179199D4053008268B0 /* SWTransportConfiguration.h */,
+				2B78417A199D4053008268B0 /* SWTransportConfiguration.mm */,
+			);
+			name = Endpoint;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2BD641C0199CE50C00589024 /* swig */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2BD641E1199CE50C00589024 /* Build configuration list for PBXNativeTarget "swig" */;
+			buildPhases = (
+				2BD641BD199CE50C00589024 /* Sources */,
+				2BD641BE199CE50C00589024 /* Frameworks */,
+				2BD641BF199CE50C00589024 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = swig;
+			productName = swig;
+			productReference = 2BD641C1199CE50C00589024 /* swig.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2BD641D6199CE50C00589024 /* swigTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2BD641E4199CE50C00589024 /* Build configuration list for PBXNativeTarget "swigTests" */;
+			buildPhases = (
+				2BD641D3199CE50C00589024 /* Sources */,
+				2BD641D4199CE50C00589024 /* Frameworks */,
+				2BD641D5199CE50C00589024 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2BD641D9199CE50C00589024 /* PBXTargetDependency */,
+			);
+			name = swigTests;
+			productName = swigTests;
+			productReference = 2BD641D7199CE50C00589024 /* swigTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2BD641B9199CE50C00589024 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = PeteAppDesigns;
+				TargetAttributes = {
+					2BD641C0199CE50C00589024 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					2BD641D6199CE50C00589024 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 2BD641C0199CE50C00589024;
+					};
+				};
+			};
+			buildConfigurationList = 2BD641BC199CE50C00589024 /* Build configuration list for PBXProject "swig" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2BD641B8199CE50C00589024;
+			productRefGroup = 2BD641C2199CE50C00589024 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2BD641C0199CE50C00589024 /* swig */,
+				2BD641D6199CE50C00589024 /* swigTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2BD641BF199CE50C00589024 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2BD641D0199CE50C00589024 /* Main.storyboard in Resources */,
+				2BD641D2199CE50C00589024 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2BD641D5199CE50C00589024 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2BD641BD199CE50C00589024 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2BD64234199CF09C00589024 /* NSArray+StringVector.mm in Sources */,
+				2BD6423C199D094500589024 /* SWEndpoint.mm in Sources */,
+				2BD64217199CE67A00589024 /* SWUserAgent.mm in Sources */,
+				2BD64239199CF45200589024 /* NSString+String.mm in Sources */,
+				2BD6422D199CEBEB00589024 /* SWMediaConfiguration.mm in Sources */,
+				2BD6421A199CE74100589024 /* SWAccount.m in Sources */,
+				2BD6422A199CEBD300589024 /* SWLogConfiguration.mm in Sources */,
+				2BD6423F199D0CA600589024 /* NSError+Error.mm in Sources */,
+				2BD64227199CEBB700589024 /* SWAccountConfiguration.m in Sources */,
+				2BD641CD199CE50C00589024 /* ViewController.m in Sources */,
+				2BD641CA199CE50C00589024 /* AppDelegate.m in Sources */,
+				2BD641C7199CE50C00589024 /* main.m in Sources */,
+				2B78417B199D4053008268B0 /* SWTransportConfiguration.mm in Sources */,
+				2BD64231199CEC1C00589024 /* SWUserAgentConfiguration.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2BD641D3199CE50C00589024 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2BD641DE199CE50C00589024 /* swigTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2BD641D9199CE50C00589024 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2BD641C0199CE50C00589024 /* swig */;
+			targetProxy = 2BD641D8199CE50C00589024 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2BD641CE199CE50C00589024 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2BD641CF199CE50C00589024 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2BD641DF199CE50C00589024 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2BD641E0199CE50C00589024 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2BD641E2199CE50C00589024 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_INPUT_FILETYPE = automatic;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					PJ_AUTOCONF,
+				);
+				INFOPLIST_FILE = swig/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/pjsip-lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/pjsip-include";
+			};
+			name = Debug;
+		};
+		2BD641E3199CE50C00589024 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_INPUT_FILETYPE = automatic;
+				GCC_PREPROCESSOR_DEFINITIONS = PJ_AUTOCONF;
+				INFOPLIST_FILE = swig/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/pjsip-lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/pjsip-include";
+			};
+			name = Release;
+		};
+		2BD641E5199CE50C00589024 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = swigTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/swig.app/swig";
+			};
+			name = Debug;
+		};
+		2BD641E6199CE50C00589024 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = swigTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/swig.app/swig";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2BD641BC199CE50C00589024 /* Build configuration list for PBXProject "swig" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BD641DF199CE50C00589024 /* Debug */,
+				2BD641E0199CE50C00589024 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2BD641E1199CE50C00589024 /* Build configuration list for PBXNativeTarget "swig" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BD641E2199CE50C00589024 /* Debug */,
+				2BD641E3199CE50C00589024 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2BD641E4199CE50C00589024 /* Build configuration list for PBXNativeTarget "swigTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BD641E5199CE50C00589024 /* Debug */,
+				2BD641E6199CE50C00589024 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2BD641B9199CE50C00589024 /* Project object */;
+}
