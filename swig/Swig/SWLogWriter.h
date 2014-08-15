@@ -1,5 +1,5 @@
 //
-//  SWUserAgent.h
+//  SWLogWriter.h
 //  swig
 //
 //  Created by Pierre-Marc Airoldi on 2014-08-15.
@@ -7,12 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SWAccount.h"
 
-@interface SWUserAgent : NSObject
+//TODO: implement
 
-+(SWUserAgent*)sharedInstance;
-
--(SWAccount *)accountFromIdentifier:(NSInteger)accountId;
+@interface SWLogWriter : NSObject
 
 @end

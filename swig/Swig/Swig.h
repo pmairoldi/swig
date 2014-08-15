@@ -10,5 +10,7 @@
 #define swig_Swig_h
 
 #import "SWUserAgent.h"
+#import "SWEndpoint.h"
+#import "SWAccount.h"
 
 #endif

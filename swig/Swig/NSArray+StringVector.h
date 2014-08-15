@@ -8,9 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+#ifdef __cplusplus
+#include <string>
+#include <vector>
+#endif
+
 @interface NSArray (StringVector)
 
-+(NSArray *)arrayWithStringVector:(NSValue *)vector;
--(NSValue *)stringVector;
+#ifdef __cplusplus
++(NSArray *)arrayWithStringVector:(std::vector<std::string> *)vector;
+-(std::vector<std::string> *)stringVector;
+#endif
 
 @end

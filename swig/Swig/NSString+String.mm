@@ -11,18 +11,16 @@
 
 @implementation NSString (String)
 
-+(NSString *)stringFromCPPString:(NSValue *)string {
++(NSString *)stringFromCPPString:(std::string *)string {
     
-   std::string *stringValue = (std::string *)[string pointerValue];
-
-    return [NSString stringWithCString:stringValue->c_str() encoding:NSUTF8StringEncoding];
+    return [NSString stringWithCString:string->c_str() encoding:NSUTF8StringEncoding];
 }
 
--(NSValue *)CPPString {
+-(std::string *)CPPString {
     
-    std::string *cppString = new std::string([self UTF8String]);
+    std::string *string = new std::string([self UTF8String]);
     
-    return [NSValue valueWithPointer:cppString];
+    return string;
 }
 
 @end

@@ -8,9 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+#ifdef __cplusplus
+#include <string>
+#endif
+
 @interface NSString (String)
 
-+(NSString *)stringFromCPPString:(NSValue *)string;
--(NSValue *)CPPString;
+#ifdef __cplusplus
++(NSString *)stringFromCPPString:(std::string *)string;
+-(std::string *)CPPString;
+#endif
 
 @end

@@ -8,17 +8,14 @@
 
 #import "NSError+Error.h"
 #import "NSString+String.h"
-#import "pjsua2/types.hpp"
 
 @implementation NSError (Error)
 
-+(NSError *)errorFromError:(NSValue *)value {
++(NSError *)errorFromError:(pj::Error *)error {
     
-    pj::Error *error = (pj::Error *)[value pointerValue];
-    
-    NSString *domain = [NSString stringFromCPPString:[NSValue valueWithPointer:&error->title]];
+    NSString *domain = [NSString stringFromCPPString:&error->title];
     NSUInteger code = error->status;
-    NSDictionary *userInfo = @{@"reason": [NSString stringFromCPPString:[NSValue valueWithPointer:&error->reason]]};
+    NSDictionary *userInfo = @{@"reason": [NSString stringFromCPPString:&error->reason]};
     
     return [NSError errorWithDomain:domain code:code userInfo:userInfo];
 }

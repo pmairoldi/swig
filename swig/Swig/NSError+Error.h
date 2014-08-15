@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+#ifdef __cplusplus
+#import "pjsua2/types.hpp"
+#endif
+
 @interface NSError (Error)
 
-+(NSError *)errorFromError:(NSValue *)value;
++(NSError *)errorFromError:(pj::Error *)error;
 
 @end

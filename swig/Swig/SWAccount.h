@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PJSUA2.h"
 
 @interface SWAccount : NSObject
 

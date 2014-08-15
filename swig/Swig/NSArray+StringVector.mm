@@ -9,41 +9,32 @@
 #import "NSArray+StringVector.h"
 #import "NSString+String.h"
 
-#include <string>
-#include <vector>
-
 @implementation NSArray (StringVector)
 
-+(NSArray *)arrayWithStringVector:(id)vector {
-    
-    std::vector<std::string> *stringVector = (std::vector<std::string> *)[vector pointerValue];
++(NSArray *)arrayWithStringVector:(std::vector<std::string> *)vector {
     
     NSMutableArray *temp = [NSMutableArray new];
     
-    for (int i = 0; i < stringVector->size(); ++i) {
+    for (int i = 0; i < vector->size(); ++i) {
         
-        std::string string = stringVector->at(i);
+        std::string string = vector->at(i);
         
-        NSValue *stringValue = [NSValue valueWithPointer:&string];
-        
-        [temp addObject:[NSString stringFromCPPString:stringValue]];
+        [temp addObject:[NSString stringFromCPPString:&string]];
     }
     
     return temp;
 }
 
--(NSValue *)stringVector {
+-(std::vector<std::string> *)stringVector {
         
-    std::vector<std::string> *stringVector =  new std::vector<std::string>;
+    std::vector<std::string> *vector =  new std::vector<std::string>;
     
     for (NSString *string in self) {
-        
-        std::string *cppString = (std::string *)[string.CPPString pointerValue];
-        
-        stringVector->push_back(*cppString);
+                
+        vector->push_back(*string.CPPString);
     }
     
-    return [NSValue valueWithPointer:stringVector];
+    return vector;
 }
 
 

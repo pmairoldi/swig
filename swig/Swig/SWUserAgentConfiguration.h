@@ -8,16 +8,35 @@
 
 #import <Foundation/Foundation.h>
 
+#ifdef __cplusplus
+#include "pjsua2/endpoint.hpp"
+#endif
+
 @interface SWUserAgentConfiguration : NSObject
 
-@property (nonatomic) NSUInteger maxCalls;
-@property (nonatomic) NSUInteger threadCnt;
-@property (nonatomic) BOOL mainThreadOnly;
-@property (nonatomic, strong) NSArray *nameserver;
-@property (nonatomic, strong) NSString *userAgent;
-@property (nonatomic, strong) NSArray *stunServer;
-@property (nonatomic) BOOL stunIgnoreFailure;
-@property (nonatomic) NSInteger natTypeInSdp;
-@property (nonatomic) BOOL mwiUnsolicitedEnabled;
+//getters
+#ifdef __cplusplus
+-(pj::UaConfig *)config;
+#endif
+-(NSUInteger)maxCalls;
+-(NSUInteger)threadCnt;
+-(BOOL)mainThreadOnly;
+-(NSArray *)nameserver;
+-(NSString *)userAgent;
+-(NSArray *)stunServer;
+-(BOOL)stunIgnoreFailure;
+-(NSInteger)natTypeInSdp;
+-(BOOL)mwiUnsolicitedEnabled;
+
+//setters
+-(void)setMaxCalls:(NSUInteger)maxCalls;
+-(void)setThreadCnt:(NSUInteger)threadCnt;
+-(void)setMainThreadOnly:(BOOL)mainThreadOnly;
+-(void)setNameserver:(NSArray *)nameserver;
+-(void)setUserAgent:(NSString *)userAgent;
+-(void)setStunServer:(NSArray *)stunServer;
+-(void)setStunIgnoreFailure:(BOOL)stunIgnoreFailure;
+-(void)setNatTypeInSdp:(NSInteger)natTypeInSdp;
+-(void)setMwiUnsolicitedEnabled:(BOOL)mwiUnsolicitedEnabled;
 
 @end

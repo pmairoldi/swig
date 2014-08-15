@@ -1,5 +1,5 @@
 //
-//  SWLogConfiguration.m
+//  SWm
 //  swig
 //
 //  Created by Pierre-Marc Airoldi on 2014-08-14.
@@ -7,7 +7,13 @@
 //
 
 #import "SWLogConfiguration.h"
-#import "PJSUA2.h"
+#import "NSString+String.h"
+
+@interface SWLogConfiguration ()
+
+@property (nonatomic) pj::LogConfig *config;
+
+@end
 
 @implementation SWLogConfiguration
 
@@ -19,16 +25,89 @@
         return nil;
     }
     
-    LogConfig config;
-    
-    _msgLogging = config.msgLogging;
-    _level = config.level;
-    _consoleLevel = config.consoleLevel;
-    _decor = config.decor;
-    _filename = [NSString stringFromCPPString:[NSValue valueWithPointer:&config.filename]];
-    _fileFlags = config.fileFlags;
+    _config = new pj::LogConfig;
     
     return self;
+}
+
+-(void)dealloc {
+    
+    delete _config;
+}
+
+-(pj::LogConfig *)config {
+    
+    return _config;
+}
+
+-(void)setMsgLogging:(NSUInteger)msgLogging {
+    
+    _config->msgLogging = msgLogging;
+}
+
+-(NSUInteger)msgLogging {
+
+    return _config->msgLogging;
+}
+
+-(void)setLevel:(NSUInteger)level {
+    
+    _config->level = level;
+}
+
+-(NSUInteger)level {
+    
+    return _config->level;
+}
+
+-(void)setConsoleLevel:(NSUInteger)consoleLevel {
+    
+    _config->consoleLevel = consoleLevel;
+}
+
+-(NSUInteger)consoleLevel {
+    
+    return _config->consoleLevel;
+}
+
+-(void)setDecor:(NSUInteger)decor {
+    
+    _config->decor = decor;
+}
+
+-(NSUInteger)decor {
+    
+    return _config->decor;
+}
+
+-(void)setFilename:(NSString *)filename {
+    
+    _config->filename = *[filename CPPString];
+}
+
+-(NSString *)filename {
+    
+    return [NSString stringFromCPPString:&_config->filename];
+}
+
+-(void)setFileFlags:(NSUInteger)fileFlags {
+    
+    _config->fileFlags = fileFlags;
+}
+
+-(NSUInteger)fileFlags {
+    
+    return _config->fileFlags;
+}
+
+-(void)setLogWriter:(SWLogWriter *)logWriter {
+    //TODO::implement
+}
+
+-(SWLogWriter *)logWriter {
+ 
+    //TODO::implement
+    return nil;
 }
 
 @end

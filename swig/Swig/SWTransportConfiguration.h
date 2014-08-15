@@ -9,17 +9,37 @@
 #import <Foundation/Foundation.h>
 #import "pjsip/sip_types.h"
 
+#ifdef __cplusplus
+#include "pjsua2/endpoint.hpp"
+#endif
+#import "SWTlsConfig.h"
+
 @interface SWTransportConfiguration : NSObject
 
-@property (nonatomic) NSUInteger port;
-@property (nonatomic) NSUInteger portRange;
-@property (nonatomic, strong) NSString *publicAddress;
-@property (nonatomic, strong) NSString *boundAddress;
-//@property (nonatomic) TlsConfig //warning add
-//@property (nonatomic) pj_qos_type
-//@property (nonatomic) pj_qos_type
-@property (nonatomic) pjsip_transport_type_e transportType;
+@property pjsip_transport_type_e transportType;
 
--(instancetype)initWithPort:(NSUInteger)port;
+-(instancetype)initWithTransportType:(pjsip_transport_type_e)transportType;
+-(instancetype)initWithPort:(NSUInteger)port transportType:(pjsip_transport_type_e)transportType;
+
+//getters
+#ifdef __cplusplus
+-(pj::TransportConfig *)config;
+#endif
+-(NSUInteger)port;
+-(NSUInteger)portRange;
+-(NSString *)publicAddress;
+-(NSString *)boundAddress;
+-(SWTlsConfig *)tlsConfig;
+-(pj_qos_type)qosType;
+-(pj_qos_type)qosParams;
+
+//setters
+-(void)setPort:(NSUInteger)port;
+-(void)setPortRange:(NSUInteger)portRange;
+-(void)setPublicAddress:(NSString *)publicAddress;
+-(void)setBoundAddress:(NSString *)boundAddress;
+-(void)setTlsConfig:(SWTlsConfig *)tlsConfig;
+-(void)setQosType:(pj_qos_type)qosType;
+-(void)setQosParams:(pj_qos_type)qosParams;
 
 @end

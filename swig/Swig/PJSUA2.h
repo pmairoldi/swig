@@ -13,7 +13,10 @@
 #import "NSString+String.h"
 #import "NSError+Error.h"
 
-#import <pjsua2.hpp>
+#ifdef __cplusplus
+#include <iostream>
+#include <pjsua2.hpp>
 using namespace pj;
+#endif
 
 #endif

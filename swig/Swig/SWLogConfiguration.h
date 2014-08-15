@@ -8,14 +8,32 @@
 
 #import <Foundation/Foundation.h>
 
+#ifdef __cplusplus
+#include "pjsua2/endpoint.hpp"
+#endif
+#import "SWLogWriter.h"
+
 @interface SWLogConfiguration : NSObject
 
-@property (nonatomic) NSUInteger msgLogging;
-@property (nonatomic) NSUInteger level;
-@property (nonatomic) NSUInteger consoleLevel;
-@property (nonatomic) NSUInteger decor;
-@property (nonatomic, strong) NSString *filename;
-@property (nonatomic) NSUInteger fileFlags;
-//LogWriter omitted since it is not needed
+//getters
+#ifdef __cplusplus
+-(pj::LogConfig *)config;
+#endif
+-(NSUInteger)msgLogging;
+-(NSUInteger)level;
+-(NSUInteger)consoleLevel;
+-(NSUInteger)decor;
+-(NSString *)filename;
+-(NSUInteger)fileFlags;
+-(SWLogWriter *)logWriter;
+
+//setters
+-(void)setMsgLogging:(NSUInteger)msgLogging;
+-(void)setLevel:(NSUInteger)level;
+-(void)setConsoleLevel:(NSUInteger)consoleLevel;
+-(void)setDecor:(NSUInteger)decor;
+-(void)setFilename:(NSString *)filename;
+-(void)setFileFlags:(NSUInteger)fileFlags;
+-(void)setLogWriter:(SWLogWriter *)logWriter;
 
 @end
