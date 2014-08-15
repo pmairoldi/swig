@@ -12,8 +12,6 @@
 
 @interface SWUserAgentConfiguration ()
 
-@property (nonatomic) pj::UaConfig *config;
-
 @end
 
 @implementation SWUserAgentConfiguration
@@ -26,109 +24,36 @@
         return nil;
     }
     
-    _config = new pj::UaConfig;
+    pj::UaConfig config;
     
+    self.maxCalls = config.maxCalls;
+    self.threadCnt = config.threadCnt;
+    self.mainThreadOnly = config.mainThreadOnly;
+    self.nameserver = [NSArray arrayWithStringVector:&config.nameserver];
+    self.userAgent = [NSString stringFromCPPString:&config.userAgent];
+    self.stunServer = [NSArray arrayWithStringVector:&config.stunServer];
+    self.stunIgnoreFailure = config.stunIgnoreFailure;
+    self.natTypeInSdp = config.natTypeInSdp;
+    self.mwiUnsolicitedEnabled = config.mwiUnsolicitedEnabled;
+
     return self;
 }
 
--(void)dealloc {
+-(pj::UaConfig)config {
     
-    delete _config;
-}
-
--(pj::UaConfig *)config {
+    pj::UaConfig config;
     
-    return _config;
-}
-
--(void)setMaxCalls:(NSUInteger)maxCalls {
+    config.maxCalls = self.maxCalls;
+    config.threadCnt = self.threadCnt;
+    config.mainThreadOnly = self.mainThreadOnly;
+    config.nameserver = *[self.nameserver stringVector];
+    config.userAgent = *[self.userAgent CPPString];
+    config.stunServer =  *[self.stunServer stringVector];
+    config.stunIgnoreFailure = self.stunIgnoreFailure;
+    config.natTypeInSdp = self.natTypeInSdp;
+    config.mwiUnsolicitedEnabled = self.mwiUnsolicitedEnabled;
     
-    _config->maxCalls = maxCalls;
-}
-
--(NSUInteger)maxCalls {
-    
-    return _config->maxCalls;
-}
-
--(void)setThreadCnt:(NSUInteger)threadCnt {
-    
-    _config->threadCnt = threadCnt;
-}
-
--(NSUInteger)threadCnt {
-    
-    return _config->threadCnt;
-}
-
--(void)setMainThreadOnly:(BOOL)mainThreadOnly {
-    
-    _config->mainThreadOnly = mainThreadOnly;
-}
-
--(BOOL)mainThreadOnly {
-    
-    return _config->mainThreadOnly;
-}
-
--(void)setNameserver:(NSArray *)nameserver {
-    
-    _config->nameserver = *[nameserver stringVector];
-}
-
--(NSArray *)nameserver {
-    
-    return [NSArray arrayWithStringVector:&_config->nameserver];
-}
-
--(void)setUserAgent:(NSString *)userAgent {
-    
-    _config->userAgent = *[userAgent CPPString];
-}
-
--(NSString *)userAgent {
-    
-    return [NSString stringFromCPPString:&_config->userAgent];
-}
-
--(void)setStunServer:(NSArray *)stunServer {
-    
-    _config->stunServer = *[stunServer stringVector];
-}
-
--(NSArray *)stunServer {
-    
-    return [NSArray arrayWithStringVector:&_config->stunServer];
-}
-
--(void)setStunIgnoreFailure:(BOOL)stunIgnoreFailure {
-    
-    _config->stunIgnoreFailure = stunIgnoreFailure;
-}
-
--(BOOL)stunIgnoreFailure {
-    
-    return _config->stunIgnoreFailure;
-}
-
--(void)setNatTypeInSdp:(NSInteger)natTypeInSdp {
-    
-    _config->natTypeInSdp = natTypeInSdp;
-}
-
--(NSInteger)natTypeInSdp {
-    
-    return _config->natTypeInSdp;
-}
-
--(void)setMwiUnsolicitedEnabled:(BOOL)mwiUnsolicitedEnabled {
-    
-    _config->mwiUnsolicitedEnabled = mwiUnsolicitedEnabled;
-}
-
--(BOOL)mwiUnsolicitedEnabled {
-    
-    return _config->mwiUnsolicitedEnabled;
+    return config;
 }
 
 @end

@@ -7,6 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SWAccountRegistrationConfiguration.h"
+#import "SWAccountSipConfiguration.h"
+#import "SWAccountCallConfiguration.h"
+#import "SWAccountPresenceConfiguration.h"
+#import "SWAccountMWIConfiguration.h"
+#import "SWAccountNATConfiguration.h"
+#import "SWAccountMediaConfiguration.h"
+#import "SWAccountVideoConfiguration.h"
 
 #ifdef __cplusplus
 #include <pjsua2/account.hpp>
@@ -14,8 +22,21 @@
 
 @interface SWAccountConfiguration : NSObject
 
-//#ifdef __cplusplus
-//-(pj::ac)
-//#endif
+-(instancetype)initWithURI:(NSString *)uri;
+
+@property (nonatomic) int priority;
+@property (nonatomic, strong) NSString *idUri;
+@property (nonatomic, strong) SWAccountRegistrationConfiguration *regConfig;
+@property (nonatomic, strong) SWAccountSipConfiguration *sipConfig;
+@property (nonatomic, strong) SWAccountCallConfiguration *callConfig;
+@property (nonatomic, strong) SWAccountPresenceConfiguration *presConfig;
+@property (nonatomic, strong) SWAccountMWIConfiguration *mwiConfig;
+@property (nonatomic, strong) SWAccountNATConfiguration *natConfig;
+@property (nonatomic, strong) SWAccountMediaConfiguration *mediaConfig;
+@property (nonatomic, strong) SWAccountVideoConfiguration *videoConfig;
+
+#ifdef __cplusplus
+-(pj::AccountConfig)config;
+#endif
 
 @end

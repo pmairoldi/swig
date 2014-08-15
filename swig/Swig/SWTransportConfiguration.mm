@@ -13,8 +13,6 @@
 
 @interface SWTransportConfiguration ()
 
-@property (nonatomic) pj::TransportConfig *config;
-
 @end
 
 @implementation SWTransportConfiguration
@@ -37,94 +35,34 @@
         return nil;
     }
 
-    _config = new pj::TransportConfig;
+    pj::TransportConfig config;
     
     self.port = port;
+    self.portRange = config.portRange;
+    self.publicAddress = [NSString stringFromCPPString:&config.publicAddress];
+    self.boundAddress = [NSString stringFromCPPString:&config.boundAddress];
+    self.tlsConfig = [SWTlsConfig new];
+    self.qosType = config.qosType;
+    self.qosParams = config.qosParams;
+    
     self.transportType = transportType;
     
     return self;
 }
 
--(void)dealloc {
+-(pj::TransportConfig)config {
     
-    delete _config;
-}
+    pj::TransportConfig config;
 
--(pj::TransportConfig *)config {
+    config.port = self.port;
+    config.portRange = self.portRange;
+    config.publicAddress = *[self.publicAddress CPPString];
+    config.boundAddress = *[self.boundAddress CPPString];
+    config.tlsConfig = self.tlsConfig.config;
+    config.qosType = config.qosType;
+    config.qosParams = config.qosParams;
     
-    return _config;
-}
-
--(void)setPort:(NSUInteger)port{
-    
-    _config->port = port;
-}
-
--(NSUInteger)port{
- 
-    return _config->port;
-}
-
--(void)setPortRange:(NSUInteger)portRange{
-    
-    _config->portRange = portRange;
-}
-
--(NSUInteger)portRange{
-    
-    return _config->portRange;
-}
-
--(void)setPublicAddress:(NSString *)publicAddress{
-    
-    _config->publicAddress = *[publicAddress CPPString];
-}
-
--(NSString *)publicAddress{
- 
-    return [NSString stringFromCPPString:&_config->publicAddress];
-}
-
--(void)setBoundAddress:(NSString *)boundAddress{
- 
-    _config->boundAddress = *[boundAddress CPPString];
-}
-
--(NSString *)boundAddress{
-    
-    return [NSString stringFromCPPString:&_config->boundAddress];
-}
-
--(void)setTlsConfig:(SWTlsConfig *)tlsConfig{
-    
-    _config->tlsConfig = *tlsConfig.config;
-}
-
--(SWTlsConfig *)tlsConfig{
-    
-    return [[SWTlsConfig alloc] initWithConfig:&_config->tlsConfig];
-}
-
--(void)setQosType:(pj_qos_type)qosType{
-    
-    _config->qosType = qosType;
-}
-
--(pj_qos_type)qosType{
-    
-    return _config->qosType;
-}
-
-//FIX: library has wrong type. change to pj_qos_params if library updates
-
--(void)setQosParams:(pj_qos_type)qosParams{
-    
-    _config->qosParams = qosParams;
-}
-
--(pj_qos_type)qosParams{
-    
-    return _config->qosParams;
+    return config;
 }
 
 @end

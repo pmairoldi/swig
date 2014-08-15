@@ -7,16 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SWUserAgentConfiguration.h"
-#import "SWLogConfiguration.h"
-#import "SWMediaConfiguration.h"
+#import "SWEndpointConfiguration.h"
 #import "SWTransportConfiguration.h"
 
 @interface SWEndpoint : NSObject
 
-@property (nonatomic, strong) SWUserAgentConfiguration *userAgentConfiguration;
-@property (nonatomic, strong) SWLogConfiguration *logConfiguration;
-@property (nonatomic, strong) SWMediaConfiguration *mediaConfiguration;
+@property (nonatomic, strong) SWEndpointConfiguration *endPointConfiguration;
 @property (nonatomic, strong) NSArray *transportConfigurations;
 
 -(void)begin;

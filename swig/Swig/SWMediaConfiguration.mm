@@ -10,9 +10,8 @@
 
 @interface SWMediaConfiguration ()
 
-@property (nonatomic) pj::MediaConfig *config;
-
 @end
+
 @implementation SWMediaConfiguration
 
 -(instancetype)init {
@@ -23,248 +22,64 @@
         return nil;
     }
     
-    _config = new pj::MediaConfig;
+    pj::MediaConfig config;
+    
+    self.clockRate = config.clockRate;
+    self.sndClockRate = config.sndClockRate;
+    self.channelCount = config.channelCount;
+    self.audioFramePtime = config.audioFramePtime;
+    self.maxMediaPorts = config.maxMediaPorts;
+    self.hasIoqueue = config.hasIoqueue;
+    self.threadCnt = config.threadCnt;
+    self.quality = config.quality;
+    self.ptime = config.ptime;
+    self.noVad = config.noVad;
+    self.ilbcMode = config.ilbcMode;
+    self.txDropPct = config.txDropPct;
+    self.rxDropPct = config.rxDropPct;
+    self.ecOptions = config.ecOptions;
+    self.ecTailLen = config.ecTailLen;
+    self.sndRecLatency = config.sndRecLatency;
+    self.sndPlayLatency = config.sndPlayLatency;
+    self.jbInit = config.jbInit;
+    self.jbMinPre = config.jbMinPre;
+    self.jbMaxPre = config.jbMaxPre;
+    self.jbMax = config.jbMax;
+    self.sndAutoCloseTime = config.sndAutoCloseTime;
+    self.vidPreviewEnableNative = config.vidPreviewEnableNative;
     
     return self;
 }
 
--(void)dealloc {
+-(pj::MediaConfig)config {
     
-    delete _config;
-}
+    pj::MediaConfig config;
 
--(pj::MediaConfig *)config {
+    config.clockRate = self.clockRate;
+    config.sndClockRate = self.sndClockRate;
+    config.channelCount = self.channelCount;
+    config.audioFramePtime = self.audioFramePtime;
+    config.maxMediaPorts = self.maxMediaPorts;
+    config.hasIoqueue = self.hasIoqueue;
+    config.threadCnt = self.threadCnt;
+    config.quality = self.quality;
+    config.ptime = self.ptime;
+    config.noVad = self.noVad;
+    config.ilbcMode = self.ilbcMode;
+    config.txDropPct = self.txDropPct;
+    config.rxDropPct = self.rxDropPct;
+    config.ecOptions = self.ecOptions;
+    config.ecTailLen = self.ecTailLen;
+    config.sndRecLatency = self.sndRecLatency;
+    config.sndPlayLatency = self.sndPlayLatency;
+    config.jbInit = self.jbInit;
+    config.jbMinPre = self.jbMinPre;
+    config.jbMaxPre = self.jbMaxPre;
+    config.jbMax = self.jbMax;
+    config.sndAutoCloseTime = self.sndAutoCloseTime;
+    config.vidPreviewEnableNative = self.vidPreviewEnableNative;
     
-    return _config;
-}
-
--(void)setClockRate:(NSUInteger)clockRate {
-    
-    _config->clockRate = clockRate;
-}
-
--(NSUInteger)clockRate {
-    
-    return _config->clockRate;
-}
-
--(void)setSndClockRate:(NSUInteger)sndClockRate {
-    
-    _config->sndClockRate = sndClockRate;
-}
-
--(NSUInteger)sndClockRate {
-    
-    return _config->sndClockRate;
-}
-
--(void)setChannelCount:(NSUInteger)channelCount {
-    
-    _config->channelCount = channelCount;
-}
-
--(NSUInteger)channelCount {
-    
-    return _config->channelCount;
-}
-
--(void)setAudioFramePtime:(NSUInteger)audioFramePtime {
-    
-    _config->audioFramePtime = audioFramePtime;
-}
-
--(NSUInteger)audioFramePtime{
-    
-    return _config->audioFramePtime;
-}
-
--(void)setMaxMediaPorts:(NSUInteger)maxMediaPorts{
-    
-    _config->maxMediaPorts = maxMediaPorts;
-}
-
--(NSUInteger)maxMediaPorts{
-    
-    return _config->maxMediaPorts;
-}
-
--(void)setHasIoqueue:(BOOL)hasIoqueue{
-
-    _config->hasIoqueue = hasIoqueue;
-}
-
--(BOOL)hasIoqueue{
-    
-    return _config->hasIoqueue;
-}
-
--(void)setThreadCnt:(NSUInteger)threadCnt{
-
-    _config->threadCnt = threadCnt;
-}
-
--(NSUInteger)threadCnt{
-    
-    return _config->threadCnt;
-}
-
--(void)setQuality:(NSUInteger)quality{
-    
-    _config->quality = quality;
-}
-
--(NSUInteger)quality{
-    
-    return _config->quality;
-}
-
--(void)setPtime:(NSUInteger)ptime{
-    
-    _config->ptime = ptime;
-}
-
--(NSUInteger)ptime{
-    
-    return _config->ptime;
-}
-
--(void)setNoVad:(BOOL)noVad{
-    
-    _config->noVad = noVad;
-}
-
--(BOOL)noVad{
-    
-    return _config->noVad;
-}
-
--(void)setIlbcMode:(NSUInteger)ilbcMode{
-    
-    _config->ilbcMode = ilbcMode;
-}
-
--(NSUInteger)ilbcMode{
-    
-    return _config->ilbcMode;
-}
-
--(void)setTxDropPct:(NSUInteger)txDropPct{
-
-    _config->txDropPct = txDropPct;
-}
-
--(NSUInteger)txDropPct{
-    
-    return _config->txDropPct;
-}
-
--(void)setRxDropPct:(NSUInteger)rxDropPct{
-    
-    _config->rxDropPct = rxDropPct;
-}
--(NSUInteger)rxDropPct{
-    
-    return _config->rxDropPct;
-}
-
--(void)setEcOptions:(NSUInteger)ecOptions{
-    
-    _config->ecOptions = ecOptions;
-}
-
--(NSUInteger)ecOptions{
-
-    return _config->ecOptions;
-}
-
--(void)setEcTailLen:(NSUInteger)ecTailLen{
-    
-    _config->ecTailLen = ecTailLen;
-}
-
--(NSUInteger)ecTailLen{
-
-    return _config->ecTailLen;
-}
-
--(void)setSndRecLatency:(NSUInteger)sndRecLatency{
-
-    _config->sndRecLatency = sndRecLatency;
-}
-
--(NSUInteger)sndRecLatency{
-    
-    return _config->sndRecLatency;
-}
-
--(void)setSndPlayLatency:(NSUInteger)sndPlayLatency{
-    
-    _config->sndPlayLatency = sndPlayLatency;
-}
-
--(NSUInteger)sndPlayLatency{
-
-    return _config->sndPlayLatency;
-}
-
--(void)setJbInit:(NSInteger)jbInit{
-    
-    _config->jbInit = jbInit;
-}
-
--(NSInteger)jbInit{
-
-    return _config->jbInit;
-}
-
--(void)setJbMinPre:(NSInteger)jbMinPre{
-    
-    _config->jbMinPre = jbMinPre;
-}
-
--(NSInteger)jbMinPre{
-    
-    return _config->jbMinPre;
-}
-
--(void)setJbMaxPre:(NSInteger)jbMaxPre{
-    
-    _config->jbMaxPre = jbMaxPre;
-}
-
--(NSInteger)jbMaxPre{
-    
-    return _config->jbMaxPre;
-}
-
--(void)setJbMax:(NSInteger)jbMax{
-    
-    _config->jbMax = jbMax;
-}
-
--(NSInteger)jbMax{
-    
-    return _config->jbMax;
-}
-
--(void)setSndAutoCloseTime:(NSInteger)sndAutoCloseTime{
-    
-    _config->sndAutoCloseTime = sndAutoCloseTime;
-}
-
--(NSInteger)sndAutoCloseTime{
-    
-    return _config->sndAutoCloseTime;
-}
-
--(void)setVidPreviewEnableNative:(BOOL)vidPreviewEnableNative{
-    
-    _config->vidPreviewEnableNative = vidPreviewEnableNative;
-}
-
--(BOOL)vidPreviewEnableNative{
-
-    return _config->vidPreviewEnableNative;
+    return config;
 }
 
 @end

@@ -11,8 +11,6 @@
 
 @interface SWLogConfiguration ()
 
-@property (nonatomic) pj::LogConfig *config;
-
 @end
 
 @implementation SWLogConfiguration
@@ -25,89 +23,30 @@
         return nil;
     }
     
-    _config = new pj::LogConfig;
+    pj::LogConfig config;
+    
+    self.msgLogging = config.msgLogging;
+    self.level = config.level;
+    self.consoleLevel = config.consoleLevel;
+    self.decor = config.decor;
+    self.filename = [NSString stringFromCPPString:&config.filename];
+    self.fileFlags = config.fileFlags;
     
     return self;
 }
 
--(void)dealloc {
+-(pj::LogConfig)config {
     
-    delete _config;
-}
-
--(pj::LogConfig *)config {
+    pj::LogConfig config;
     
-    return _config;
-}
-
--(void)setMsgLogging:(NSUInteger)msgLogging {
+    config.msgLogging = self.msgLogging;
+    config.level = self.level;
+    config.consoleLevel = self.consoleLevel;
+    config.decor = self.decor;
+    config.filename = *[self.filename CPPString];
+    config.fileFlags = self.fileFlags;
     
-    _config->msgLogging = msgLogging;
-}
-
--(NSUInteger)msgLogging {
-
-    return _config->msgLogging;
-}
-
--(void)setLevel:(NSUInteger)level {
-    
-    _config->level = level;
-}
-
--(NSUInteger)level {
-    
-    return _config->level;
-}
-
--(void)setConsoleLevel:(NSUInteger)consoleLevel {
-    
-    _config->consoleLevel = consoleLevel;
-}
-
--(NSUInteger)consoleLevel {
-    
-    return _config->consoleLevel;
-}
-
--(void)setDecor:(NSUInteger)decor {
-    
-    _config->decor = decor;
-}
-
--(NSUInteger)decor {
-    
-    return _config->decor;
-}
-
--(void)setFilename:(NSString *)filename {
-    
-    _config->filename = *[filename CPPString];
-}
-
--(NSString *)filename {
-    
-    return [NSString stringFromCPPString:&_config->filename];
-}
-
--(void)setFileFlags:(NSUInteger)fileFlags {
-    
-    _config->fileFlags = fileFlags;
-}
-
--(NSUInteger)fileFlags {
-    
-    return _config->fileFlags;
-}
-
--(void)setLogWriter:(SWLogWriter *)logWriter {
-    //TODO::implement
-}
-
--(SWLogWriter *)logWriter {
- 
-    //TODO::implement
-    return nil;
+    return config;
 }
 
 @end

@@ -29,9 +29,7 @@
         return nil;
     }
     
-    _userAgentConfiguration = [SWUserAgentConfiguration new];
-    _logConfiguration = [SWLogConfiguration new];
-    _mediaConfiguration = [SWMediaConfiguration new];
+    _endPointConfiguration = [SWEndpointConfiguration new];
     
     _transportConfigurations = @[];
     
@@ -93,12 +91,7 @@
     
     try {
         
-        pj::EpConfig config;
-        config.uaConfig = *self.userAgentConfiguration.config;
-        config.logConfig = *self.logConfiguration.config;
-        config.medConfig = *self.mediaConfiguration.config;
-        
-        self.endpoint->libInit(config);
+        self.endpoint->libInit(self.endPointConfiguration.config);
     } catch(pj::Error& err) {
         error = [NSError errorFromError:&err];
     }
@@ -123,7 +116,7 @@
     try {
        
         for (SWTransportConfiguration *transport in self.transportConfigurations) {
-            self.endpoint->transportCreate(transport.transportType, *transport.config);
+            self.endpoint->transportCreate(transport.transportType, transport.config);
         }
         
     } catch(pj::Error& err) {

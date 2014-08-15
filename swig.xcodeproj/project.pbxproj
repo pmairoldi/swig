@@ -9,9 +9,17 @@
 /* Begin PBXBuildFile section */
 		2B3D6B9B199E46E7005AE349 /* SwigAccount.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6B99199E46E7005AE349 /* SwigAccount.mm */; };
 		2B3D6BA2199E489D005AE349 /* SWUserAgent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BA1199E489D005AE349 /* SWUserAgent.mm */; };
-		2B3D6BA5199E5B91005AE349 /* SWLogWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BA4199E5B91005AE349 /* SWLogWriter.m */; };
 		2B3D6BA8199E644A005AE349 /* SWTlsConfig.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BA7199E644A005AE349 /* SWTlsConfig.mm */; };
 		2B3D6BAC199E7162005AE349 /* NSArray+IntVector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BAB199E7162005AE349 /* NSArray+IntVector.mm */; };
+		2B3D6BB2199E90AB005AE349 /* SWEndpointConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BB1199E90AB005AE349 /* SWEndpointConfiguration.mm */; };
+		2B3D6BB5199E9E98005AE349 /* SWAccountRegistrationConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BB4199E9E98005AE349 /* SWAccountRegistrationConfiguration.mm */; };
+		2B3D6BB8199E9EB4005AE349 /* SWAccountSipConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BB7199E9EB4005AE349 /* SWAccountSipConfiguration.mm */; };
+		2B3D6BBB199E9EC3005AE349 /* SWAccountCallConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BBA199E9EC3005AE349 /* SWAccountCallConfiguration.mm */; };
+		2B3D6BBE199E9EDA005AE349 /* SWAccountPresenceConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BBD199E9EDA005AE349 /* SWAccountPresenceConfiguration.mm */; };
+		2B3D6BC1199E9EF2005AE349 /* SWAccountMWIConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BC0199E9EF2005AE349 /* SWAccountMWIConfiguration.mm */; };
+		2B3D6BC4199E9F0D005AE349 /* SWAccountNATConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BC3199E9F0D005AE349 /* SWAccountNATConfiguration.mm */; };
+		2B3D6BC7199E9F20005AE349 /* SWAccountMediaConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BC6199E9F20005AE349 /* SWAccountMediaConfiguration.mm */; };
+		2B3D6BCA199E9F49005AE349 /* SWAccountVideoConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BC9199E9F49005AE349 /* SWAccountVideoConfiguration.mm */; };
 		2B78417B199D4053008268B0 /* SWTransportConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B78417A199D4053008268B0 /* SWTransportConfiguration.mm */; };
 		2BD641C7199CE50C00589024 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641C6199CE50C00589024 /* main.m */; };
 		2BD641CA199CE50C00589024 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641C9199CE50C00589024 /* AppDelegate.m */; };
@@ -41,7 +49,7 @@
 		2BD64212199CE5AE00589024 /* libspeex-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD64200199CE5AE00589024 /* libspeex-arm-apple-darwin9.a */; };
 		2BD64213199CE5AE00589024 /* libsrtp-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD64201199CE5AE00589024 /* libsrtp-arm-apple-darwin9.a */; };
 		2BD6421A199CE74100589024 /* SWAccount.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BD64219199CE74100589024 /* SWAccount.mm */; };
-		2BD64227199CEBB700589024 /* SWAccountConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD64226199CEBB700589024 /* SWAccountConfiguration.m */; };
+		2BD64227199CEBB700589024 /* SWAccountConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BD64226199CEBB700589024 /* SWAccountConfiguration.mm */; };
 		2BD6422A199CEBD300589024 /* SWLogConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BD64229199CEBD300589024 /* SWLogConfiguration.mm */; };
 		2BD6422D199CEBEB00589024 /* SWMediaConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BD6422C199CEBEB00589024 /* SWMediaConfiguration.mm */; };
 		2BD64231199CEC1C00589024 /* SWUserAgentConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BD64230199CEC1C00589024 /* SWUserAgentConfiguration.mm */; };
@@ -66,12 +74,28 @@
 		2B3D6B9A199E46E7005AE349 /* SwigAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwigAccount.h; sourceTree = "<group>"; };
 		2B3D6BA0199E489D005AE349 /* SWUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUserAgent.h; sourceTree = "<group>"; };
 		2B3D6BA1199E489D005AE349 /* SWUserAgent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWUserAgent.mm; sourceTree = "<group>"; };
-		2B3D6BA3199E5B91005AE349 /* SWLogWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWLogWriter.h; sourceTree = "<group>"; };
-		2B3D6BA4199E5B91005AE349 /* SWLogWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWLogWriter.m; sourceTree = "<group>"; };
 		2B3D6BA6199E644A005AE349 /* SWTlsConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTlsConfig.h; sourceTree = "<group>"; };
 		2B3D6BA7199E644A005AE349 /* SWTlsConfig.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWTlsConfig.mm; sourceTree = "<group>"; };
 		2B3D6BAA199E7162005AE349 /* NSArray+IntVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+IntVector.h"; sourceTree = "<group>"; };
 		2B3D6BAB199E7162005AE349 /* NSArray+IntVector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSArray+IntVector.mm"; sourceTree = "<group>"; };
+		2B3D6BB0199E90AB005AE349 /* SWEndpointConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWEndpointConfiguration.h; sourceTree = "<group>"; };
+		2B3D6BB1199E90AB005AE349 /* SWEndpointConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWEndpointConfiguration.mm; sourceTree = "<group>"; };
+		2B3D6BB3199E9E98005AE349 /* SWAccountRegistrationConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAccountRegistrationConfiguration.h; sourceTree = "<group>"; };
+		2B3D6BB4199E9E98005AE349 /* SWAccountRegistrationConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWAccountRegistrationConfiguration.mm; sourceTree = "<group>"; };
+		2B3D6BB6199E9EB4005AE349 /* SWAccountSipConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAccountSipConfiguration.h; sourceTree = "<group>"; };
+		2B3D6BB7199E9EB4005AE349 /* SWAccountSipConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWAccountSipConfiguration.mm; sourceTree = "<group>"; };
+		2B3D6BB9199E9EC3005AE349 /* SWAccountCallConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAccountCallConfiguration.h; sourceTree = "<group>"; };
+		2B3D6BBA199E9EC3005AE349 /* SWAccountCallConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWAccountCallConfiguration.mm; sourceTree = "<group>"; };
+		2B3D6BBC199E9EDA005AE349 /* SWAccountPresenceConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAccountPresenceConfiguration.h; sourceTree = "<group>"; };
+		2B3D6BBD199E9EDA005AE349 /* SWAccountPresenceConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWAccountPresenceConfiguration.mm; sourceTree = "<group>"; };
+		2B3D6BBF199E9EF2005AE349 /* SWAccountMWIConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAccountMWIConfiguration.h; sourceTree = "<group>"; };
+		2B3D6BC0199E9EF2005AE349 /* SWAccountMWIConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWAccountMWIConfiguration.mm; sourceTree = "<group>"; };
+		2B3D6BC2199E9F0D005AE349 /* SWAccountNATConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAccountNATConfiguration.h; sourceTree = "<group>"; };
+		2B3D6BC3199E9F0D005AE349 /* SWAccountNATConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWAccountNATConfiguration.mm; sourceTree = "<group>"; };
+		2B3D6BC5199E9F20005AE349 /* SWAccountMediaConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAccountMediaConfiguration.h; sourceTree = "<group>"; };
+		2B3D6BC6199E9F20005AE349 /* SWAccountMediaConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWAccountMediaConfiguration.mm; sourceTree = "<group>"; };
+		2B3D6BC8199E9F49005AE349 /* SWAccountVideoConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAccountVideoConfiguration.h; sourceTree = "<group>"; };
+		2B3D6BC9199E9F49005AE349 /* SWAccountVideoConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWAccountVideoConfiguration.mm; sourceTree = "<group>"; };
 		2B784179199D4053008268B0 /* SWTransportConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTransportConfiguration.h; sourceTree = "<group>"; };
 		2B78417A199D4053008268B0 /* SWTransportConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWTransportConfiguration.mm; sourceTree = "<group>"; };
 		2BD641C1199CE50C00589024 /* swig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swig.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,7 +135,7 @@
 		2BD64218199CE74100589024 /* SWAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAccount.h; sourceTree = "<group>"; };
 		2BD64219199CE74100589024 /* SWAccount.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWAccount.mm; sourceTree = "<group>"; };
 		2BD64225199CEBB700589024 /* SWAccountConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAccountConfiguration.h; sourceTree = "<group>"; };
-		2BD64226199CEBB700589024 /* SWAccountConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWAccountConfiguration.m; sourceTree = "<group>"; };
+		2BD64226199CEBB700589024 /* SWAccountConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWAccountConfiguration.mm; sourceTree = "<group>"; };
 		2BD64228199CEBD300589024 /* SWLogConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWLogConfiguration.h; sourceTree = "<group>"; };
 		2BD64229199CEBD300589024 /* SWLogConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWLogConfiguration.mm; sourceTree = "<group>"; };
 		2BD6422B199CEBEB00589024 /* SWMediaConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWMediaConfiguration.h; sourceTree = "<group>"; };
@@ -176,7 +200,23 @@
 				2BD64218199CE74100589024 /* SWAccount.h */,
 				2BD64219199CE74100589024 /* SWAccount.mm */,
 				2BD64225199CEBB700589024 /* SWAccountConfiguration.h */,
-				2BD64226199CEBB700589024 /* SWAccountConfiguration.m */,
+				2BD64226199CEBB700589024 /* SWAccountConfiguration.mm */,
+				2B3D6BB3199E9E98005AE349 /* SWAccountRegistrationConfiguration.h */,
+				2B3D6BB4199E9E98005AE349 /* SWAccountRegistrationConfiguration.mm */,
+				2B3D6BB6199E9EB4005AE349 /* SWAccountSipConfiguration.h */,
+				2B3D6BB7199E9EB4005AE349 /* SWAccountSipConfiguration.mm */,
+				2B3D6BB9199E9EC3005AE349 /* SWAccountCallConfiguration.h */,
+				2B3D6BBA199E9EC3005AE349 /* SWAccountCallConfiguration.mm */,
+				2B3D6BBC199E9EDA005AE349 /* SWAccountPresenceConfiguration.h */,
+				2B3D6BBD199E9EDA005AE349 /* SWAccountPresenceConfiguration.mm */,
+				2B3D6BBF199E9EF2005AE349 /* SWAccountMWIConfiguration.h */,
+				2B3D6BC0199E9EF2005AE349 /* SWAccountMWIConfiguration.mm */,
+				2B3D6BC2199E9F0D005AE349 /* SWAccountNATConfiguration.h */,
+				2B3D6BC3199E9F0D005AE349 /* SWAccountNATConfiguration.mm */,
+				2B3D6BC5199E9F20005AE349 /* SWAccountMediaConfiguration.h */,
+				2B3D6BC6199E9F20005AE349 /* SWAccountMediaConfiguration.mm */,
+				2B3D6BC8199E9F49005AE349 /* SWAccountVideoConfiguration.h */,
+				2B3D6BC9199E9F49005AE349 /* SWAccountVideoConfiguration.mm */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -184,8 +224,6 @@
 		2B3D6BA9199E6856005AE349 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				2B3D6BA3199E5B91005AE349 /* SWLogWriter.h */,
-				2B3D6BA4199E5B91005AE349 /* SWLogWriter.m */,
 				2BD64232199CF09C00589024 /* NSArray+StringVector.h */,
 				2BD64233199CF09C00589024 /* NSArray+StringVector.mm */,
 				2B3D6BAA199E7162005AE349 /* NSArray+IntVector.h */,
@@ -305,6 +343,8 @@
 			children = (
 				2BD6423A199D094500589024 /* SWEndpoint.h */,
 				2BD6423B199D094500589024 /* SWEndpoint.mm */,
+				2B3D6BB0199E90AB005AE349 /* SWEndpointConfiguration.h */,
+				2B3D6BB1199E90AB005AE349 /* SWEndpointConfiguration.mm */,
 				2BD6422F199CEC1C00589024 /* SWUserAgentConfiguration.h */,
 				2BD64230199CEC1C00589024 /* SWUserAgentConfiguration.mm */,
 				2BD64228199CEBD300589024 /* SWLogConfiguration.h */,
@@ -418,23 +458,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B3D6BC4199E9F0D005AE349 /* SWAccountNATConfiguration.mm in Sources */,
 				2BD64234199CF09C00589024 /* NSArray+StringVector.mm in Sources */,
-				2B3D6BA5199E5B91005AE349 /* SWLogWriter.m in Sources */,
 				2BD6423C199D094500589024 /* SWEndpoint.mm in Sources */,
+				2B3D6BB2199E90AB005AE349 /* SWEndpointConfiguration.mm in Sources */,
 				2B3D6B9B199E46E7005AE349 /* SwigAccount.mm in Sources */,
+				2B3D6BBB199E9EC3005AE349 /* SWAccountCallConfiguration.mm in Sources */,
 				2BD64239199CF45200589024 /* NSString+String.mm in Sources */,
+				2B3D6BB8199E9EB4005AE349 /* SWAccountSipConfiguration.mm in Sources */,
 				2BD6422D199CEBEB00589024 /* SWMediaConfiguration.mm in Sources */,
 				2B3D6BA8199E644A005AE349 /* SWTlsConfig.mm in Sources */,
 				2BD6421A199CE74100589024 /* SWAccount.mm in Sources */,
 				2BD6422A199CEBD300589024 /* SWLogConfiguration.mm in Sources */,
 				2BD6423F199D0CA600589024 /* NSError+Error.mm in Sources */,
-				2BD64227199CEBB700589024 /* SWAccountConfiguration.m in Sources */,
+				2BD64227199CEBB700589024 /* SWAccountConfiguration.mm in Sources */,
+				2B3D6BB5199E9E98005AE349 /* SWAccountRegistrationConfiguration.mm in Sources */,
+				2B3D6BC7199E9F20005AE349 /* SWAccountMediaConfiguration.mm in Sources */,
 				2BD641CD199CE50C00589024 /* ViewController.m in Sources */,
 				2BD641CA199CE50C00589024 /* AppDelegate.m in Sources */,
 				2BD641C7199CE50C00589024 /* main.m in Sources */,
+				2B3D6BC1199E9EF2005AE349 /* SWAccountMWIConfiguration.mm in Sources */,
 				2B78417B199D4053008268B0 /* SWTransportConfiguration.mm in Sources */,
+				2B3D6BBE199E9EDA005AE349 /* SWAccountPresenceConfiguration.mm in Sources */,
 				2B3D6BAC199E7162005AE349 /* NSArray+IntVector.mm in Sources */,
 				2B3D6BA2199E489D005AE349 /* SWUserAgent.mm in Sources */,
+				2B3D6BCA199E9F49005AE349 /* SWAccountVideoConfiguration.mm in Sources */,
 				2BD64231199CEC1C00589024 /* SWUserAgentConfiguration.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

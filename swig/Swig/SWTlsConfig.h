@@ -16,39 +16,21 @@
 
 @interface SWTlsConfig : NSObject
 
-#ifdef __cplusplus
--(instancetype)initWithConfig:(pj::TlsConfig *)config;
-#endif
+@property (nonatomic, strong) NSString *CaListFile;
+@property (nonatomic, strong) NSString *certFile;
+@property (nonatomic, strong) NSString *privKeyFile;
+@property (nonatomic, strong) NSString *password;
+@property (nonatomic) pjsip_ssl_method method;
+@property (nonatomic, strong) NSArray *ciphers;
+@property (nonatomic) BOOL verifyServer;
+@property (nonatomic) BOOL verifyClient;
+@property (nonatomic) BOOL requireClientCert;
+@property (nonatomic) NSUInteger msecTimeout;
+@property (nonatomic) pj_qos_type qosType;
+@property (nonatomic) pj_qos_params qosParams;
 
-//getters
 #ifdef __cplusplus
--(pj::TlsConfig *)config;
+-(pj::TlsConfig)config;
 #endif
--(NSString *)CaListFile;
--(NSString *)certFile;
--(NSString *)privKeyFile;
--(NSString *)password;
--(pjsip_ssl_method)method;
--(NSArray *)ciphers;
--(BOOL)verifyServer;
--(BOOL)verifyClient;
--(BOOL)requireClientCert;
--(NSUInteger)msecTimeout;
--(pj_qos_type)qosType;
--(pj_qos_params)qosParams;
-
-//setters
--(void)setCaListFile:(NSString *)CaListFile;
--(void)setCertFile:(NSString *)certFile;
--(void)setPrivKeyFile:(NSString *)privKeyFile;
--(void)setPasswordFile:(NSString *)password;
--(void)setMethod:(pjsip_ssl_method)method;
--(void)setCiphers:(NSArray *)ciphers;
--(void)setVerifyServer:(BOOL)verifyServer;
--(void)setVerifyClient:(BOOL)verifyClient;
--(void)setRequireClientCert:(BOOL)requireClientCert;
--(void)setMsecTimeout:(NSUInteger)msecTimeout;
--(void)setQosType:(pj_qos_type)qosType;
--(void)setQosParams:(pj_qos_params)qosParams;
 
 @end
