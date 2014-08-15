@@ -9,6 +9,13 @@
 #import "SWUserAgent.h"
 #import "Swig.h"
 
+@interface SWUserAgent ()
+
+@property (nonatomic, strong) SWEndpoint *endpoint;
+@property (nonatomic, strong) NSMutableArray *accounts;
+
+@end
+
 @implementation SWUserAgent
 
 static SWUserAgent *SINGLETON = nil;
@@ -74,19 +81,22 @@ static bool isFirstAccess = YES;
     
     SWTransportConfiguration *config2 = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_TCP];
     
-    SWEndpoint *endpoint = [[SWEndpoint alloc] init];
-    endpoint.transportConfigurations = @[config1, config2];
+    _endpoint = [[SWEndpoint alloc] init];
+    _endpoint.transportConfigurations = @[config1, config2];
     
-    [endpoint begin];
-    
-    SWAccount *account = [SWAccount new];
-    
+    [_endpoint begin];
+        
     return self;
+}
+
+-(void)addAccount:(SWAccount *)account {
+    
+    [self.accounts addObject:account];
 }
 
 -(SWAccount *)accountFromIdentifier:(NSInteger)accountId {
     
-    return [SWAccount new];
+    return [SWAccount accountForId:accountId];
 }
 
 

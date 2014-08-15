@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "pjsip/sip_transport_tls.h"
 #import "pjsip/sip_types.h"
 
 #ifdef __cplusplus
@@ -23,9 +24,31 @@
 #ifdef __cplusplus
 -(pj::TlsConfig *)config;
 #endif
+-(NSString *)CaListFile;
+-(NSString *)certFile;
+-(NSString *)privKeyFile;
+-(NSString *)password;
+-(pjsip_ssl_method)method;
+-(NSArray *)ciphers;
+-(BOOL)verifyServer;
+-(BOOL)verifyClient;
+-(BOOL)requireClientCert;
+-(NSUInteger)msecTimeout;
+-(pj_qos_type)qosType;
+-(pj_qos_params)qosParams;
 
 //setters
-
-//TODO: add other fields
+-(void)setCaListFile:(NSString *)CaListFile;
+-(void)setCertFile:(NSString *)certFile;
+-(void)setPrivKeyFile:(NSString *)privKeyFile;
+-(void)setPasswordFile:(NSString *)password;
+-(void)setMethod:(pjsip_ssl_method)method;
+-(void)setCiphers:(NSArray *)ciphers;
+-(void)setVerifyServer:(BOOL)verifyServer;
+-(void)setVerifyClient:(BOOL)verifyClient;
+-(void)setRequireClientCert:(BOOL)requireClientCert;
+-(void)setMsecTimeout:(NSUInteger)msecTimeout;
+-(void)setQosType:(pj_qos_type)qosType;
+-(void)setQosParams:(pj_qos_params)qosParams;
 
 @end

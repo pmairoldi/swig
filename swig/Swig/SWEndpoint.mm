@@ -7,11 +7,15 @@
 //
 
 #import "SWEndpoint.h"
-#import "PJSUA2.h"
+#import "NSError+Error.h"
+
+#ifdef __cplusplus
+#include "pjsua2/endpoint.hpp"
+#endif
 
 @interface SWEndpoint ()
 
-@property Endpoint *endpoint;
+@property pj::Endpoint *endpoint;
 
 @end
 
@@ -26,13 +30,17 @@
     }
     
     _userAgentConfiguration = [SWUserAgentConfiguration new];
-    _userAgentConfiguration.maxCalls = 10;
-    
     _logConfiguration = [SWLogConfiguration new];
     _mediaConfiguration = [SWMediaConfiguration new];
+    
     _transportConfigurations = @[];
     
     return self;
+}
+
+-(void)dealloc {
+    
+    delete _endpoint;
 }
 
 -(void)begin {
@@ -54,15 +62,15 @@
 
 -(void)createWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure {
     
-    if (!self.endpoint) {
-        self.endpoint = new Endpoint;
-    }
-    
     NSError *error;
+    
+    if (!self.endpoint) {
+        self.endpoint = new pj::Endpoint;
+    }
     
     try {
         self.endpoint->libCreate();
-    } catch(Error& err) {
+    } catch(pj::Error& err) {
         error = [NSError errorFromError:&err];
     }
     
@@ -84,8 +92,14 @@
     NSError *error;
     
     try {
-        self.endpoint->libInit([self epConfig]);
-    } catch(Error& err) {
+        
+        pj::EpConfig config;
+        config.uaConfig = *self.userAgentConfiguration.config;
+        config.logConfig = *self.logConfiguration.config;
+        config.medConfig = *self.mediaConfiguration.config;
+        
+        self.endpoint->libInit(config);
+    } catch(pj::Error& err) {
         error = [NSError errorFromError:&err];
     }
     
@@ -109,10 +123,10 @@
     try {
        
         for (SWTransportConfiguration *transport in self.transportConfigurations) {
-            self.endpoint->transportCreate(transport.transportType, [self tranportConfig:transport]);
+            self.endpoint->transportCreate(transport.transportType, *transport.config);
         }
         
-    } catch(Error& err) {
+    } catch(pj::Error& err) {
         error = [NSError errorFromError:&err];
     }
     
@@ -135,7 +149,7 @@
     
     try {
         self.endpoint->libStart();
-    } catch(Error& err) {
+    } catch(pj::Error& err) {
         error = [NSError errorFromError:&err];
     }
     
@@ -159,7 +173,7 @@
     try {
         self.endpoint->libDestroy();
         delete self.endpoint;
-    } catch(Error& err) {
+    } catch(pj::Error& err) {
         error = [NSError errorFromError:&err];
     }
     
@@ -174,28 +188,6 @@
             success();
         }
     }
-}
-
--(EpConfig)epConfig {
-    
-    EpConfig config;
-    
-    config.uaConfig = *self.userAgentConfiguration.config;
-    config.logConfig = *self.logConfiguration.config;
-    config.medConfig = *self.mediaConfiguration.config;
-           
-    return config;
-}
-
--(TransportConfig)tranportConfig:(SWTransportConfiguration *)config {
-    
-    TransportConfig transportConfig;
-    transportConfig.port = config.port;
-    transportConfig.portRange = config.portRange;
-    transportConfig.publicAddress = *[config.publicAddress CPPString];
-    transportConfig.boundAddress = *[config.boundAddress CPPString];
-
-    return transportConfig;
 }
 
 @end

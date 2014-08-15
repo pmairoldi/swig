@@ -37,5 +37,4 @@
     return vector;
 }
 
-
 @end

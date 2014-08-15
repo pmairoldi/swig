@@ -13,6 +13,7 @@
 
 +(SWUserAgent*)sharedInstance;
 
+-(void)addAccount:(SWAccount *)account;
 -(SWAccount *)accountFromIdentifier:(NSInteger)accountId;
 
 @end

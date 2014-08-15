@@ -39,4 +39,10 @@
     return self;
 }
 
++(SWAccount *)accountForId:(NSInteger)accountId {
+    
+    // pj::Account::lookup(accountId)
+    return [SWAccount new];
+}
+
 @end

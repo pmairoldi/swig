@@ -45,6 +45,11 @@
     return self;
 }
 
+-(void)dealloc {
+    
+    delete _config;
+}
+
 -(pj::TransportConfig *)config {
     
     return _config;
@@ -109,6 +114,8 @@
     
     return _config->qosType;
 }
+
+//FIX: library has wrong type. change to pj_qos_params if library updates
 
 -(void)setQosParams:(pj_qos_type)qosParams{
     
