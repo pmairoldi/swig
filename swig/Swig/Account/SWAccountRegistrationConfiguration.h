@@ -14,6 +14,17 @@
 
 @interface SWAccountRegistrationConfiguration : NSObject
 
+@property (nonatomic, strong) NSString *registrarUri;
+@property (nonatomic) BOOL registerOnAdd;
+@property (nonatomic, strong) NSArray *headers;
+@property (nonatomic) NSUInteger timeoutSec;
+@property (nonatomic) NSUInteger retryIntervalSec;
+@property (nonatomic) NSUInteger firstRetyIntervalSec;
+@property (nonatomic) NSUInteger delayBeforRefreshSec;
+@property (nonatomic) BOOL dropCallsOnFail;
+@property (nonatomic) NSUInteger unregWaitSec;
+@property (nonatomic) NSUInteger proxyUse;
+
 #ifdef __cplusplus
 -(pj::AccountRegConfig)config;
 #endif

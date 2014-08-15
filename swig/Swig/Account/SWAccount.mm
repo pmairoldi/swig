@@ -8,8 +8,12 @@
 
 #import "SWAccount.h"
 #import "SwigAccount.h"
+#import "NSError+Error.h"
 
 @interface SWAccount ()
+
+@property SWAccountConfiguration *accountConfiguration;
+@property SwigAccount *account;
 
 @end
 
@@ -17,26 +21,58 @@
 
 -(instancetype)init {
     
+    return [self initWithAccountConfiguration:nil];
+}
+
+-(instancetype)initWithAccountConfiguration:(SWAccountConfiguration *)accountConfiguration {
+    
+    if (!accountConfiguration) {
+        NSAssert(@"no account configuration", @"you must specify the account configuration to create an account");
+        return nil;
+    }
+    
     self = [super init];
     
     if (!self) {
         return nil;
     }
     
-    AccountConfig acc_cfg;
-    acc_cfg.idUri = "sip:mobila@getonsip.com";
-    acc_cfg.regConfig.registrarUri = "sip:getonsip.com";
-    acc_cfg.sipConfig.authCreds.push_back( AuthCredInfo("digest", "*", "getonsip_mobila", 0, "NQFxmwxw4wQMEfp3") );
-    acc_cfg.sipConfig.proxies.push_back("sip:sip.onsip.com");
+    _accountConfiguration = accountConfiguration;
     
-    SwigAccount *acc = new SwigAccount;
-    try {
-        acc->create(acc_cfg);
-    } catch(Error& err) {
-//        cout << "Account creation error: " << err.info() << endl;
-    }
+    [self createWithSuccess:^{
+        
+    } failure:^(NSError *error) {
+        
+    }];
     
     return self;
+}
+
+-(void)createWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure {
+    
+    NSError *error;
+    
+    if (!self.account) {
+        self.account = new SwigAccount;
+    }
+    
+    try {
+        self.account->create(self.accountConfiguration.config);
+    } catch(pj::Error& err) {
+        error = [NSError errorFromError:&err];
+    }
+    
+    if (error) {
+        if (failure) {
+            failure(error);
+        }
+    }
+    
+    else {
+        if (success) {
+            success();
+        }
+    }
 }
 
 +(SWAccount *)accountForId:(NSInteger)accountId {

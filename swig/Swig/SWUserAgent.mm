@@ -85,7 +85,9 @@ static bool isFirstAccess = YES;
     _endpoint.transportConfigurations = @[config1, config2];
     
     [_endpoint begin];
-        
+    
+    SWAccount *account = [SWAccount new];
+    
     return self;
 }
 

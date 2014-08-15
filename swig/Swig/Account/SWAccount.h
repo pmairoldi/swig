@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SWAccountConfiguration.h"
 
 @interface SWAccount : NSObject
+
+-(instancetype)initWithAccountConfiguration:(SWAccountConfiguration *)accountConfiguration;
 
 +(SWAccount *)accountForId:(NSInteger)accountId;
 
