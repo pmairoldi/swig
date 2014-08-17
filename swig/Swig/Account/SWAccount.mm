@@ -67,7 +67,9 @@
     }
     
     try {
-        self.account->create(self.accountConfiguration.config);
+        AccountConfig config = self.accountConfiguration.config;
+        
+        self.account->create(config);
     } catch(pj::Error& err) {
         error = [NSError errorWithError:&err];
     }

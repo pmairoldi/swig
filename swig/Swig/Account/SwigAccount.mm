@@ -17,7 +17,6 @@ void SwigAccount::onIncomingCall(OnIncomingCallParam &prm) {
 void SwigAccount::onRegStarted(OnRegStartedParam &prm) {
 
     NSLog(@"\n\n\nRegistration Started\n\n\n");
-
 }
 
 void SwigAccount:: onRegState(OnRegStateParam &prm) {

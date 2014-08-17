@@ -19,13 +19,15 @@
     return [self initWithAccountRegConfig:config];
 }
 
--(instancetype)initWithAccountRegConfig:(pj::AccountRegConfig)config {
+-(instancetype)initWithAccountRegConfig:(pj::AccountRegConfig)config_ {
     
     self = [super init];
     
     if (!self) {
         return nil;
     }
+    
+    pj::AccountRegConfig config = config_;
     
     _registrarUri = [NSString stringWithCPPString:&config.registrarUri];
     _registerOnAdd = config.registerOnAdd;

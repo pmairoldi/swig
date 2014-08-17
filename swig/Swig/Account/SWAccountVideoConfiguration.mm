@@ -13,16 +13,19 @@
 -(instancetype)init {
 
     pj::AccountVideoConfig config;
+    
     return [self initWithAccountVideoConfig:config];
 }
 
--(instancetype)initWithAccountVideoConfig:(pj::AccountVideoConfig)config {
+-(instancetype)initWithAccountVideoConfig:(pj::AccountVideoConfig)config_ {
     
     self = [super init];
     
     if (!self) {
         return nil;
     }
+    
+    pj::AccountVideoConfig config = config_;
     
     _autoShowIncoming = config.autoShowIncoming;
     _autoTransmitOutgoing = config.autoTransmitOutgoing;

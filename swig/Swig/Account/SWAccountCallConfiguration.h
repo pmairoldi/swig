@@ -11,6 +11,7 @@
 #ifdef __cplusplus
 #include <pjsua2/account.hpp>
 #endif
+#include "pjsua.h"
 
 @interface SWAccountCallConfiguration : NSObject
 

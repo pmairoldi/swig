@@ -15,6 +15,7 @@
 #import "SWAccountNATConfiguration.h"
 #import "SWAccountMediaConfiguration.h"
 #import "SWAccountVideoConfiguration.h"
+#import "SWAuthCredInfo.h"
 
 #ifdef __cplusplus
 #include <pjsua2/account.hpp>

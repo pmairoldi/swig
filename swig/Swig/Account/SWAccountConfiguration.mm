@@ -23,29 +23,13 @@
         return nil;
     }
     
-    self = [super init];
-    
-    if (!self) {
-        return nil;
-    }
-    
     pj::AccountConfig config;
+    config.idUri = *[uri CPPString];
     
-    _priority = config.priority;
-    _idUri = uri;
-    _regConfig = [SWAccountRegistrationConfiguration new];
-    _sipConfig = [SWAccountSipConfiguration new];
-    _callConfig = [SWAccountCallConfiguration new];
-    _presConfig = [SWAccountPresenceConfiguration new];
-    _mwiConfig = [SWAccountMWIConfiguration new];
-    _natConfig = [SWAccountNATConfiguration new];
-    _mediaConfig = [SWAccountMediaConfiguration new];
-    _videoConfig = [SWAccountVideoConfiguration new];
-    
-    return self;
+    return [self initWithAccountConfig:config];
 }
 
--(instancetype)initWithAccountConfig:(pj::AccountConfig)config {
+-(instancetype)initWithAccountConfig:(pj::AccountConfig)config_ {
     
     self = [super init];
     
@@ -53,6 +37,8 @@
         return nil;
     }
     
+    pj::AccountConfig config = config_;
+
     _priority = config.priority;
     _idUri = [NSString stringWithCPPString:&config.idUri];
     _regConfig = [SWAccountRegistrationConfiguration registrationConfigurationFromAccountRegConfig:config.regConfig];

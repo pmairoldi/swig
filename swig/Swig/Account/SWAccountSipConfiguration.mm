@@ -16,16 +16,19 @@
 -(instancetype)init {
     
     pj::AccountSipConfig config;
+    
     return [self initWithAccountSipConfig:config];
 }
 
--(instancetype)initWithAccountSipConfig:(pj::AccountSipConfig)config {
+-(instancetype)initWithAccountSipConfig:(pj::AccountSipConfig)config_ {
     
     self = [super init];
     
     if (!self) {
         return nil;
     }
+    
+    pj::AccountSipConfig config = config_;
     
     _authCreds = [NSArray arrayWithAuthCredInfoVector:&config.authCreds];
     _proxies = [NSArray arrayWithStringVector:&config.proxies];

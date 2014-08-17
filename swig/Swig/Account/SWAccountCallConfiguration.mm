@@ -16,13 +16,15 @@
     return [self initWithAccountCallConfig:config];
 }
 
--(instancetype)initWithAccountCallConfig:(pj::AccountCallConfig)config {
+-(instancetype)initWithAccountCallConfig:(pj::AccountCallConfig)config_ {
     
     self = [super init];
     
     if (!self) {
         return nil;
     }
+    
+    pj::AccountCallConfig config = config_;
     
     _holdType = config.holdType;
     _prackUse = config.prackUse;

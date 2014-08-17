@@ -14,16 +14,19 @@
 -(instancetype)init {
     
     pj::AccountNatConfig config;
+    
     return [self initWithAccountNatConfig:config];
 }
 
--(instancetype)initWithAccountNatConfig:(pj::AccountNatConfig)config {
+-(instancetype)initWithAccountNatConfig:(pj::AccountNatConfig)config_ {
  
     self = [super init];
     
     if (!self) {
         return nil;
     }
+    
+    pj::AccountNatConfig config = config_;
     
     _sipStunUse = config.sipStunUse;
     _mediaStunUse = config.mediaStunUse;

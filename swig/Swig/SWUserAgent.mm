@@ -8,7 +8,6 @@
 
 #import "SWUserAgent.h"
 #import "Swig.h"
-#import "SWAuthCredInfo.h"
 
 @interface SWUserAgent ()
 
@@ -30,7 +29,7 @@ static bool isFirstAccess = YES;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         isFirstAccess = NO;
-        SINGLETON = [[super allocWithZone:NULL] init];    
+        SINGLETON = [[super allocWithZone:NULL] init];
     });
     
     return SINGLETON;
@@ -78,10 +77,8 @@ static bool isFirstAccess = YES;
         return nil;
     }
     
-    //TODO dont leave this here for release
+    //TODO remove for release
     SWTransportConfiguration *config1 = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_UDP];
-    
-    SWTransportConfiguration *config2 = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_TCP];
     
     _endpoint = [[SWEndpoint alloc] init];
     _endpoint.transportConfigurations = @[config1];
@@ -97,7 +94,7 @@ static bool isFirstAccess = YES;
     authInfo.realm = @"*";
     authInfo.username = @"getonsip_mobila";
     authInfo.data = @"NQFxmwxw4wQMEfp3";
-
+    
     [auth addObject:authInfo];
     
     accountConfiguration.sipConfig.authCreds = auth;
@@ -121,9 +118,6 @@ static bool isFirstAccess = YES;
     
     [account createWithSuccess:^{
         [self.accounts addObject:account];
-        
-        [account makeCall:@"sip:trac@getonsip.com"];
-        
     } failure:^(NSError *error) {
         NSLog(@"%@", [error description]);
     }];

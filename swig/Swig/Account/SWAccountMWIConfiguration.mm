@@ -13,16 +13,19 @@
 -(instancetype)init {
     
     pj::AccountMwiConfig config;
+    
     return [self initWithMwiConfig:config];
 }
 
--(instancetype)initWithMwiConfig:(pj::AccountMwiConfig)config {
+-(instancetype)initWithMwiConfig:(pj::AccountMwiConfig)config_ {
  
     self = [super init];
     
     if (!self) {
         return nil;
     }
+    
+    pj::AccountMwiConfig config = config_;
     
     _enabled = config.enabled;
     _expirationSec = config.expirationSec;

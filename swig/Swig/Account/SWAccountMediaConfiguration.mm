@@ -17,13 +17,15 @@
     return [self initWithAccountMediaConfig:config];
 }
 
--(instancetype)initWithAccountMediaConfig:(pj::AccountMediaConfig)config {
+-(instancetype)initWithAccountMediaConfig:(pj::AccountMediaConfig)config_ {
     
     self = [super init];
     
     if (!self) {
         return nil;
     }
+    
+    pj::AccountMediaConfig config = config_;
     
     _transportConfig = [SWTransportConfiguration new];
     _lockCodecEnabled = config.lockCodecEnabled;

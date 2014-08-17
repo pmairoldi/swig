@@ -21,7 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
-    self.userAgent = [SWUserAgent new];
+    self.userAgent = [SWUserAgent sharedInstance];
     
     return YES;
 }

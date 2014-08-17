@@ -15,16 +15,19 @@
 -(instancetype)init {
     
     pj::AccountPresConfig config;
+    
     return [self initWithAccountPresConfig:config];
 }
 
--(instancetype)initWithAccountPresConfig:(pj::AccountPresConfig)config {
+-(instancetype)initWithAccountPresConfig:(pj::AccountPresConfig)config_ {
     
     self = [super init];
     
     if (!self) {
         return nil;
     }
+    
+    pj::AccountPresConfig config = config_;
     
     _headers = [NSArray arrayWithSipHeaderVector:&config.headers];
     _publishEnabled = config.publishEnabled;
