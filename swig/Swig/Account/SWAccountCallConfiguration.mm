@@ -12,13 +12,17 @@
 
 -(instancetype)init {
     
+    pj::AccountCallConfig config;
+    return [self initWithAccountCallConfig:config];
+}
+
+-(instancetype)initWithAccountCallConfig:(pj::AccountCallConfig)config {
+    
     self = [super init];
     
     if (!self) {
         return nil;
     }
-    
-    pj::AccountCallConfig config;
     
     _holdType = config.holdType;
     _prackUse = config.prackUse;
@@ -27,6 +31,11 @@
     _timerSessExpriresSec = config.timerSessExpiresSec;
     
     return self;
+}
+
++(instancetype)callConfigurationFromAccountCallConfig:(pj::AccountCallConfig)config {
+    
+    return [[SWAccountCallConfiguration alloc] initWithAccountCallConfig:config];
 }
 
 -(pj::AccountCallConfig)config {

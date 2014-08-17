@@ -8,6 +8,7 @@
 
 #import "SWUserAgent.h"
 #import "Swig.h"
+#import "SWAuthCredInfo.h"
 
 @interface SWUserAgent ()
 
@@ -77,28 +78,82 @@ static bool isFirstAccess = YES;
         return nil;
     }
     
+    //TODO dont leave this here for release
     SWTransportConfiguration *config1 = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_UDP];
     
     SWTransportConfiguration *config2 = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_TCP];
     
     _endpoint = [[SWEndpoint alloc] init];
-    _endpoint.transportConfigurations = @[config1, config2];
+    _endpoint.transportConfigurations = @[config1];
     
     [_endpoint begin];
     
-    SWAccount *account = [SWAccount new];
+    SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:mobila@getonsip.com"];
+    
+    NSMutableArray *auth = [accountConfiguration.sipConfig.authCreds mutableCopy];
+    
+    SWAuthCredInfo *authInfo = [SWAuthCredInfo new];
+    authInfo.scheme = @"digest";
+    authInfo.realm = @"*";
+    authInfo.username = @"getonsip_mobila";
+    authInfo.data = @"NQFxmwxw4wQMEfp3";
+
+    [auth addObject:authInfo];
+    
+    accountConfiguration.sipConfig.authCreds = auth;
+    
+    NSMutableArray *proxy = [accountConfiguration.sipConfig.proxies mutableCopy];
+    
+    [proxy addObject:@"sip:sip.onsip.com"];
+    
+    accountConfiguration.sipConfig.proxies = proxy;
+    
+    accountConfiguration.regConfig.registrarUri = @"sip:getonsip.com";
+    
+    SWAccount *account = [[SWAccount alloc] initWithAccountConfiguration:accountConfiguration];
+    
+    [self addAccount:account];
     
     return self;
 }
 
 -(void)addAccount:(SWAccount *)account {
     
-    [self.accounts addObject:account];
+    [account createWithSuccess:^{
+        [self.accounts addObject:account];
+        
+        [account makeCall:@"sip:trac@getonsip.com"];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@", [error description]);
+    }];
 }
 
--(SWAccount *)accountFromIdentifier:(NSInteger)accountId {
+-(SWAccount *)accountFromId:(NSInteger)accountId {
     
-    return [SWAccount accountForId:accountId];
+    if (self.accounts.count == 0) {
+        return nil;
+    }
+    
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        
+        SWAccount *account = (SWAccount *)evaluatedObject;
+        
+        if (account.getId == accountId) {
+            
+            return YES;
+        }
+        
+        else {
+            return NO;
+        }
+    }];
+    
+    NSArray *array = [self.accounts filteredArrayUsingPredicate:predicate];
+    
+    SWAccount *account = [array firstObject];
+    
+    return account;
 }
 
 

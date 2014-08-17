@@ -18,6 +18,7 @@
 @property (nonatomic) NSUInteger expirationSec;
 
 #ifdef __cplusplus
++(instancetype)mwiConfigurationFromAccountMwiConfig:(pj::AccountMwiConfig)config;
 -(pj::AccountMwiConfig)config;
 #endif
 

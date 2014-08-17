@@ -40,6 +40,7 @@
 @property (nonatomic, strong) NSString *udpKaData;
 
 #ifdef __cplusplus
++(instancetype)natConfigurationFromAccountNatConfig:(pj::AccountNatConfig)config;
 -(pj::AccountNatConfig)config;
 #endif
 

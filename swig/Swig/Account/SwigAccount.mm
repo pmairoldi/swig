@@ -7,17 +7,22 @@
 //
 
 #include "SwigAccount.h"
+#import "SWUserAgent.h"
 
 void SwigAccount::onIncomingCall(OnIncomingCallParam &prm) {
-    
+
+    NSLog(@"\n\n\nIncoming Call %d\n\n\n", prm.callId);
 }
 
 void SwigAccount::onRegStarted(OnRegStartedParam &prm) {
+
+    NSLog(@"\n\n\nRegistration Started\n\n\n");
 
 }
 
 void SwigAccount:: onRegState(OnRegStateParam &prm) {
 
+    NSLog(@"\n\n\nRegistration State %d\n\n\n", prm.status);
 }
 
 //void SwigAccount::onIncomingSubscribe(OnIncomingSubscribeParam &prm) {

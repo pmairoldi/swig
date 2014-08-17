@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSString *pidfTupleId;
 
 #ifdef __cplusplus
++(instancetype)presenceConfigurationFromAccountPresConfig:(pj::AccountPresConfig)config;
 -(pj::AccountPresConfig)config;
 #endif
 

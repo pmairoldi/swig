@@ -36,6 +36,7 @@
 @property (nonatomic, strong) SWAccountVideoConfiguration *videoConfig;
 
 #ifdef __cplusplus
++(instancetype)accountConfigurationFromAccountId:(NSInteger)accountId;
 -(pj::AccountConfig)config;
 #endif
 

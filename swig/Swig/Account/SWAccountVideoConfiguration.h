@@ -23,6 +23,7 @@
 @property (nonatomic) NSUInteger rateControlBandwidth;
 
 #ifdef __cplusplus
++(instancetype)videoConfigurationFromAccountVideoConfig:(pj::AccountVideoConfig)config;
 -(pj::AccountVideoConfig)config;
 #endif
 

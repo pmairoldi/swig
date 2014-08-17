@@ -18,7 +18,7 @@
 @property (nonatomic, strong) NSString *realm;
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic) NSInteger dataType;
-@property (nonatomic, strong) NSString *data;
+@property (nonatomic, strong) NSString *data; //TODO change to password
 @property (nonatomic, strong) NSString *akaK;
 @property (nonatomic, strong) NSString *akaOp;
 @property (nonatomic, strong) NSString *akaAmf;

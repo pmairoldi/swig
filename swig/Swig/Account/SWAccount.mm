@@ -9,11 +9,14 @@
 #import "SWAccount.h"
 #import "SwigAccount.h"
 #import "NSError+Error.h"
+#include "pjsua2/call.hpp"
+#import "NSString+String.h"
 
 @interface SWAccount ()
 
 @property SWAccountConfiguration *accountConfiguration;
 @property SwigAccount *account;
+@property Call *call;
 
 @end
 
@@ -38,13 +41,20 @@
     }
     
     _accountConfiguration = accountConfiguration;
-    
-    [self createWithSuccess:^{
         
-    } failure:^(NSError *error) {
-        
-    }];
+    return self;
+}
+
+-(instancetype)initWithSwigAccoung:(SwigAccount *)swigAccount {
     
+    self = [super init];
+    
+    if (self) {
+        return nil;
+    }
+    
+    _account = swigAccount;
+    _accountConfiguration = [SWAccountConfiguration accountConfigurationFromAccountId:swigAccount->getId()];
     return self;
 }
 
@@ -75,10 +85,23 @@
     }
 }
 
-+(SWAccount *)accountForId:(NSInteger)accountId {
+-(NSInteger)getId {
     
-    // pj::Account::lookup(accountId)
-    return [SWAccount new];
+    return self.account->getId();
+}
+
+-(void)makeCall:(NSString *)number {
+    
+    self.call = new Call(*(self.account), PJSUA_INVALID_ID);
+    
+    CallOpParam prm = NULL;
+    const std::string uri = *[number CPPString];
+    
+    try {
+        self.call->makeCall(uri, prm);
+    } catch(pj::Error& err)  {
+        NSError *error = [NSError errorWithError:&err];
+    }
 }
 
 @end

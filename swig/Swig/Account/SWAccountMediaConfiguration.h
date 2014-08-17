@@ -23,6 +23,7 @@
 @property (nonatomic) pjsua_ipv6_use ipv6Use;
 
 #ifdef __cplusplus
++(instancetype)mediaConfigurationFromAccountMediaConfig:(pj::AccountMediaConfig)config;
 -(pj::AccountMediaConfig)config;
 #endif
 

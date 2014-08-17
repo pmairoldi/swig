@@ -15,13 +15,18 @@
 
 -(instancetype)init {
     
+    pj::AccountSipConfig config;
+    return [self initWithAccountSipConfig:config];
+}
+
+-(instancetype)initWithAccountSipConfig:(pj::AccountSipConfig)config {
+    
     self = [super init];
     
     if (!self) {
         return nil;
     }
     
-    pj::AccountSipConfig config;
     _authCreds = [NSArray arrayWithAuthCredInfoVector:&config.authCreds];
     _proxies = [NSArray arrayWithStringVector:&config.proxies];
     _contactForced = [NSString stringWithCPPString:&config.contactForced];
@@ -30,8 +35,13 @@
     _authInitialEmpty = config.authInitialEmpty;
     _authInitialAlgorithm = [NSString stringWithCPPString:&config.authInitialAlgorithm];
     _transportId = config.transportId;
-
+    
     return self;
+}
+
++(instancetype)sipConfigurationFromAccountSipConfig:(pj::AccountSipConfig)config {
+
+    return [[SWAccountSipConfiguration alloc] initWithAccountSipConfig:config];
 }
 
 -(pj::AccountSipConfig)config {

@@ -31,20 +31,55 @@
     
     pj::AccountConfig config;
     
-    self.priority = config.priority;
-    self.idUri = uri;
-    self.regConfig = [SWAccountRegistrationConfiguration new];
-    self.sipConfig = [SWAccountSipConfiguration new];
-    self.callConfig = [SWAccountCallConfiguration new];
-    self.presConfig = [SWAccountPresenceConfiguration new];
-    self.mwiConfig = [SWAccountMWIConfiguration new];
-    self.natConfig = [SWAccountNATConfiguration new];
-    self.mediaConfig = [SWAccountMediaConfiguration new];
-    self.videoConfig = [SWAccountVideoConfiguration new];
+    _priority = config.priority;
+    _idUri = uri;
+    _regConfig = [SWAccountRegistrationConfiguration new];
+    _sipConfig = [SWAccountSipConfiguration new];
+    _callConfig = [SWAccountCallConfiguration new];
+    _presConfig = [SWAccountPresenceConfiguration new];
+    _mwiConfig = [SWAccountMWIConfiguration new];
+    _natConfig = [SWAccountNATConfiguration new];
+    _mediaConfig = [SWAccountMediaConfiguration new];
+    _videoConfig = [SWAccountVideoConfiguration new];
     
     return self;
 }
 
+-(instancetype)initWithAccountConfig:(pj::AccountConfig)config {
+    
+    self = [super init];
+    
+    if (!self) {
+        return nil;
+    }
+    
+    _priority = config.priority;
+    _idUri = [NSString stringWithCPPString:&config.idUri];
+    _regConfig = [SWAccountRegistrationConfiguration registrationConfigurationFromAccountRegConfig:config.regConfig];
+    _sipConfig = [SWAccountSipConfiguration sipConfigurationFromAccountSipConfig:config.sipConfig];
+    _callConfig = [SWAccountCallConfiguration callConfigurationFromAccountCallConfig:config.callConfig];
+    _presConfig = [SWAccountPresenceConfiguration presenceConfigurationFromAccountPresConfig:config.presConfig];
+    _mwiConfig = [SWAccountMWIConfiguration mwiConfigurationFromAccountMwiConfig:config.mwiConfig];
+    _natConfig = [SWAccountNATConfiguration natConfigurationFromAccountNatConfig:config.natConfig];
+    _mediaConfig = [SWAccountMediaConfiguration mediaConfigurationFromAccountMediaConfig:config.mediaConfig];
+    _videoConfig = [SWAccountVideoConfiguration videoConfigurationFromAccountVideoConfig:config.videoConfig];
+    
+    return self;
+}
+
++(instancetype)accountConfigurationFromAccountId:(NSInteger)accountId {
+    
+    pjsua_acc_config acc_cfg;
+    //TODO find way to get media config;
+    //pjsua_media_config med_cfg;
+    
+    pjsua_acc_get_config(accountId, NULL, &acc_cfg);
+    
+    pj::AccountConfig config;
+    config.fromPj(acc_cfg, NULL);
+    
+    return [[SWAccountConfiguration alloc] initWithAccountConfig:config];
+}
 
 -(pj::AccountConfig)config {
     

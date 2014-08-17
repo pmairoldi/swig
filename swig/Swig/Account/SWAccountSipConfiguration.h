@@ -24,6 +24,7 @@
 @property (nonatomic) NSInteger transportId;
 
 #ifdef __cplusplus
++(instancetype)sipConfigurationFromAccountSipConfig:(pj::AccountSipConfig)config;
 -(pj::AccountSipConfig)config;
 #endif
 

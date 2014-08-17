@@ -14,13 +14,18 @@
 
 -(instancetype)init {
     
+    pj::AccountPresConfig config;
+    return [self initWithAccountPresConfig:config];
+}
+
+-(instancetype)initWithAccountPresConfig:(pj::AccountPresConfig)config {
+    
     self = [super init];
     
     if (!self) {
         return nil;
     }
     
-    pj::AccountPresConfig config;
     _headers = [NSArray arrayWithSipHeaderVector:&config.headers];
     _publishEnabled = config.publishEnabled;
     _publishQueue = config.publishQueue;
@@ -28,6 +33,11 @@
     _pidfTupleId = [NSString stringWithCPPString:&config.pidfTupleId];
     
     return self;
+}
+
++(instancetype)presenceConfigurationFromAccountPresConfig:(pj::AccountPresConfig)config {
+    
+    return [[SWAccountPresenceConfiguration alloc] initWithAccountPresConfig:config];
 }
 
 -(pj::AccountPresConfig)config {

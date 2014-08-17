@@ -12,13 +12,19 @@
 
 -(instancetype)init {
     
+    pj::AccountMediaConfig config;
+    
+    return [self initWithAccountMediaConfig:config];
+}
+
+-(instancetype)initWithAccountMediaConfig:(pj::AccountMediaConfig)config {
+    
     self = [super init];
     
     if (!self) {
         return nil;
     }
     
-    pj::AccountMediaConfig config;
     _transportConfig = [SWTransportConfiguration new];
     _lockCodecEnabled = config.lockCodecEnabled;
     _streamKaEnabled = config.streamKaEnabled;
@@ -27,6 +33,11 @@
     _ipv6Use = config.ipv6Use;
     
     return self;
+}
+
++(instancetype)mediaConfigurationFromAccountMediaConfig:(pj::AccountMediaConfig)config {
+    
+    return [[SWAccountMediaConfiguration alloc] initWithAccountMediaConfig:config];
 }
 
 -(pj::AccountMediaConfig)config {

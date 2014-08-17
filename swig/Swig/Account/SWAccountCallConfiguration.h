@@ -21,6 +21,7 @@
 @property (nonatomic) NSUInteger timerSessExpriresSec;
 
 #ifdef __cplusplus
++(instancetype)callConfigurationFromAccountCallConfig:(pj::AccountCallConfig)config;
 -(pj::AccountCallConfig)config;
 #endif
 

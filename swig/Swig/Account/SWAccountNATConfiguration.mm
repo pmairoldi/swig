@@ -13,13 +13,18 @@
 
 -(instancetype)init {
     
+    pj::AccountNatConfig config;
+    return [self initWithAccountNatConfig:config];
+}
+
+-(instancetype)initWithAccountNatConfig:(pj::AccountNatConfig)config {
+ 
     self = [super init];
     
     if (!self) {
         return nil;
     }
     
-    pj::AccountNatConfig config;
     _sipStunUse = config.sipStunUse;
     _mediaStunUse = config.mediaStunUse;
     _iceEnabled = config.iceEnabled;
@@ -46,6 +51,11 @@
     _udpKaData = [NSString stringWithCPPString:&config.udpKaData];
     
     return self;
+}
+
++(instancetype)natConfigurationFromAccountNatConfig:(pj::AccountNatConfig)config {
+
+    return [[SWAccountNATConfiguration alloc] initWithAccountNatConfig:config];
 }
 
 -(pj::AccountNatConfig)config {

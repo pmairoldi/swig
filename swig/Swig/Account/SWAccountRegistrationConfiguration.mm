@@ -14,13 +14,19 @@
 
 -(instancetype)init {
     
+    pj::AccountRegConfig config;
+
+    return [self initWithAccountRegConfig:config];
+}
+
+-(instancetype)initWithAccountRegConfig:(pj::AccountRegConfig)config {
+    
     self = [super init];
     
     if (!self) {
         return nil;
     }
     
-    pj::AccountRegConfig config;
     _registrarUri = [NSString stringWithCPPString:&config.registrarUri];
     _registerOnAdd = config.registerOnAdd;
     _headers = [NSArray arrayWithSipHeaderVector:&config.headers];
@@ -33,6 +39,11 @@
     _proxyUse = config.proxyUse;
     
     return self;
+}
+
++(instancetype)registrationConfigurationFromAccountRegConfig:(pj::AccountRegConfig)config {
+    
+    return [[SWAccountRegistrationConfiguration alloc] initWithAccountRegConfig:config];
 }
 
 -(pj::AccountRegConfig)config {

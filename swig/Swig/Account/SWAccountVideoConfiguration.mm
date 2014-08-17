@@ -11,6 +11,12 @@
 @implementation SWAccountVideoConfiguration
 
 -(instancetype)init {
+
+    pj::AccountVideoConfig config;
+    return [self initWithAccountVideoConfig:config];
+}
+
+-(instancetype)initWithAccountVideoConfig:(pj::AccountVideoConfig)config {
     
     self = [super init];
     
@@ -18,7 +24,6 @@
         return nil;
     }
     
-    pj::AccountVideoConfig config;
     _autoShowIncoming = config.autoShowIncoming;
     _autoTransmitOutgoing = config.autoTransmitOutgoing;
     _windowFlags = config.windowFlags;
@@ -28,6 +33,11 @@
     _rateControlBandwidth = config.rateControlBandwidth;
     
     return self;
+}
+
++(instancetype)videoConfigurationFromAccountVideoConfig:(pj::AccountVideoConfig)config {
+ 
+    return [[SWAccountVideoConfiguration alloc] initWithAccountVideoConfig:config];
 }
 
 -(pj::AccountVideoConfig)config {

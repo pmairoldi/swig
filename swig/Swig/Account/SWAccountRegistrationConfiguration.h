@@ -26,6 +26,7 @@
 @property (nonatomic) NSUInteger proxyUse;
 
 #ifdef __cplusplus
++(instancetype)registrationConfigurationFromAccountRegConfig:(pj::AccountRegConfig)config;
 -(pj::AccountRegConfig)config;
 #endif
 
