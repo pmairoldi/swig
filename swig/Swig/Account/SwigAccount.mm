@@ -9,37 +9,37 @@
 #include "SwigAccount.h"
 #import "SWUserAgent.h"
 
-void SwigAccount::onIncomingCall(OnIncomingCallParam &prm) {
+void sw::Account::onIncomingCall(pj::OnIncomingCallParam &prm) {
 
     NSLog(@"\n\n\nIncoming Call %d\n\n\n", prm.callId);
 }
 
-void SwigAccount::onRegStarted(OnRegStartedParam &prm) {
+void sw::Account::onRegStarted(pj::OnRegStartedParam &prm) {
 
     NSLog(@"\n\n\nRegistration Started\n\n\n");
 }
 
-void SwigAccount:: onRegState(OnRegStateParam &prm) {
+void sw::Account::onRegState(pj::OnRegStateParam &prm) {
 
     NSLog(@"\n\n\nRegistration State %d\n\n\n", prm.status);
 }
 
-//void SwigAccount::onIncomingSubscribe(OnIncomingSubscribeParam &prm) {
-//    
-//}
-
-void SwigAccount::onInstantMessage(OnInstantMessageParam &prm) {
+void sw::Account::onIncomingSubscribe(pj::OnIncomingSubscribeParam &prm) {
     
 }
 
-void SwigAccount::onInstantMessageStatus(OnInstantMessageStatusParam &prm) {
+void sw::Account::onInstantMessage(pj::OnInstantMessageParam &prm) {
     
 }
 
-void SwigAccount::onTypingIndication(OnTypingIndicationParam &prm) {
+void sw::Account::onInstantMessageStatus(pj::OnInstantMessageStatusParam &prm) {
     
 }
 
-void SwigAccount::onMwiInfo(OnMwiInfoParam &prm) {
+void sw::Account::onTypingIndication(pj::OnTypingIndicationParam &prm) {
+    
+}
+
+void sw::Account::onMwiInfo(pj::OnMwiInfoParam &prm) {
     
 }

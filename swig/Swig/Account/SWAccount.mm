@@ -15,8 +15,7 @@
 @interface SWAccount ()
 
 @property SWAccountConfiguration *accountConfiguration;
-@property SwigAccount *account;
-@property Call *call;
+@property sw::Account *account;
 
 @end
 
@@ -45,7 +44,7 @@
     return self;
 }
 
--(instancetype)initWithSwigAccoung:(SwigAccount *)swigAccount {
+-(instancetype)initWithSwigAccoung:(sw::Account *)swigAccount {
     
     self = [super init];
     
@@ -63,11 +62,11 @@
     NSError *error;
     
     if (!self.account) {
-        self.account = new SwigAccount;
+        self.account = new sw::Account;
     }
     
     try {
-        AccountConfig config = self.accountConfiguration.config;
+        pj::AccountConfig config = self.accountConfiguration.config;
         
         self.account->create(config);
     } catch(pj::Error& err) {
@@ -94,16 +93,16 @@
 
 -(void)makeCall:(NSString *)number {
     
-    self.call = new Call(*(self.account), PJSUA_INVALID_ID);
-    
-    CallOpParam prm = NULL;
-    const std::string uri = *[number CPPString];
-    
-    try {
-        self.call->makeCall(uri, prm);
-    } catch(pj::Error& err)  {
-        NSError *error = [NSError errorWithError:&err];
-    }
+//    self.call = new Call(*(self.account), PJSUA_INVALID_ID);
+//    
+//    CallOpParam prm = NULL;
+//    const std::string uri = *[number CPPString];
+//    
+//    try {
+//        self.call->makeCall(uri, prm);
+//    } catch(pj::Error& err)  {
+//        NSError *error = [NSError errorWithError:&err];
+//    }
 }
 
 @end

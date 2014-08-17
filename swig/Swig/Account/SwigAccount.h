@@ -9,21 +9,22 @@
 #include <iostream>
 #include <pjsua2/account.hpp>
 
-using namespace pj;
-
-class SwigAccount : public Account {
+namespace sw {
     
-public:
-    
-    SwigAccount() {}
-    ~SwigAccount() {}
-
-    virtual void onIncomingCall(OnIncomingCallParam &prm);
-    virtual void onRegStarted(OnRegStartedParam &prm);
-    virtual void onRegState(OnRegStateParam &prm);
-//    virtual void onIncomingSubscribe(OnIncomingSubscribeParam &prm);
-    virtual void onInstantMessage(OnInstantMessageParam &prm);
-    virtual void onInstantMessageStatus(OnInstantMessageStatusParam &prm);
-    virtual void onTypingIndication(OnTypingIndicationParam &prm);
-    virtual void onMwiInfo(OnMwiInfoParam &prm);
-};
+    class Account : public pj::Account {
+        
+    public:
+        
+        Account() {}
+        ~Account() {}
+        
+        virtual void onIncomingCall(pj::OnIncomingCallParam &prm);
+        virtual void onRegStarted(pj::OnRegStartedParam &prm);
+        virtual void onRegState(pj::OnRegStateParam &prm);
+        virtual void onIncomingSubscribe(pj::OnIncomingSubscribeParam &prm);
+        virtual void onInstantMessage(pj::OnInstantMessageParam &prm);
+        virtual void onInstantMessageStatus(pj::OnInstantMessageStatusParam &prm);
+        virtual void onTypingIndication(pj::OnTypingIndicationParam &prm);
+        virtual void onMwiInfo(pj::OnMwiInfoParam &prm);
+    };
+}
