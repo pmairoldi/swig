@@ -13,6 +13,7 @@
 
 +(SWUserAgent*)sharedInstance;
 
+-(void)beginWithTransportConfigurations:(NSArray *)transportConfigurations;
 -(void)addAccount:(SWAccount *)account;
 -(SWAccount *)accountFromId:(NSInteger)accountId;
 

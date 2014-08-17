@@ -11,8 +11,6 @@
 
 @interface AppDelegate ()
 
-@property SWUserAgent *userAgent;
-
 @end
 
 @implementation AppDelegate
@@ -21,7 +19,35 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
-    self.userAgent = [SWUserAgent sharedInstance];
+    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
+    
+    [userAgent beginWithTransportConfigurations:nil];
+    
+    SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:mobila@getonsip.com"];
+    
+    NSMutableArray *auth = [accountConfiguration.sipConfig.authCreds mutableCopy];
+    
+    SWAuthCredInfo *authInfo = [SWAuthCredInfo new];
+    authInfo.scheme = @"digest";
+    authInfo.realm = @"*";
+    authInfo.username = @"getonsip_mobila";
+    authInfo.data = @"NQFxmwxw4wQMEfp3";
+    
+    [auth addObject:authInfo];
+    
+    accountConfiguration.sipConfig.authCreds = auth;
+    
+    NSMutableArray *proxy = [accountConfiguration.sipConfig.proxies mutableCopy];
+    
+    [proxy addObject:@"sip:sip.onsip.com"];
+    
+    accountConfiguration.sipConfig.proxies = proxy;
+    
+    accountConfiguration.regConfig.registrarUri = @"sip:getonsip.com";
+    
+    SWAccount *account = [[SWAccount alloc] initWithAccountConfiguration:accountConfiguration];
+    
+    [userAgent addAccount:account];
     
     return YES;
 }

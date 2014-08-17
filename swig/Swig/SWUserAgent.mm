@@ -77,41 +77,25 @@ static bool isFirstAccess = YES;
         return nil;
     }
     
-    //TODO remove for release
-    SWTransportConfiguration *config1 = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_UDP];
-    
     _endpoint = [[SWEndpoint alloc] init];
-    _endpoint.transportConfigurations = @[config1];
+
+    return self;
+}
+
+-(void)beginWithTransportConfigurations:(NSArray *)transportConfigurations {
+    
+    if (transportConfigurations.count == 0) {
+    
+        SWTransportConfiguration *config = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_UDP];
+    
+        _endpoint.transportConfigurations = @[config];
+    }
+    
+    else {
+        _endpoint.transportConfigurations = transportConfigurations;
+    }
     
     [_endpoint begin];
-    
-    SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:mobila@getonsip.com"];
-    
-    NSMutableArray *auth = [accountConfiguration.sipConfig.authCreds mutableCopy];
-    
-    SWAuthCredInfo *authInfo = [SWAuthCredInfo new];
-    authInfo.scheme = @"digest";
-    authInfo.realm = @"*";
-    authInfo.username = @"getonsip_mobila";
-    authInfo.data = @"NQFxmwxw4wQMEfp3";
-    
-    [auth addObject:authInfo];
-    
-    accountConfiguration.sipConfig.authCreds = auth;
-    
-    NSMutableArray *proxy = [accountConfiguration.sipConfig.proxies mutableCopy];
-    
-    [proxy addObject:@"sip:sip.onsip.com"];
-    
-    accountConfiguration.sipConfig.proxies = proxy;
-    
-    accountConfiguration.regConfig.registrarUri = @"sip:getonsip.com";
-    
-    SWAccount *account = [[SWAccount alloc] initWithAccountConfiguration:accountConfiguration];
-    
-    [self addAccount:account];
-    
-    return self;
 }
 
 -(void)addAccount:(SWAccount *)account {
