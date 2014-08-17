@@ -39,8 +39,8 @@
     
     self.port = port;
     self.portRange = config.portRange;
-    self.publicAddress = [NSString stringFromCPPString:&config.publicAddress];
-    self.boundAddress = [NSString stringFromCPPString:&config.boundAddress];
+    self.publicAddress = [NSString stringWithCPPString:&config.publicAddress];
+    self.boundAddress = [NSString stringWithCPPString:&config.boundAddress];
     self.tlsConfig = [SWTlsConfig new];
     self.qosType = config.qosType;
     self.qosParams = config.qosParams;

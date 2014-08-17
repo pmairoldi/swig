@@ -14,6 +14,9 @@
 
 @interface SWAccountMWIConfiguration : NSObject
 
+@property (nonatomic) BOOL enabled;
+@property (nonatomic) NSUInteger expirationSec;
+
 #ifdef __cplusplus
 -(pj::AccountMwiConfig)config;
 #endif

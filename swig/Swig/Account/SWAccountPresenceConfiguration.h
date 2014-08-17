@@ -14,6 +14,12 @@
 
 @interface SWAccountPresenceConfiguration : NSObject
 
+@property (nonatomic, strong) NSArray *headers;
+@property (nonatomic) BOOL publishEnabled;
+@property (nonatomic) BOOL publishQueue;
+@property (nonatomic) NSUInteger publishShutdownWaitMsec;
+@property (nonatomic, strong) NSString *pidfTupleId;
+
 #ifdef __cplusplus
 -(pj::AccountPresConfig)config;
 #endif

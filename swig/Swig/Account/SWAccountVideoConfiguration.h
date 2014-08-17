@@ -14,6 +14,14 @@
 
 @interface SWAccountVideoConfiguration : NSObject
 
+@property (nonatomic) BOOL autoShowIncoming;
+@property (nonatomic) BOOL autoTransmitOutgoing;
+@property (nonatomic) NSUInteger windowFlags;
+@property (nonatomic) pjmedia_vid_dev_index defaultCaptureDevice;
+@property (nonatomic) pjmedia_vid_dev_index defaultRenderDevice;
+@property (nonatomic) pjmedia_vid_stream_rc_method rateControlMethod;
+@property (nonatomic) NSUInteger rateControlBandwidth;
+
 #ifdef __cplusplus
 -(pj::AccountVideoConfig)config;
 #endif

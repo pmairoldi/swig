@@ -15,7 +15,7 @@
 @interface NSString (String)
 
 #ifdef __cplusplus
-+(NSString *)stringFromCPPString:(std::string *)string;
++(NSString *)stringWithCPPString:(std::string *)string;
 -(std::string *)CPPString;
 #endif
 

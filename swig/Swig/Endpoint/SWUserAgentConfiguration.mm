@@ -30,7 +30,7 @@
     self.threadCnt = config.threadCnt;
     self.mainThreadOnly = config.mainThreadOnly;
     self.nameserver = [NSArray arrayWithStringVector:&config.nameserver];
-    self.userAgent = [NSString stringFromCPPString:&config.userAgent];
+    self.userAgent = [NSString stringWithCPPString:&config.userAgent];
     self.stunServer = [NSArray arrayWithStringVector:&config.stunServer];
     self.stunIgnoreFailure = config.stunIgnoreFailure;
     self.natTypeInSdp = config.natTypeInSdp;

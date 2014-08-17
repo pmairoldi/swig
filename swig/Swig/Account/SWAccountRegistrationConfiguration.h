@@ -19,8 +19,8 @@
 @property (nonatomic, strong) NSArray *headers;
 @property (nonatomic) NSUInteger timeoutSec;
 @property (nonatomic) NSUInteger retryIntervalSec;
-@property (nonatomic) NSUInteger firstRetyIntervalSec;
-@property (nonatomic) NSUInteger delayBeforRefreshSec;
+@property (nonatomic) NSUInteger firstRetryIntervalSec;
+@property (nonatomic) NSUInteger delayBeforeRefreshSec;
 @property (nonatomic) BOOL dropCallsOnFail;
 @property (nonatomic) NSUInteger unregWaitSec;
 @property (nonatomic) NSUInteger proxyUse;

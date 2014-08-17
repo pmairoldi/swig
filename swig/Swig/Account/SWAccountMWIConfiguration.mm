@@ -18,12 +18,18 @@
         return nil;
     }
     
+    pj::AccountMwiConfig config;
+    _enabled = config.enabled;
+    _expirationSec = config.expirationSec;
+    
     return self;
 }
 
 -(pj::AccountMwiConfig)config {
     
     pj::AccountMwiConfig config;
+    config.enabled = self.enabled;
+    config.expirationSec = self.expirationSec;
     
     return config;
 }

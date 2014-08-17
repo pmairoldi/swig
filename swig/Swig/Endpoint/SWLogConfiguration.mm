@@ -29,7 +29,7 @@
     self.level = config.level;
     self.consoleLevel = config.consoleLevel;
     self.decor = config.decor;
-    self.filename = [NSString stringFromCPPString:&config.filename];
+    self.filename = [NSString stringWithCPPString:&config.filename];
     self.fileFlags = config.fileFlags;
     
     return self;

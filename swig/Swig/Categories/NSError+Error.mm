@@ -11,11 +11,11 @@
 
 @implementation NSError (Error)
 
-+(NSError *)errorFromError:(pj::Error *)error {
++(NSError *)errorWithError:(pj::Error *)error {
     
-    NSString *domain = [NSString stringFromCPPString:&error->title];
+    NSString *domain = [NSString stringWithCPPString:&error->title];
     NSUInteger code = error->status;
-    NSDictionary *userInfo = @{@"reason": [NSString stringFromCPPString:&error->reason]};
+    NSDictionary *userInfo = @{@"reason": [NSString stringWithCPPString:&error->reason]};
     
     return [NSError errorWithDomain:domain code:code userInfo:userInfo];
 }

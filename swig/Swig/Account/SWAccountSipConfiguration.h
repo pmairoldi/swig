@@ -14,6 +14,15 @@
 
 @interface SWAccountSipConfiguration : NSObject
 
+@property (nonatomic, strong) NSArray *authCreds;
+@property (nonatomic, strong) NSArray *proxies;
+@property (nonatomic, strong) NSString *contactForced;
+@property (nonatomic, strong) NSString *contactParams;
+@property (nonatomic, strong) NSString *contactUriParams;
+@property (nonatomic) BOOL authInitialEmpty;
+@property (nonatomic, strong) NSString *authInitialAlgorithm;
+@property (nonatomic) NSInteger transportId;
+
 #ifdef __cplusplus
 -(pj::AccountSipConfig)config;
 #endif

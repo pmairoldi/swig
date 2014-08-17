@@ -14,6 +14,12 @@
 
 @interface SWAccountCallConfiguration : NSObject
 
+@property (nonatomic) pjsua_call_hold_type holdType;
+@property (nonatomic) pjsua_100rel_use prackUse;
+@property (nonatomic) pjsua_sip_timer_use timerUse;
+@property (nonatomic) NSUInteger timerMinSESec;
+@property (nonatomic) NSUInteger timerSessExpriresSec;
+
 #ifdef __cplusplus
 -(pj::AccountCallConfig)config;
 #endif

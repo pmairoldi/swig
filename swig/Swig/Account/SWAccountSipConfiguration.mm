@@ -7,6 +7,9 @@
 //
 
 #import "SWAccountSipConfiguration.h"
+#import "NSArray+StringVector.h"
+#import "NSString+String.h"
+#import "NSArray+AuthCredInfoVector.h"
 
 @implementation SWAccountSipConfiguration
 
@@ -18,12 +21,30 @@
         return nil;
     }
     
+    pj::AccountSipConfig config;
+    _authCreds = [NSArray arrayWithAuthCredInfoVector:&config.authCreds];
+    _proxies = [NSArray arrayWithStringVector:&config.proxies];
+    _contactForced = [NSString stringWithCPPString:&config.contactForced];
+    _contactParams = [NSString stringWithCPPString:&config.contactParams];
+    _contactUriParams = [NSString stringWithCPPString:&config.contactUriParams];
+    _authInitialEmpty = config.authInitialEmpty;
+    _authInitialAlgorithm = [NSString stringWithCPPString:&config.authInitialAlgorithm];
+    _transportId = config.transportId;
+
     return self;
 }
 
 -(pj::AccountSipConfig)config {
     
     pj::AccountSipConfig config;
+    config.authCreds = *[self.authCreds authCredInfoVector];
+    config.proxies = *[self.proxies stringVector];
+    config.contactForced = *[self.contactForced CPPString];
+    config.contactParams = *[self.contactParams CPPString];
+    config.contactUriParams = *[self.contactUriParams CPPString];
+    config.authInitialEmpty = self.authInitialEmpty;
+    config.authInitialAlgorithm = *[self.authInitialAlgorithm CPPString];
+    config.transportId = self.transportId;
     
     return config;
 }

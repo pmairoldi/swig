@@ -11,7 +11,7 @@
 
 @implementation NSString (String)
 
-+(NSString *)stringFromCPPString:(std::string *)string {
++(NSString *)stringWithCPPString:(std::string *)string {
     
     return [NSString stringWithCString:string->c_str() encoding:NSUTF8StringEncoding];
 }

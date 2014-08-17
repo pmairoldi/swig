@@ -26,10 +26,10 @@
     
     pj::TlsConfig config;
     
-    self.CaListFile = [NSString stringFromCPPString:&config.CaListFile];
-    self.certFile = [NSString stringFromCPPString:&config.certFile];
-    self.privKeyFile = [NSString stringFromCPPString:&config.privKeyFile];
-    self.password = [NSString stringFromCPPString:&config.password];
+    self.CaListFile = [NSString stringWithCPPString:&config.CaListFile];
+    self.certFile = [NSString stringWithCPPString:&config.certFile];
+    self.privKeyFile = [NSString stringWithCPPString:&config.privKeyFile];
+    self.password = [NSString stringWithCPPString:&config.password];
     self.method = config.method;
     self.ciphers = [NSArray arrayWithIntVector:&config.ciphers];
     self.verifyServer = config.verifyServer;

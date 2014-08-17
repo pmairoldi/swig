@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		064C304E19A10CE00055B20A /* SWTransportConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 064C304D19A10CE00055B20A /* SWTransportConfiguration.mm */; };
+		064C305119A113D00055B20A /* SWSipHeader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 064C305019A113D00055B20A /* SWSipHeader.mm */; };
+		064C305419A1153B0055B20A /* NSArray+SipHeaderVector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 064C305319A1153B0055B20A /* NSArray+SipHeaderVector.mm */; };
+		064C305719A11ACE0055B20A /* NSArray+AuthCredInfoVector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 064C305619A11ACE0055B20A /* NSArray+AuthCredInfoVector.mm */; };
+		064C305A19A11B450055B20A /* SWAuthCredInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 064C305919A11B450055B20A /* SWAuthCredInfo.mm */; };
 		2B3D6BA2199E489D005AE349 /* SWUserAgent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BA1199E489D005AE349 /* SWUserAgent.mm */; };
 		2B3D6BFA199EA537005AE349 /* SWAccount.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BCD199EA537005AE349 /* SWAccount.mm */; };
 		2B3D6BFB199EA537005AE349 /* SWAccountCallConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BCF199EA537005AE349 /* SWAccountCallConfiguration.mm */; };
@@ -28,7 +33,6 @@
 		2B3D6C0B199EA537005AE349 /* SWLogConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BF1199EA537005AE349 /* SWLogConfiguration.mm */; };
 		2B3D6C0C199EA537005AE349 /* SWMediaConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BF3199EA537005AE349 /* SWMediaConfiguration.mm */; };
 		2B3D6C0D199EA537005AE349 /* SWTlsConfig.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BF5199EA537005AE349 /* SWTlsConfig.mm */; };
-		2B3D6C0E199EA537005AE349 /* SWTransportConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BF7199EA537005AE349 /* SWTransportConfiguration.mm */; };
 		2B3D6C0F199EA537005AE349 /* SWUserAgentConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BF9199EA537005AE349 /* SWUserAgentConfiguration.mm */; };
 		2BD641C7199CE50C00589024 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641C6199CE50C00589024 /* main.m */; };
 		2BD641CA199CE50C00589024 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641C9199CE50C00589024 /* AppDelegate.m */; };
@@ -70,6 +74,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		064C304C19A10CE00055B20A /* SWTransportConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTransportConfiguration.h; sourceTree = "<group>"; };
+		064C304D19A10CE00055B20A /* SWTransportConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWTransportConfiguration.mm; sourceTree = "<group>"; };
+		064C304F19A113D00055B20A /* SWSipHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWSipHeader.h; sourceTree = "<group>"; };
+		064C305019A113D00055B20A /* SWSipHeader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWSipHeader.mm; sourceTree = "<group>"; };
+		064C305219A1153B0055B20A /* NSArray+SipHeaderVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+SipHeaderVector.h"; sourceTree = "<group>"; };
+		064C305319A1153B0055B20A /* NSArray+SipHeaderVector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSArray+SipHeaderVector.mm"; sourceTree = "<group>"; };
+		064C305519A11ACE0055B20A /* NSArray+AuthCredInfoVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+AuthCredInfoVector.h"; sourceTree = "<group>"; };
+		064C305619A11ACE0055B20A /* NSArray+AuthCredInfoVector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSArray+AuthCredInfoVector.mm"; sourceTree = "<group>"; };
+		064C305819A11B450055B20A /* SWAuthCredInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAuthCredInfo.h; sourceTree = "<group>"; };
+		064C305919A11B450055B20A /* SWAuthCredInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWAuthCredInfo.mm; sourceTree = "<group>"; };
 		2B3D6BA0199E489D005AE349 /* SWUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUserAgent.h; sourceTree = "<group>"; };
 		2B3D6BA1199E489D005AE349 /* SWUserAgent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWUserAgent.mm; sourceTree = "<group>"; };
 		2B3D6BCC199EA537005AE349 /* SWAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAccount.h; sourceTree = "<group>"; };
@@ -112,8 +126,6 @@
 		2B3D6BF3199EA537005AE349 /* SWMediaConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWMediaConfiguration.mm; sourceTree = "<group>"; };
 		2B3D6BF4199EA537005AE349 /* SWTlsConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTlsConfig.h; sourceTree = "<group>"; };
 		2B3D6BF5199EA537005AE349 /* SWTlsConfig.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWTlsConfig.mm; sourceTree = "<group>"; };
-		2B3D6BF6199EA537005AE349 /* SWTransportConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTransportConfiguration.h; sourceTree = "<group>"; };
-		2B3D6BF7199EA537005AE349 /* SWTransportConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWTransportConfiguration.mm; sourceTree = "<group>"; };
 		2B3D6BF8199EA537005AE349 /* SWUserAgentConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUserAgentConfiguration.h; sourceTree = "<group>"; };
 		2B3D6BF9199EA537005AE349 /* SWUserAgentConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWUserAgentConfiguration.mm; sourceTree = "<group>"; };
 		2BD641C1199CE50C00589024 /* swig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swig.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,6 +204,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		064C304B19A10CE00055B20A /* SipTypes */ = {
+			isa = PBXGroup;
+			children = (
+				064C304C19A10CE00055B20A /* SWTransportConfiguration.h */,
+				064C304D19A10CE00055B20A /* SWTransportConfiguration.mm */,
+				064C304F19A113D00055B20A /* SWSipHeader.h */,
+				064C305019A113D00055B20A /* SWSipHeader.mm */,
+				064C305819A11B450055B20A /* SWAuthCredInfo.h */,
+				064C305919A11B450055B20A /* SWAuthCredInfo.mm */,
+			);
+			path = SipTypes;
+			sourceTree = "<group>";
+		};
 		2B3D6BCB199EA537005AE349 /* Account */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +257,10 @@
 				2B3D6BE8199EA537005AE349 /* NSError+Error.mm */,
 				2B3D6BE9199EA537005AE349 /* NSString+String.h */,
 				2B3D6BEA199EA537005AE349 /* NSString+String.mm */,
+				064C305219A1153B0055B20A /* NSArray+SipHeaderVector.h */,
+				064C305319A1153B0055B20A /* NSArray+SipHeaderVector.mm */,
+				064C305519A11ACE0055B20A /* NSArray+AuthCredInfoVector.h */,
+				064C305619A11ACE0055B20A /* NSArray+AuthCredInfoVector.mm */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -249,8 +278,6 @@
 				2B3D6BF3199EA537005AE349 /* SWMediaConfiguration.mm */,
 				2B3D6BF4199EA537005AE349 /* SWTlsConfig.h */,
 				2B3D6BF5199EA537005AE349 /* SWTlsConfig.mm */,
-				2B3D6BF6199EA537005AE349 /* SWTransportConfiguration.h */,
-				2B3D6BF7199EA537005AE349 /* SWTransportConfiguration.mm */,
 				2B3D6BF8199EA537005AE349 /* SWUserAgentConfiguration.h */,
 				2B3D6BF9199EA537005AE349 /* SWUserAgentConfiguration.mm */,
 			);
@@ -352,6 +379,7 @@
 				2BD64235199CF1E700589024 /* Swig.h */,
 				2B3D6BA0199E489D005AE349 /* SWUserAgent.h */,
 				2B3D6BA1199E489D005AE349 /* SWUserAgent.mm */,
+				064C304B19A10CE00055B20A /* SipTypes */,
 				2B3D6BEB199EA537005AE349 /* Endpoint */,
 				2B3D6BCB199EA537005AE349 /* Account */,
 				2B3D6BE2199EA537005AE349 /* Categories */,
@@ -466,16 +494,21 @@
 				2BD641CA199CE50C00589024 /* AppDelegate.m in Sources */,
 				2B3D6C0B199EA537005AE349 /* SWLogConfiguration.mm in Sources */,
 				2B3D6C0F199EA537005AE349 /* SWUserAgentConfiguration.mm in Sources */,
+				064C304E19A10CE00055B20A /* SWTransportConfiguration.mm in Sources */,
 				2B3D6C07199EA537005AE349 /* NSError+Error.mm in Sources */,
 				2B3D6BFC199EA537005AE349 /* SWAccountConfiguration.mm in Sources */,
 				2B3D6C05199EA537005AE349 /* NSArray+IntVector.mm in Sources */,
+				064C305719A11ACE0055B20A /* NSArray+AuthCredInfoVector.mm in Sources */,
 				2B3D6C06199EA537005AE349 /* NSArray+StringVector.mm in Sources */,
 				2BD641C7199CE50C00589024 /* main.m in Sources */,
 				2B3D6C08199EA537005AE349 /* NSString+String.mm in Sources */,
+				064C305419A1153B0055B20A /* NSArray+SipHeaderVector.mm in Sources */,
 				2B3D6BA2199E489D005AE349 /* SWUserAgent.mm in Sources */,
 				2B3D6BFD199EA537005AE349 /* SWAccountMediaConfiguration.mm in Sources */,
 				2B3D6C0C199EA537005AE349 /* SWMediaConfiguration.mm in Sources */,
 				2B3D6C02199EA537005AE349 /* SWAccountSipConfiguration.mm in Sources */,
+				064C305A19A11B450055B20A /* SWAuthCredInfo.mm in Sources */,
+				064C305119A113D00055B20A /* SWSipHeader.mm in Sources */,
 				2B3D6C04199EA537005AE349 /* SwigAccount.mm in Sources */,
 				2B3D6BFB199EA537005AE349 /* SWAccountCallConfiguration.mm in Sources */,
 				2B3D6C00199EA537005AE349 /* SWAccountPresenceConfiguration.mm in Sources */,
@@ -483,7 +516,6 @@
 				2B3D6C0A199EA537005AE349 /* SWEndpointConfiguration.mm in Sources */,
 				2B3D6C03199EA537005AE349 /* SWAccountVideoConfiguration.mm in Sources */,
 				2B3D6C01199EA537005AE349 /* SWAccountRegistrationConfiguration.mm in Sources */,
-				2B3D6C0E199EA537005AE349 /* SWTransportConfiguration.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

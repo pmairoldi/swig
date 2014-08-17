@@ -38,7 +38,7 @@
 
 -(void)dealloc {
     
-    delete _endpoint;
+    [self destroyWithSuccess:nil failure:nil];
 }
 
 -(void)begin {
@@ -69,7 +69,7 @@
     try {
         self.endpoint->libCreate();
     } catch(pj::Error& err) {
-        error = [NSError errorFromError:&err];
+        error = [NSError errorWithError:&err];
     }
     
     if (error) {
@@ -93,7 +93,7 @@
         
         self.endpoint->libInit(self.endPointConfiguration.config);
     } catch(pj::Error& err) {
-        error = [NSError errorFromError:&err];
+        error = [NSError errorWithError:&err];
     }
     
     if (error) {
@@ -120,7 +120,7 @@
         }
         
     } catch(pj::Error& err) {
-        error = [NSError errorFromError:&err];
+        error = [NSError errorWithError:&err];
     }
     
     if (error) {
@@ -143,7 +143,7 @@
     try {
         self.endpoint->libStart();
     } catch(pj::Error& err) {
-        error = [NSError errorFromError:&err];
+        error = [NSError errorWithError:&err];
     }
     
     if (error) {
@@ -167,7 +167,7 @@
         self.endpoint->libDestroy();
         delete self.endpoint;
     } catch(pj::Error& err) {
-        error = [NSError errorFromError:&err];
+        error = [NSError errorWithError:&err];
     }
     
     if (error) {

@@ -59,7 +59,7 @@
     try {
         self.account->create(self.accountConfiguration.config);
     } catch(pj::Error& err) {
-        error = [NSError errorFromError:&err];
+        error = [NSError errorWithError:&err];
     }
     
     if (error) {

@@ -19,7 +19,7 @@
         
         std::string string = vector->at(i);
         
-        [temp addObject:[NSString stringFromCPPString:&string]];
+        [temp addObject:[NSString stringWithCPPString:&string]];
     }
     
     return temp;

@@ -15,7 +15,7 @@
 @interface NSError (Error)
 
 #ifdef __cplusplus
-+(NSError *)errorFromError:(pj::Error *)error;
++(NSError *)errorWithError:(pj::Error *)error;
 #endif
 
 @end

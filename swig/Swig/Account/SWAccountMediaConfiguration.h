@@ -11,8 +11,16 @@
 #ifdef __cplusplus
 #include <pjsua2/account.hpp>
 #endif
+#import "SWTransportConfiguration.h"
 
 @interface SWAccountMediaConfiguration : NSObject
+
+@property (nonatomic, strong) SWTransportConfiguration *transportConfig;
+@property (nonatomic) BOOL lockCodecEnabled;
+@property (nonatomic) BOOL streamKaEnabled;
+@property (nonatomic) pjmedia_srtp_use srtpUse;
+@property (nonatomic) NSInteger srtpSecureSignaling;
+@property (nonatomic) pjsua_ipv6_use ipv6Use;
 
 #ifdef __cplusplus
 -(pj::AccountMediaConfig)config;
