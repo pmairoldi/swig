@@ -18,7 +18,7 @@
     return [self initWithAuthCredInfo:authCredInfo];
 }
 
--(instancetype)initWithAuthCredInfo:(pj::AuthCredInfo)authCredInfo {
+-(instancetype)initWithAuthCredInfo:(pj::AuthCredInfo)authCredInfo_ {
     
     self = [super init];
     
@@ -26,6 +26,8 @@
         return nil;
     }
     
+    pj::AuthCredInfo authCredInfo = authCredInfo_;
+
     _scheme = [NSString stringWithCPPString:&authCredInfo.scheme];
     _realm = [NSString stringWithCPPString:&authCredInfo.realm];
     _username = [NSString stringWithCPPString:&authCredInfo.username];

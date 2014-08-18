@@ -18,13 +18,15 @@
     return [self initWithSipHeader:sipHeader];
 }
 
--(instancetype)initWithSipHeader:(pj::SipHeader)sipHeader {
+-(instancetype)initWithSipHeader:(pj::SipHeader)sipHeader_ {
     
     self = [super init];
     
     if (!self) {
         return nil;
     }
+    
+    pj::SipHeader sipHeader = sipHeader_;
     
     _hName = [NSString stringWithCPPString:&sipHeader.hName];
     _hValue = [NSString stringWithCPPString:&sipHeader.hValue];
