@@ -36,12 +36,4 @@
 -(void)createWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure;
 -(void)makeCall:(NSString *)number;
 
-//-(void)onIncomingCall:(SWOnIncomingCallParam *)param;
-//-(void)onRegStarted:(SWOnRegStartedParam *)param;
-//-(void)onRegState:(SWOnRegStateParam *)param;
-//-(void)onIncomingSubscribe:(SWOnIncomingSubscribeParam *)param;
-//-(void)onInstantMessage:(SWOnInstantMessageParam *)param;
-//-(void)onInstantMessageStatus:(SWOnInstantMessageStatusParam *)param;
-//-(void)onTypingIndication:(SWOnTypingIndicationParam *)param;
-//-(void)onMwiInfo:(SWOnMwiInfoParam *)param;
 @end
