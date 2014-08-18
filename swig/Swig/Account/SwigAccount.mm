@@ -11,35 +11,64 @@
 
 void sw::Account::onIncomingCall(pj::OnIncomingCallParam &prm) {
 
-    NSLog(@"\n\n\nIncoming Call %d\n\n\n", prm.callId);
+    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
+    SWAccount *account = [userAgent accountFromId:getId()];
+    
+    [account onIncomingCall:[SWOnIncomingCallParam onParamFromParam:prm]];
 }
 
 void sw::Account::onRegStarted(pj::OnRegStartedParam &prm) {
 
-    NSLog(@"\n\n\nRegistration Started\n\n\n");
+    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
+    SWAccount *account = [userAgent accountFromId:getId()];
+    
+    [account onRegStarted:[SWOnRegStartedParam onParamFromParam:prm]];
 }
 
 void sw::Account::onRegState(pj::OnRegStateParam &prm) {
 
-    NSLog(@"\n\n\nRegistration State %d\n\n\n", prm.status);
+    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
+    SWAccount *account = [userAgent accountFromId:getId()];
+    
+    [account onRegState:[SWOnRegStateParam onParamFromParam:prm]];
 }
 
 void sw::Account::onIncomingSubscribe(pj::OnIncomingSubscribeParam &prm) {
     
+    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
+    SWAccount *account = [userAgent accountFromId:getId()];
+    
+    [account onIncomingSubscribe:[SWOnIncomingSubscribeParam onParamFromParam:prm]];
 }
 
 void sw::Account::onInstantMessage(pj::OnInstantMessageParam &prm) {
     
+    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
+    SWAccount *account = [userAgent accountFromId:getId()];
+    
+    [account onInstantMessage:[SWOnInstantMessageParam onParamFromParam:prm]];
 }
 
 void sw::Account::onInstantMessageStatus(pj::OnInstantMessageStatusParam &prm) {
     
+    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
+    SWAccount *account = [userAgent accountFromId:getId()];
+    
+    [account onInstantMessageStatus:[SWOnInstantMessageStatusParam onParamFromParam:prm]];
 }
 
 void sw::Account::onTypingIndication(pj::OnTypingIndicationParam &prm) {
     
+    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
+    SWAccount *account = [userAgent accountFromId:getId()];
+    
+    [account onTypingIndication:[SWOnTypingIndicationParam onParamFromParam:prm]];
 }
 
 void sw::Account::onMwiInfo(pj::OnMwiInfoParam &prm) {
     
+    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
+    SWAccount *account = [userAgent accountFromId:getId()];
+    
+    [account onMwiInfo:[SWOnMwiInfoParam onParamFromParam:prm]];
 }

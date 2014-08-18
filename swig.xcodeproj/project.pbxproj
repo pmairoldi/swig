@@ -127,6 +127,7 @@
 		2B23443219A24F1E0094A503 /* SWOnTypingIndicationParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWOnTypingIndicationParam.h; sourceTree = "<group>"; };
 		2B23443319A24F1E0094A503 /* SWOnTypingIndicationParam.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWOnTypingIndicationParam.mm; sourceTree = "<group>"; };
 		2B23443C19A24F6A0094A503 /* SWAccountParam.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWAccountParam.h; sourceTree = "<group>"; };
+		2B23443D19A252D80094A503 /* SWAccountCallbackProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAccountCallbackProtocol.h; sourceTree = "<group>"; };
 		2B3D6BA0199E489D005AE349 /* SWUserAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUserAgent.h; sourceTree = "<group>"; };
 		2B3D6BA1199E489D005AE349 /* SWUserAgent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWUserAgent.mm; sourceTree = "<group>"; };
 		2B3D6BCC199EA537005AE349 /* SWAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWAccount.h; sourceTree = "<group>"; };
@@ -306,6 +307,7 @@
 			children = (
 				2B3D6BE0199EA537005AE349 /* SwigAccount.h */,
 				2B3D6BE1199EA537005AE349 /* SwigAccount.mm */,
+				2B23443D19A252D80094A503 /* SWAccountCallbackProtocol.h */,
 				2B3D6BCC199EA537005AE349 /* SWAccount.h */,
 				2B3D6BCD199EA537005AE349 /* SWAccount.mm */,
 				2B3D6BCE199EA537005AE349 /* SWAccountCallConfiguration.h */,

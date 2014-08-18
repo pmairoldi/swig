@@ -78,7 +78,8 @@ static bool isFirstAccess = YES;
     }
     
     _endpoint = [[SWEndpoint alloc] init];
-
+    _accounts = [NSMutableArray new];
+    
     return self;
 }
 
