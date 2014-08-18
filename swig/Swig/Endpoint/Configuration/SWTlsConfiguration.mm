@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 PeteAppDesigns. All rights reserved.
 //
 
-#import "SWTlsConfig.h"
+#import "SWTlsConfiguration.h"
 #import "NSString+String.h"
 #import "NSArray+IntVector.h"
 
-@interface SWTlsConfig ()
+@interface SWTlsConfiguration ()
 
 @end
 
-@implementation SWTlsConfig
+@implementation SWTlsConfiguration
 
 -(instancetype)init {
     

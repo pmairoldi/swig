@@ -12,5 +12,7 @@
 #import "SWUserAgent.h"
 #import "SWEndpoint.h"
 #import "SWAccount.h"
+#import "SWCall.h"
+#import "SWAccountConfiguration.h"
 
 #endif

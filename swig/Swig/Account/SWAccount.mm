@@ -7,14 +7,15 @@
 //
 
 #import "SWAccount.h"
-#import "SwigAccount.h"
 #import "NSError+Error.h"
-#include "pjsua2/call.hpp"
 #import "NSString+String.h"
+#import "SWAccountConfiguration.h"
+#import "SWCall.h"
 
 @interface SWAccount ()
 
-@property SWAccountConfiguration *accountConfiguration;
+@property (nonatomic, strong) SWAccountConfiguration *accountConfiguration;
+@property (nonatomic, strong) NSMutableArray *calls;
 @property sw::Account *account;
 
 @end
@@ -40,20 +41,21 @@
     }
     
     _accountConfiguration = accountConfiguration;
-        
+    _calls = [NSMutableArray new];
+    
     return self;
 }
 
 -(instancetype)initWithSwigAccoung:(sw::Account *)swigAccount {
     
-    self = [super init];
+    self = [self initWithAccountConfiguration:[SWAccountConfiguration accountConfigurationFromAccountId:swigAccount->getId()]];
     
-    if (self) {
+    if (!self) {
         return nil;
     }
     
     _account = swigAccount;
-    _accountConfiguration = [SWAccountConfiguration accountConfigurationFromAccountId:swigAccount->getId()];
+   
     return self;
 }
 
@@ -91,18 +93,49 @@
     return self.account->getId();
 }
 
--(void)makeCall:(NSString *)number {
+-(sw::Account *)swigAccount {
     
-//    self.call = new Call(*(self.account), PJSUA_INVALID_ID);
-//    
-//    CallOpParam prm = NULL;
-//    const std::string uri = *[number CPPString];
-//    
-//    try {
-//        self.call->makeCall(uri, prm);
-//    } catch(pj::Error& err)  {
-//        NSError *error = [NSError errorWithError:&err];
-//    }
+    return self.account;
+}
+
+#pragma SWCallMethods
+
+-(SWCall *)callWithId:(NSInteger)callId {
+    
+    if (self.calls.count == 0) {
+        return nil;
+    }
+    
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        
+        SWCall *call = (SWCall *)evaluatedObject;
+        
+        if (call.getId == callId) {
+            
+            return YES;
+        }
+        
+        else {
+            return NO;
+        }
+    }];
+    
+    NSArray *array = [self.calls filteredArrayUsingPredicate:predicate];
+    
+    SWCall *call = [array firstObject];
+    
+    return call;
+}
+
+-(void)makeCall:(NSString *)destinationUri callOpParams:(SWCallOpParam *)callOpParams {
+
+    SWCall *call = [SWCall callFromAccount:self];
+
+    [call makeCall:destinationUri callOpParams:callOpParams success:^{
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma SWAccountCallbackProtocol

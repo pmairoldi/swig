@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SWAccount.h"
+
+@class SWAccount;
 
 @interface SWUserAgent : NSObject
 
@@ -15,6 +16,6 @@
 
 -(void)beginWithTransportConfigurations:(NSArray *)transportConfigurations;
 -(void)addAccount:(SWAccount *)account;
--(SWAccount *)accountFromId:(NSInteger)accountId;
+-(SWAccount *)accountWithId:(NSInteger)accountId;
 
 @end

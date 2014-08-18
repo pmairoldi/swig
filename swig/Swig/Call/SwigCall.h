@@ -6,9 +6,11 @@
 //  Copyright (c) 2014 PeteAppDesigns. All rights reserved.
 //
 
-#include <iostream>
-#include "pjsua2/siptypes.hpp"
-#include "pjsua2/account.hpp"
+#include "SwigAccount.h"
+
+#ifndef CALL_H
+#define CALL_H
+
 #include "pjsua2/call.hpp"
 
 namespace sw {
@@ -17,7 +19,7 @@ namespace sw {
         
     public:
         
-        Call(pj::Account &acc, int call_id = PJSUA_INVALID_ID) : pj::Call(acc, call_id) {};
+        Call(sw::Account &acc, int call_id = PJSUA_INVALID_ID) : pj::Call(acc, call_id) {};
         ~Call() {};
         
         virtual void onCallState(pj::OnCallStateParam &prm);
@@ -41,3 +43,5 @@ namespace sw {
         virtual void onCreateMediaTransport(pj::OnCreateMediaTransportParam &prm);
     };
 }
+
+#endif

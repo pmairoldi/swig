@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 PeteAppDesigns. All rights reserved.
 //
 
-#include <iostream>
-#include <pjsua2/account.hpp>
+#ifndef ACCOUNT_H
+#define ACCOUNT_H
+
+#include "pjsua2/account.hpp"
 
 namespace sw {
     
@@ -28,3 +30,4 @@ namespace sw {
         virtual void onMwiInfo(pj::OnMwiInfoParam &prm);
     };
 }
+#endif

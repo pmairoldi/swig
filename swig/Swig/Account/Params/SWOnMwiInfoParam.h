@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "SWSipRxData.h"
 #ifdef __cplusplus
 #include "pjsua2/account.hpp"
 #endif
+
+#import "pjsip-simple/evsub.h"
+
+@class SWSipRxData;
 
 @interface SWOnMwiInfoParam: NSObject
 

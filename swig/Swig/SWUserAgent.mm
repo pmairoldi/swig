@@ -108,7 +108,7 @@ static bool isFirstAccess = YES;
     }];
 }
 
--(SWAccount *)accountFromId:(NSInteger)accountId {
+-(SWAccount *)accountWithId:(NSInteger)accountId {
     
     if (self.accounts.count == 0) {
         return nil;

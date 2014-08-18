@@ -7,8 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SWAccountConfiguration.h"
 #import "SWAccountCallbackProtocol.h"
+
+#ifdef __cplusplus
+#include "SwigAccount.h"
+#endif
+
+@class SWAccountConfiguration, SWCall, SWCallOpParam;
 
 @interface SWAccount : NSObject <SWAccountCallbackProtocol>
 
@@ -34,6 +39,11 @@
 
 -(instancetype)initWithAccountConfiguration:(SWAccountConfiguration *)accountConfiguration;
 -(void)createWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure;
--(void)makeCall:(NSString *)number;
+-(SWCall *)callWithId:(NSInteger)callId;
+-(void)makeCall:(NSString *)destinationUri callOpParams:(SWCallOpParam *)callOpParams;
+
+#ifdef __cplusplus
+-(sw::Account *)swigAccount;
+#endif
 
 @end

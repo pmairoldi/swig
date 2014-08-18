@@ -7,6 +7,7 @@
 //
 
 #import "SWOnMwiInfoParam.h"
+#import "SWSipRxData.h"
 
 @implementation SWOnMwiInfoParam
 

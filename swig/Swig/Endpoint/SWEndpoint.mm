@@ -9,9 +9,7 @@
 #import "SWEndpoint.h"
 #import "NSError+Error.h"
 
-#ifdef __cplusplus
 #include "pjsua2/endpoint.hpp"
-#endif
 
 @interface SWEndpoint ()
 

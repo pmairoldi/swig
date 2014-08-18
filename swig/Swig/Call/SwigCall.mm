@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 PeteAppDesigns. All rights reserved.
 //
 
-#import "SwigCall.h"
+#include "SwigCall.h"
 
 void sw::Call::onCallState(pj::OnCallStateParam &prm) {
     

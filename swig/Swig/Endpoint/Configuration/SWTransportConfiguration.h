@@ -12,7 +12,7 @@
 #ifdef __cplusplus
 #include "pjsua2/endpoint.hpp"
 #endif
-#import "SWTlsConfig.h"
+#import "SWTlsConfiguration.h"
 
 @interface SWTransportConfiguration : NSObject
 
@@ -20,7 +20,7 @@
 @property (nonatomic) NSUInteger portRange;
 @property (nonatomic, strong) NSString *publicAddress;
 @property (nonatomic, strong) NSString *boundAddress;
-@property (nonatomic, strong) SWTlsConfig *tlsConfig;
+@property (nonatomic, strong) SWTlsConfiguration *tlsConfig;
 @property (nonatomic) pj_qos_type qosType;
 @property (nonatomic) pj_qos_type qosParams;
 @property (nonatomic) pjsip_transport_type_e transportType;

@@ -14,7 +14,7 @@
 #include "pjsua2/siptypes.hpp"
 #endif
 
-@interface SWTlsConfig : NSObject
+@interface SWTlsConfiguration : NSObject
 
 @property (nonatomic, strong) NSString *CaListFile;
 @property (nonatomic, strong) NSString *certFile;

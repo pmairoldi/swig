@@ -49,6 +49,8 @@
     
     [userAgent addAccount:account];
     
+    [account makeCall:@"sip:trac@getonsip.com" callOpParams:nil];
+ 
     return YES;
 }
 
