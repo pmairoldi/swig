@@ -142,6 +142,14 @@
 
 -(void)onIncomingCall:(SWOnIncomingCallParam *)param {
     
+    SWCall *call = [SWCall callWithId:param.callId account:self];
+    
+    [call answer:nil success:^{
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
     //TODO: add implementation
     NSLog(@"\n\n\n%@\n\n\n", @"onIncomingCall");
     

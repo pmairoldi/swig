@@ -26,6 +26,8 @@
 //Token getUserData() const;
 //pj_stun_nat_type getRemNatType() throw(Error);
 -(void)makeCall:(NSString *)destinationUri callOpParams:(SWCallOpParam *)param success:(void (^)())success failure:(void (^)(NSError *error))failure;
+-(void)answer:(SWCallOpParam *)param success:(void (^)())success failure:(void (^)(NSError *error))failure;
+
 //void answer(const CallOpParam &prm) throw(Error);
 //void hangup(const CallOpParam &prm) throw(Error);
 //void setHold(const CallOpParam &prm) throw(Error);

@@ -52,7 +52,7 @@
 		2B3D6C08199EA537005AE349 /* NSString+String.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BEA199EA537005AE349 /* NSString+String.mm */; };
 		2B3D6C09199EA537005AE349 /* SWEndpoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BED199EA537005AE349 /* SWEndpoint.mm */; };
 		2BD641C7199CE50C00589024 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641C6199CE50C00589024 /* main.m */; };
-		2BD641CA199CE50C00589024 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641C9199CE50C00589024 /* AppDelegate.m */; };
+		2BD641CA199CE50C00589024 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641C9199CE50C00589024 /* AppDelegate.mm */; };
 		2BD641CD199CE50C00589024 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641CC199CE50C00589024 /* ViewController.m */; };
 		2BD641D0199CE50C00589024 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BD641CE199CE50C00589024 /* Main.storyboard */; };
 		2BD641D2199CE50C00589024 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BD641D1199CE50C00589024 /* Images.xcassets */; };
@@ -186,7 +186,7 @@
 		2BD641C5199CE50C00589024 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BD641C6199CE50C00589024 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2BD641C8199CE50C00589024 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		2BD641C9199CE50C00589024 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2BD641C9199CE50C00589024 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		2BD641CB199CE50C00589024 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		2BD641CC199CE50C00589024 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		2BD641CF199CE50C00589024 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -437,7 +437,7 @@
 			isa = PBXGroup;
 			children = (
 				2BD641C8199CE50C00589024 /* AppDelegate.h */,
-				2BD641C9199CE50C00589024 /* AppDelegate.m */,
+				2BD641C9199CE50C00589024 /* AppDelegate.mm */,
 				2BD641CB199CE50C00589024 /* ViewController.h */,
 				2BD641CC199CE50C00589024 /* ViewController.m */,
 				2BD641CE199CE50C00589024 /* Main.storyboard */,
@@ -623,7 +623,7 @@
 				2BD641CD199CE50C00589024 /* ViewController.m in Sources */,
 				2B23447D19A27B7D0094A503 /* SWCallOpParam.mm in Sources */,
 				2B23445519A25DC60094A503 /* SWAccountNATConfiguration.mm in Sources */,
-				2BD641CA199CE50C00589024 /* AppDelegate.m in Sources */,
+				2BD641CA199CE50C00589024 /* AppDelegate.mm in Sources */,
 				2B23440619A248D40094A503 /* NSArray+SipMultipartPartVector.mm in Sources */,
 				2B23440319A246E90094A503 /* SWSipMediaType.mm in Sources */,
 				2B23440919A248EF0094A503 /* SWSipMultipartPart.mm in Sources */,

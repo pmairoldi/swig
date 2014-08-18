@@ -36,7 +36,7 @@
 
 -(pj::CallOpParam)callOpParam {
     
-    pj::CallOpParam callOpParam;
+    pj::CallOpParam callOpParam(true);
     callOpParam.opt = self.opt.callSetting;
     callOpParam.statusCode = self.statusCode;
     callOpParam.reason = *[self.reason CPPString];

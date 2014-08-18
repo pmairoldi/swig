@@ -14,11 +14,11 @@
 @end
 
 @implementation AppDelegate
-            
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
+    
     SWUserAgent *userAgent = [SWUserAgent sharedInstance];
     
     [userAgent beginWithTransportConfigurations:nil];
@@ -49,8 +49,8 @@
     
     [userAgent addAccount:account];
     
-    [account makeCall:@"sip:trac@getonsip.com" callOpParams:nil];
- 
+//    [account makeCall:@"sip:trac@getonsip.com" callOpParams:nil];
+    
     return YES;
 }
 

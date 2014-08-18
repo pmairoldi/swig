@@ -34,7 +34,7 @@
 
 -(pj::CallSetting)callSetting {
 
-    pj::CallSetting callSetting;
+    pj::CallSetting callSetting(true);
     callSetting.flag = self.flag;
     callSetting.reqKeyframeMethod = self.reqKeyframeMethod;
     callSetting.audioCount = self.audioCount;
