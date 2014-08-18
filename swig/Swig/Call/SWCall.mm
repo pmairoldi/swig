@@ -94,31 +94,6 @@
     
     try {
         self.call->answer(param.callOpParam);
-        
-        //TODO need to implement media 
-        pj::AudioMediaPlayer player;
-        pj::AudioMedia& play_med = pj::Endpoint::instance().audDevManager().getPlaybackDevMedia();
-        pj::AudioMedia& cap_med = pj::Endpoint::instance().audDevManager().getCaptureDevMedia();
-        
-        pj::CallInfo ci = self.call->getInfo();
-        pj::AudioMedia *aud_med = NULL;
-        
-        // Find out which media index is the audio
-        for (unsigned i=0; i<ci.media.size(); ++i) {
-            if (ci.media[i].type == PJMEDIA_TYPE_AUDIO) {
-                aud_med = (pj::AudioMedia *)self.call->getMedia(i);
-                break;
-            }
-        }
-        
-        if (aud_med) {
-            // This will connect the sound device/mic to the call audio media
-            cap_med.startTransmit(*aud_med);
-            
-            // And this will connect the call audio media to the sound device/speaker
-            aud_med->startTransmit(play_med);
-        }
-        
     } catch(pj::Error& err) {
         error = [NSError errorWithError:&err];
     }

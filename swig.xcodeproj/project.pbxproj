@@ -51,6 +51,7 @@
 		2B3D6C07199EA537005AE349 /* NSError+Error.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BE8199EA537005AE349 /* NSError+Error.mm */; };
 		2B3D6C08199EA537005AE349 /* NSString+String.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BEA199EA537005AE349 /* NSString+String.mm */; };
 		2B3D6C09199EA537005AE349 /* SWEndpoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B3D6BED199EA537005AE349 /* SWEndpoint.mm */; };
+		2B98245619A299A900BB1188 /* SWMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B98245519A299A900BB1188 /* SWMedia.m */; };
 		2BD641C7199CE50C00589024 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641C6199CE50C00589024 /* main.m */; };
 		2BD641CA199CE50C00589024 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641C9199CE50C00589024 /* AppDelegate.mm */; };
 		2BD641CD199CE50C00589024 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641CC199CE50C00589024 /* ViewController.m */; };
@@ -182,6 +183,8 @@
 		2B3D6BEA199EA537005AE349 /* NSString+String.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSString+String.mm"; sourceTree = "<group>"; };
 		2B3D6BEC199EA537005AE349 /* SWEndpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWEndpoint.h; sourceTree = "<group>"; };
 		2B3D6BED199EA537005AE349 /* SWEndpoint.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SWEndpoint.mm; sourceTree = "<group>"; };
+		2B98245419A299A900BB1188 /* SWMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWMedia.h; sourceTree = "<group>"; };
+		2B98245519A299A900BB1188 /* SWMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWMedia.m; sourceTree = "<group>"; };
 		2BD641C1199CE50C00589024 /* swig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swig.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BD641C5199CE50C00589024 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BD641C6199CE50C00589024 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -414,6 +417,15 @@
 			path = Endpoint;
 			sourceTree = "<group>";
 		};
+		2B98245319A2999B00BB1188 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				2B98245419A299A900BB1188 /* SWMedia.h */,
+				2B98245519A299A900BB1188 /* SWMedia.m */,
+			);
+			path = Media;
+			sourceTree = "<group>";
+		};
 		2BD641B8199CE50C00589024 = {
 			isa = PBXGroup;
 			children = (
@@ -512,6 +524,7 @@
 				064C304B19A10CE00055B20A /* SipTypes */,
 				2B3D6BEB199EA537005AE349 /* Endpoint */,
 				2B3D6BCB199EA537005AE349 /* Account */,
+				2B98245319A2999B00BB1188 /* Media */,
 				064C305B19A156170055B20A /* Call */,
 				2B3D6BE2199EA537005AE349 /* Categories */,
 			);
@@ -647,6 +660,7 @@
 				2B23445219A25DC60094A503 /* SWAccountConfiguration.mm in Sources */,
 				064C305E19A156210055B20A /* SwigCall.mm in Sources */,
 				2B23443919A24F1E0094A503 /* SWOnRegStartedParam.mm in Sources */,
+				2B98245619A299A900BB1188 /* SWMedia.m in Sources */,
 				064C305419A1153B0055B20A /* NSArray+SipHeaderVector.mm in Sources */,
 				2B3D6BA2199E489D005AE349 /* SWUserAgent.mm in Sources */,
 				064C305A19A11B450055B20A /* SWAuthCredInfo.mm in Sources */,
