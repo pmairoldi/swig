@@ -31,64 +31,80 @@ static pj_thread_t     *a_thread;
     SWTransportConfiguration *udp = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_UDP];
     
     [userAgent beginWithTransportConfigurations:@[tcp, udp]];
+
+    [self didCall];
+    [self sipCall];
     
-    BOOL did = YES;
-    
-    if (did) {
-        
-        SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:161672@montreal3.voip.ms"];
-        
-        NSMutableArray *auth = [accountConfiguration.sipConfig.authCreds mutableCopy];
-        
-        SWAuthCredInfo *authInfo = [SWAuthCredInfo new];
-        authInfo.scheme = @"digest";
-        authInfo.realm = @"*";
-        authInfo.username = @"161672";
-        authInfo.data = @"qwer1234";
-        
-        [auth addObject:authInfo];
-        
-        accountConfiguration.sipConfig.authCreds = auth;
-        
-        accountConfiguration.regConfig.registrarUri = @"sip:montreal3.voip.ms;transport=tcp";
-        
-        SWAccount *account = [[SWAccount alloc] initWithAccountConfiguration:accountConfiguration];
-        
-        [userAgent addAccount:account];
-    }
-    
-    else {
-        
-        SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:mobila@getonsip.com"];
-        
-        NSMutableArray *auth = [accountConfiguration.sipConfig.authCreds mutableCopy];
-        
-        SWAuthCredInfo *authInfo = [SWAuthCredInfo new];
-        authInfo.scheme = @"digest";
-        authInfo.realm = @"*";
-        authInfo.username = @"getonsip_mobila";
-        authInfo.data = @"NQFxmwxw4wQMEfp3";
-        
-        [auth addObject:authInfo];
-        
-        accountConfiguration.sipConfig.authCreds = auth;
-        
-        NSMutableArray *proxy = [accountConfiguration.sipConfig.proxies mutableCopy];
-        
-        [proxy addObject:@"sip:sip.onsip.com"];
-        
-        accountConfiguration.sipConfig.proxies = proxy;
-        
-        accountConfiguration.regConfig.registrarUri = @"sip:getonsip.com";
-        
-        SWAccount *account = [[SWAccount alloc] initWithAccountConfiguration:accountConfiguration];
-        
-        [userAgent addAccount:account];
-        
-    }
+//    }
     //    [account makeCall:@"sip:trac@getonsip.com" callOpParams:nil];
     
     return YES;
+}
+
+-(void)didCall {
+    
+    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
+    
+//    SWTransportConfiguration *tcp = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_TCP];
+//    SWTransportConfiguration *udp = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_UDP];
+//    
+//    [userAgent beginWithTransportConfigurations:@[tcp, udp]];
+
+    SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:161672@montreal3.voip.ms"];
+    
+    NSMutableArray *auth = [accountConfiguration.sipConfig.authCreds mutableCopy];
+    
+    SWAuthCredInfo *authInfo = [SWAuthCredInfo new];
+    authInfo.scheme = @"digest";
+    authInfo.realm = @"*";
+    authInfo.username = @"161672";
+    authInfo.data = @"qwer1234";
+    
+    [auth addObject:authInfo];
+    
+    accountConfiguration.sipConfig.authCreds = auth;
+    
+    accountConfiguration.regConfig.registrarUri = @"sip:montreal3.voip.ms;transport=tcp";
+    
+    SWAccount *account = [[SWAccount alloc] initWithAccountConfiguration:accountConfiguration];
+    
+    [userAgent addAccount:account];
+}
+
+-(void)sipCall {
+    
+    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
+    
+//    SWTransportConfiguration *tcp = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_TCP];
+//    SWTransportConfiguration *udp = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_UDP];
+//    
+//    [userAgent beginWithTransportConfigurations:@[tcp, udp]];
+    
+    SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:mobila@getonsip.com"];
+    
+    NSMutableArray *auth = [accountConfiguration.sipConfig.authCreds mutableCopy];
+    
+    SWAuthCredInfo *authInfo = [SWAuthCredInfo new];
+    authInfo.scheme = @"digest";
+    authInfo.realm = @"*";
+    authInfo.username = @"getonsip_mobila";
+    authInfo.data = @"NQFxmwxw4wQMEfp3";
+    
+    [auth addObject:authInfo];
+    
+    accountConfiguration.sipConfig.authCreds = auth;
+    
+    NSMutableArray *proxy = [accountConfiguration.sipConfig.proxies mutableCopy];
+    
+    [proxy addObject:@"sip:sip.onsip.com"];
+    
+    accountConfiguration.sipConfig.proxies = proxy;
+    
+    accountConfiguration.regConfig.registrarUri = @"sip:getonsip.com";
+    
+    SWAccount *account = [[SWAccount alloc] initWithAccountConfiguration:accountConfiguration];
+    
+    [userAgent addAccount:account];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
