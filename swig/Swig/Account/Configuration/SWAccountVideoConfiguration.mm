@@ -48,11 +48,11 @@
     pj::AccountVideoConfig config;
     config.autoShowIncoming = self.autoShowIncoming;
     config.autoTransmitOutgoing = self.autoTransmitOutgoing;
-    config.windowFlags = self.windowFlags;
+    config.windowFlags = (unsigned int)self.windowFlags;
     config.defaultCaptureDevice = self.defaultCaptureDevice;
     config.defaultRenderDevice = self.defaultRenderDevice;
     config.rateControlMethod = self.rateControlMethod;
-    config.rateControlBandwidth = self.rateControlBandwidth;
+    config.rateControlBandwidth = (unsigned int)self.rateControlBandwidth;
     
     return config;
 }

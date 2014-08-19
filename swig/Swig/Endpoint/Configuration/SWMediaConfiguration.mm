@@ -55,28 +55,28 @@
     
     pj::MediaConfig config;
 
-    config.clockRate = self.clockRate;
-    config.sndClockRate = self.sndClockRate;
-    config.channelCount = self.channelCount;
-    config.audioFramePtime = self.audioFramePtime;
-    config.maxMediaPorts = self.maxMediaPorts;
+    config.clockRate = (unsigned int)self.clockRate;
+    config.sndClockRate = (unsigned int)self.sndClockRate;
+    config.channelCount = (unsigned int)self.channelCount;
+    config.audioFramePtime = (unsigned int)self.audioFramePtime;
+    config.maxMediaPorts = (unsigned int)self.maxMediaPorts;
     config.hasIoqueue = self.hasIoqueue;
-    config.threadCnt = self.threadCnt;
-    config.quality = self.quality;
-    config.ptime = self.ptime;
+    config.threadCnt = (unsigned int)self.threadCnt;
+    config.quality = (unsigned int)self.quality;
+    config.ptime = (unsigned int)self.ptime;
     config.noVad = self.noVad;
     config.ilbcMode = self.ilbcMode;
-    config.txDropPct = self.txDropPct;
-    config.rxDropPct = self.rxDropPct;
-    config.ecOptions = self.ecOptions;
-    config.ecTailLen = self.ecTailLen;
-    config.sndRecLatency = self.sndRecLatency;
-    config.sndPlayLatency = self.sndPlayLatency;
-    config.jbInit = self.jbInit;
-    config.jbMinPre = self.jbMinPre;
-    config.jbMaxPre = self.jbMaxPre;
-    config.jbMax = self.jbMax;
-    config.sndAutoCloseTime = self.sndAutoCloseTime;
+    config.txDropPct = (unsigned int)self.txDropPct;
+    config.rxDropPct = (unsigned int)self.rxDropPct;
+    config.ecOptions = (unsigned int)self.ecOptions;
+    config.ecTailLen = (unsigned int)self.ecTailLen;
+    config.sndRecLatency = (unsigned int)self.sndRecLatency;
+    config.sndPlayLatency = (unsigned int)self.sndPlayLatency;
+    config.jbInit = (int)self.jbInit;
+    config.jbMinPre = (int)self.jbMinPre;
+    config.jbMaxPre = (int)self.jbMaxPre;
+    config.jbMax = (int)self.jbMax;
+    config.sndAutoCloseTime = (int)self.sndAutoCloseTime;
     config.vidPreviewEnableNative = self.vidPreviewEnableNative;
     
     return config;

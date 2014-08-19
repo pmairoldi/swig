@@ -43,14 +43,14 @@
     
     pj::UaConfig config;
     
-    config.maxCalls = self.maxCalls;
-    config.threadCnt = self.threadCnt;
+    config.maxCalls = (unsigned int)self.maxCalls;
+    config.threadCnt = (unsigned int)self.threadCnt;
     config.mainThreadOnly = self.mainThreadOnly;
     config.nameserver = *[self.nameserver stringVector];
     config.userAgent = *[self.userAgent CPPString];
     config.stunServer =  *[self.stunServer stringVector];
     config.stunIgnoreFailure = self.stunIgnoreFailure;
-    config.natTypeInSdp = self.natTypeInSdp;
+    config.natTypeInSdp = (int)self.natTypeInSdp;
     config.mwiUnsolicitedEnabled = self.mwiUnsolicitedEnabled;
     
     return config;

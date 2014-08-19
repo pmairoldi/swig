@@ -49,7 +49,7 @@
     config.lockCodecEnabled = self.lockCodecEnabled;
     config.streamKaEnabled = self.streamKaEnabled;
     config.srtpUse = self.srtpUse;
-    config.srtpSecureSignaling = self.srtpSecureSignaling;
+    config.srtpSecureSignaling = (int)self.srtpSecureSignaling;
     config.ipv6Use = self.ipv6Use;
     
     return config;

@@ -42,7 +42,7 @@
     
     pj::AccountMwiConfig config;
     config.enabled = self.enabled;
-    config.expirationSec = self.expirationSec;
+    config.expirationSec = (unsigned int)self.expirationSec;
     
     return config;
 }

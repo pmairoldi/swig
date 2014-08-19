@@ -54,8 +54,8 @@
     
     pj::TransportConfig config;
 
-    config.port = self.port;
-    config.portRange = self.portRange;
+    config.port = (unsigned int)self.port;
+    config.portRange = (unsigned int)self.portRange;
     config.publicAddress = *[self.publicAddress CPPString];
     config.boundAddress = *[self.boundAddress CPPString];
     config.tlsConfig = self.tlsConfig.config;

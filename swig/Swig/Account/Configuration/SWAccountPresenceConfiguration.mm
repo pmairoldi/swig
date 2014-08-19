@@ -49,7 +49,7 @@
     config.headers = *[self.headers sipHeaderVector];
     config.publishEnabled = self.publishEnabled;
     config.publishQueue = self.publishQueue;
-    config.publishShutdownWaitMsec = self.publishShutdownWaitMsec;
+    config.publishShutdownWaitMsec = (unsigned int)self.publishShutdownWaitMsec;
     config.pidfTupleId = *[self.pidfTupleId CPPString];
     
     return config;

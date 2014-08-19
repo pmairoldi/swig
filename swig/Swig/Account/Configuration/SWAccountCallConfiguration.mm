@@ -46,8 +46,8 @@
     config.holdType = self.holdType;
     config.prackUse = self.prackUse;
     config.timerUse = self.timerUse;
-    config.timerMinSESec = self.timerMinSESec;
-    config.timerSessExpiresSec = self.timerSessExpriresSec;
+    config.timerMinSESec = (unsigned int)self.timerMinSESec;
+    config.timerSessExpiresSec = (unsigned int)self.timerSessExpriresSec;
     
     return config;
 }

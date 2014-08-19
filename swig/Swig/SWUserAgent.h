@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class SWAccount;
+@class SWAccount, SWCall;
 
 @interface SWUserAgent : NSObject
 

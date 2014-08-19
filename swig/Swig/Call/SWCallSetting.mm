@@ -35,10 +35,10 @@
 -(pj::CallSetting)callSetting {
 
     pj::CallSetting callSetting(true);
-    callSetting.flag = self.flag;
-    callSetting.reqKeyframeMethod = self.reqKeyframeMethod;
-    callSetting.audioCount = self.audioCount;
-    callSetting.videoCount = self.videoCount;
+    callSetting.flag = (unsigned int)self.flag;
+    callSetting.reqKeyframeMethod = (unsigned int)self.reqKeyframeMethod;
+    callSetting.audioCount = (unsigned int)self.audioCount;
+    callSetting.videoCount = (unsigned int)self.videoCount;
 
     return callSetting;
 }

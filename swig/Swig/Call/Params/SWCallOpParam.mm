@@ -40,7 +40,7 @@
     callOpParam.opt = self.opt.callSetting;
     callOpParam.statusCode = self.statusCode;
     callOpParam.reason = *[self.reason CPPString];
-    callOpParam.options = self.options;
+    callOpParam.options = (unsigned int)self.options;
     callOpParam.txOption = self.txOption.sipTxOption;
     
     return callOpParam;

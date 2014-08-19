@@ -39,12 +39,12 @@
     
     pj::LogConfig config;
     
-    config.msgLogging = self.msgLogging;
-    config.level = self.level;
-    config.consoleLevel = self.consoleLevel;
-    config.decor = self.decor;
+    config.msgLogging = (unsigned int)self.msgLogging;
+    config.level = (unsigned int)self.level;
+    config.consoleLevel = (unsigned int)self.consoleLevel;
+    config.decor = (unsigned int)self.decor;
     config.filename = *[self.filename CPPString];
-    config.fileFlags = self.fileFlags;
+    config.fileFlags = (unsigned int)self.fileFlags;
     
     return config;
 }

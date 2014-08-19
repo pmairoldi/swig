@@ -55,7 +55,7 @@
     config.verifyServer = self.verifyServer;
     config.verifyClient = self.verifyClient;
     config.requireClientCert = self.requireClientCert;
-    config.msecTimeout = self.msecTimeout;
+    config.msecTimeout = (unsigned int)self.msecTimeout;
     config.qosType = self.qosType;
     config.qosParams = self.qosParams;
     

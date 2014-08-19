@@ -54,13 +54,13 @@
     config.registrarUri = *[self.registrarUri CPPString];
     config.registerOnAdd = self.registerOnAdd;
     config.headers = *[self.headers sipHeaderVector];
-    config.timeoutSec = self.timeoutSec;
-    config.retryIntervalSec = self.retryIntervalSec;
-    config.firstRetryIntervalSec = self.firstRetryIntervalSec;
-    config.delayBeforeRefreshSec = self.delayBeforeRefreshSec;
+    config.timeoutSec = (unsigned int)self.timeoutSec;
+    config.retryIntervalSec = (unsigned int)self.retryIntervalSec;
+    config.firstRetryIntervalSec = (unsigned int)self.firstRetryIntervalSec;
+    config.delayBeforeRefreshSec = (unsigned int)self.delayBeforeRefreshSec;
     config.dropCallsOnFail = self.dropCallsOnFail;
-    config.unregWaitSec = self.unregWaitSec;
-    config.proxyUse = self.proxyUse;
+    config.unregWaitSec = (unsigned int)self.unregWaitSec;
+    config.proxyUse = (unsigned int)self.proxyUse;
     
     return config;
 }

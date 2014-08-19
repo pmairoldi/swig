@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "pjsua.h"
+#import "SWCallCallbackProtocol.h"
+
 //#import "SWAccount.h"
 //#import "SWCallOpParams.h"
 
 @class SWAccount, SWCallOpParam;
 
-@interface SWCall : NSObject
+@interface SWCall : NSObject <SWCallCallbackProtocol>
 
 //CallInfo getInfo() const throw(Error);
 //bool isActive() const;

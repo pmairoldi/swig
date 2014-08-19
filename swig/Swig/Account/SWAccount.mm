@@ -151,81 +151,41 @@
     }];
     
     //TODO: add implementation
-    NSLog(@"\n\n\n%@\n\n\n", @"onIncomingCall");
-    
-    if (self.delegate) {
-        [self.delegate onIncomingCall:param];
-    }
 }
 
 -(void)onRegStarted:(SWOnRegStartedParam *)param {
     
     //TODO: add implementation
-    NSLog(@"\n\n\n%@\n\n\n", @"onRegStarted");
-    
-    if (self.delegate) {
-        [self.delegate onRegStarted:param];
-    }
 }
 
 -(void)onRegState:(SWOnRegStateParam *)param {
     
     //TODO: add implementation
-    NSLog(@"\n\n\n%@\n\n\n", @"onRegState");
-    
-    if (self.delegate) {
-        [self.delegate onRegState:param];
-    }
 }
 
 -(void)onIncomingSubscribe:(SWOnIncomingSubscribeParam *)param {
     
     //TODO: add implementation
-    NSLog(@"\n\n\n%@\n\n\n", @"onIncomingSubscribe");
-    
-    if (self.delegate) {
-        [self.delegate onIncomingSubscribe:param];
-    }
 }
 
 -(void)onInstantMessage:(SWOnInstantMessageParam *)param {
     
     //TODO: add implementation
-    NSLog(@"\n\n\n%@\n\n\n", @"onInstantMessage");
-    
-    if (self.delegate) {
-        [self.delegate onInstantMessage:param];
-    }
 }
 
 -(void)onInstantMessageStatus:(SWOnInstantMessageStatusParam *)param {
     
     //TODO: add implementation
-    NSLog(@"\n\n\n%@\n\n\n", @"onInstantMessageStatus");
-    
-    if (self.delegate) {
-        [self.delegate onInstantMessageStatus:param];
-    }
 }
 
 -(void)onTypingIndication:(SWOnTypingIndicationParam *)param {
     
     //TODO: add implementation
-    NSLog(@"\n\n\n%@\n\n\n", @"onTypingIndication");
-    
-    if (self.delegate) {
-        [self.delegate onTypingIndication:param];
-    }
 }
 
 -(void)onMwiInfo:(SWOnMwiInfoParam *)param {
     
     //TODO: add implementation
-    NSLog(@"\n\n\n%@\n\n\n", @"onMwiInfo");
-    
-    if (self.delegate) {
-        [self.delegate onMwiInfo:param];
-    }
 }
 
 @end

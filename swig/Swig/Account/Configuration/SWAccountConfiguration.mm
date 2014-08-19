@@ -59,7 +59,7 @@
     //TODO find way to get media config;
     //pjsua_media_config med_cfg;
     
-    pjsua_acc_get_config(accountId, NULL, &acc_cfg);
+    pjsua_acc_get_config((int)accountId, NULL, &acc_cfg);
     
     pj::AccountConfig config;
     config.fromPj(acc_cfg, NULL);

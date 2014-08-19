@@ -57,7 +57,7 @@
     config.contactUriParams = *[self.contactUriParams CPPString];
     config.authInitialEmpty = self.authInitialEmpty;
     config.authInitialAlgorithm = *[self.authInitialAlgorithm CPPString];
-    config.transportId = self.transportId;
+    config.transportId = (int)self.transportId;
     
     return config;
 }

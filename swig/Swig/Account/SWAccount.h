@@ -17,8 +17,6 @@
 
 @interface SWAccount : NSObject <SWAccountCallbackProtocol>
 
-@property (nonatomic, weak) id<SWAccountCallbackProtocol> delegate;
-
 //TODO add class methods
 
 //bool isValid() const;
