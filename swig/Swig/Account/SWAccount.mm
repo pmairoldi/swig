@@ -11,6 +11,7 @@
 #import "NSString+String.h"
 #import "SWAccountConfiguration.h"
 #import "SWCall.h"
+#import "AppDelegate.h"
 
 @interface SWAccount ()
 
@@ -143,14 +144,28 @@
 -(void)onIncomingCall:(SWOnIncomingCallParam *)param {
     
     SWCall *call = [SWCall callWithId:param.callId account:self];
+
+    [self showIncomingCallAlert];
+
     
-    [call answer:nil success:^{
-        
-    } failure:^(NSError *error) {
-        
-    }];
+//    [call answer:nil success:^{
+//        
+//    } failure:^(NSError *error) {
+//        
+//    }];
     
     //TODO: add implementation
+}
+
+-(void)showIncomingCallAlert {
+    
+    // Create a new notification
+    UILocalNotification* alert = [[UILocalNotification alloc] init];
+    alert.repeatInterval = 0;
+    alert.alertBody = @"Incoming call received...";
+    alert.alertAction = @"Activate app";
+    
+    [[UIApplication sharedApplication] presentLocalNotificationNow:alert];
 }
 
 -(void)onRegStarted:(SWOnRegStartedParam *)param {
