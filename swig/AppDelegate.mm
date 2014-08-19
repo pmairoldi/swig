@@ -122,7 +122,7 @@ static pj_thread_t     *a_thread;
     
 }
 
-- (void)keepAlive {
+-(void)keepAlive {
     
     int i;
     
