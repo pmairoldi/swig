@@ -9,10 +9,10 @@
 #ifndef swig_Swig_h
 #define swig_Swig_h
 
-//#import "SWUserAgent.h"
-//#import "SWEndpoint.h"
-//#import "SWAccount.h"
-//#import "SWCall.h"
-//#import "SWAccountConfiguration.h"
+#import "SWUserAgent.h"
+#import "SWEndpoint.h"
+#import "SWAccount.h"
+#import "SWCall.h"
+#import "SWAccountConfiguration.h"
 
 #endif

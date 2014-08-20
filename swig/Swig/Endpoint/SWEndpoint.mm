@@ -2,183 +2,89 @@
 //  SWEndpoint.m
 //  swig
 //
-//  Created by Pierre-Marc Airoldi on 2014-08-14.
+//  Created by Pierre-Marc Airoldi on 2014-08-20.
 //  Copyright (c) 2014 PeteAppDesigns. All rights reserved.
 //
 
 #import "SWEndpoint.h"
+#import "pjsua2.hpp"
 #import "NSError+Error.h"
 
-#include "pjsua2/endpoint.hpp"
-
 @interface SWEndpoint ()
-
-@property pj::Endpoint *endpoint;
 
 @end
 
 @implementation SWEndpoint
 
--(instancetype)init {
+static SWEndpoint *SINGLETON = nil;
+
+static bool isFirstAccess = YES;
+
+#pragma mark - Public Method
+
++(id)sharedInstance {
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        isFirstAccess = NO;
+        SINGLETON = [[super allocWithZone:NULL] init];    
+    });
+    
+    return SINGLETON;
+}
+
+#pragma mark - Life Cycle
+
++(id) allocWithZone:(NSZone *)zone {
+    return [self sharedInstance];
+}
+
++(id)copyWithZone:(struct _NSZone *)zone {
+    return [self sharedInstance];
+}
+
++(id)mutableCopyWithZone:(struct _NSZone *)zone {
+    return [self sharedInstance];
+}
+
+-(id)copy {
+    return [[SWEndpoint alloc] init];
+}
+
+-(id)mutableCopy {
+    return [[SWEndpoint alloc] init];
+}
+
+-(id)init {
+    
+    if(SINGLETON){
+        return SINGLETON;
+    }
+    if (isFirstAccess) {
+        [self doesNotRecognizeSelector:_cmd];
+    }
     
     self = [super init];
     
-    if (!self) {
-        return nil;
+    pj::Endpoint endpoint = pj::Endpoint::instance();
+
+    try {
+        
+        endpoint.libCreate();
+    
+        pj::EpConfig ep_cfg;
+        endpoint.libInit(ep_cfg);
+        
+    } catch(pj::Error &err) {
+        NSError *error = [NSError errorWithError:&err];
+        NSAssert(error, [error description]);
     }
-    
-    _endPointConfiguration = [SWEndpointConfiguration new];
-    
-    _transportConfigurations = @[];
     
     return self;
 }
 
--(void)dealloc {
+-(void)startWithTransportConfigurations:(NSArray *)transportConfigurations {
     
-    [self destroyWithSuccess:nil failure:nil];
-}
-
--(void)begin {
-    
-    [self createWithSuccess:^{
-        
-        [self initWithSuccess:^{
-            
-            [self createTransportWithSuccess:^{
-                
-                [self startWithSuccess:nil failure:nil];
-                
-            } failure:nil];
-            
-        } failure:nil];
-        
-    } failure:nil];
-}
-
--(void)createWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure {
-    
-    NSError *error;
-    
-    if (!self.endpoint) {
-        self.endpoint = new pj::Endpoint;
-    }
-    
-    try {
-        self.endpoint->libCreate();
-    } catch(pj::Error& err) {
-        error = [NSError errorWithError:&err];
-    }
-    
-    if (error) {
-        if (failure) {
-            failure(error);
-        }
-    }
-    
-    else {
-        if (success) {
-            success();
-        }
-    }
-}
-
--(void)initWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure {
-    
-    NSError *error;
-    
-    try {
-        
-        self.endpoint->libInit(self.endPointConfiguration.config);
-    } catch(pj::Error& err) {
-        error = [NSError errorWithError:&err];
-    }
-    
-    if (error) {
-        if (failure) {
-            failure(error);
-        }
-    }
-    
-    else {
-        if (success) {
-            success();
-        }
-    }
-}
-
--(void)createTransportWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure {
-    
-    NSError *error;
-    
-    try {
-       
-        for (SWTransportConfiguration *transport in self.transportConfigurations) {
-            self.endpoint->transportCreate(transport.transportType, transport.config);
-        }
-        
-    } catch(pj::Error& err) {
-        error = [NSError errorWithError:&err];
-    }
-    
-    if (error) {
-        if (failure) {
-            failure(error);
-        }
-    }
-    
-    else {
-        if (success) {
-            success();
-        }
-    }
-}
-
--(void)startWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure {
-    
-    NSError *error;
-    
-    try {
-        self.endpoint->libStart();
-    } catch(pj::Error& err) {
-        error = [NSError errorWithError:&err];
-    }
-    
-    if (error) {
-        if (failure) {
-            failure(error);
-        }
-    }
-    
-    else {
-        if (success) {
-            success();
-        }
-    }
-}
-
--(void)destroyWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure {
-    
-    NSError *error;
-    
-    try {
-        self.endpoint->libDestroy();
-        delete self.endpoint;
-    } catch(pj::Error& err) {
-        error = [NSError errorWithError:&err];
-    }
-    
-    if (error) {
-        if (failure) {
-            failure(error);
-        }
-    }
-    
-    else {
-        if (success) {
-            success();
-        }
-    }
 }
 
 @end

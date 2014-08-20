@@ -7,10 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#import "Swig.h"
+#import "SWEndpoint.h"
+#import "pjsua.h"
 
-static pj_thread_desc   a_thread_desc;
-static pj_thread_t     *a_thread;
 #define KEEP_ALIVE_INTERVAL 600
 
 @interface AppDelegate ()
@@ -25,74 +24,74 @@ static pj_thread_t     *a_thread;
     
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     
-    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
-    
-    SWTransportConfiguration *tcp = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_TCP];
-    SWTransportConfiguration *udp = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_UDP];
-    
-    [userAgent beginWithTransportConfigurations:@[tcp, udp]];
-
-    [self didCall];
+//    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
+//    
+//    SWTransportConfiguration *tcp = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_TCP];
+//    SWTransportConfiguration *udp = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_UDP];
+//    
+//    [userAgent beginWithTransportConfigurations:@[tcp, udp]];
+//
+//    [self didCall];
 //    [self sipCall];
  
     return YES;
 }
 
--(void)didCall {
-    
-    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
-    
-    SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:161672@montreal3.voip.ms"];
-    
-    NSMutableArray *auth = [accountConfiguration.sipConfig.authCreds mutableCopy];
-    
-    SWAuthCredInfo *authInfo = [SWAuthCredInfo new];
-    authInfo.scheme = @"digest";
-    authInfo.realm = @"*";
-    authInfo.username = @"161672";
-    authInfo.data = @"qwer1234";
-    
-    [auth addObject:authInfo];
-    
-    accountConfiguration.sipConfig.authCreds = auth;
-    
-    accountConfiguration.regConfig.registrarUri = @"sip:montreal3.voip.ms;transport=tcp";
-    
-    SWAccount *account = [[SWAccount alloc] initWithAccountConfiguration:accountConfiguration];
-    
-    [userAgent addAccount:account];
-}
-
--(void)sipCall {
-    
-    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
-    
-    SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:mobila@getonsip.com"];
-    
-    NSMutableArray *auth = [accountConfiguration.sipConfig.authCreds mutableCopy];
-    
-    SWAuthCredInfo *authInfo = [SWAuthCredInfo new];
-    authInfo.scheme = @"digest";
-    authInfo.realm = @"*";
-    authInfo.username = @"getonsip_mobila";
-    authInfo.data = @"NQFxmwxw4wQMEfp3";
-    
-    [auth addObject:authInfo];
-    
-    accountConfiguration.sipConfig.authCreds = auth;
-    
-    NSMutableArray *proxy = [accountConfiguration.sipConfig.proxies mutableCopy];
-    
-    [proxy addObject:@"sip:sip.onsip.com"];
-    
-    accountConfiguration.sipConfig.proxies = proxy;
-    
-    accountConfiguration.regConfig.registrarUri = @"sip:getonsip.com;transport=tcp";
-    
-    SWAccount *account = [[SWAccount alloc] initWithAccountConfiguration:accountConfiguration];
-    
-    [userAgent addAccount:account];
-}
+//-(void)didCall {
+//    
+//    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
+//    
+//    SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:161672@montreal3.voip.ms"];
+//    
+//    NSMutableArray *auth = [accountConfiguration.sipConfig.authCreds mutableCopy];
+//    
+//    SWAuthCredInfo *authInfo = [SWAuthCredInfo new];
+//    authInfo.scheme = @"digest";
+//    authInfo.realm = @"*";
+//    authInfo.username = @"161672";
+//    authInfo.data = @"qwer1234";
+//    
+//    [auth addObject:authInfo];
+//    
+//    accountConfiguration.sipConfig.authCreds = auth;
+//    
+//    accountConfiguration.regConfig.registrarUri = @"sip:montreal3.voip.ms;transport=tcp";
+//    
+//    SWAccount *account = [[SWAccount alloc] initWithAccountConfiguration:accountConfiguration];
+//    
+//    [userAgent addAccount:account];
+//}
+//
+//-(void)sipCall {
+//    
+//    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
+//    
+//    SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:mobila@getonsip.com"];
+//    
+//    NSMutableArray *auth = [accountConfiguration.sipConfig.authCreds mutableCopy];
+//    
+//    SWAuthCredInfo *authInfo = [SWAuthCredInfo new];
+//    authInfo.scheme = @"digest";
+//    authInfo.realm = @"*";
+//    authInfo.username = @"getonsip_mobila";
+//    authInfo.data = @"NQFxmwxw4wQMEfp3";
+//    
+//    [auth addObject:authInfo];
+//    
+//    accountConfiguration.sipConfig.authCreds = auth;
+//    
+//    NSMutableArray *proxy = [accountConfiguration.sipConfig.proxies mutableCopy];
+//    
+//    [proxy addObject:@"sip:sip.onsip.com"];
+//    
+//    accountConfiguration.sipConfig.proxies = proxy;
+//    
+//    accountConfiguration.regConfig.registrarUri = @"sip:getonsip.com;transport=tcp";
+//    
+//    SWAccount *account = [[SWAccount alloc] initWithAccountConfiguration:accountConfiguration];
+//    
+//    [userAgent addAccount:account];
+//}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -130,7 +129,9 @@ static pj_thread_t     *a_thread;
     int i;
     
     if (!pj_thread_is_registered()) {
-        pj_thread_register("ipjsua", a_thread_desc, &a_thread);
+        static pj_thread_desc   thread_desc;
+        static pj_thread_t     *thread;
+        pj_thread_register("ipjsua", thread_desc, &thread);
     }
     
     /* Since iOS requires that the minimum keep alive interval is 600s,
