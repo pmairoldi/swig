@@ -61,6 +61,8 @@
         param = [SWCallOpParam defaultSettings];
     }
     
+    param.statusCode = PJSIP_SC_OK;
+
     NSError *error;
     
     try {
@@ -102,22 +104,111 @@
         else {
             completion(nil);
         }
-    }}
+    }
+}
 
 -(void)hangup:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion {
     
+    if (!param) {
+        param = [SWCallOpParam defaultSettings];
+    }
+    
+    param.statusCode = PJSIP_SC_OK;
+    
+    NSError *error;
+    
+    try {
+        self.call->hangup(param.callOpParam);
+    } catch(pj::Error& err) {
+        error = [NSError errorWithError:&err];
+    }
+    
+    if (completion) {
+        if (error) {
+            completion(error);
+        }
+        else {
+            completion(nil);
+        }
+    }
 }
 
 -(void)setHold:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion {
     
+    if (!param) {
+        param = [SWCallOpParam defaultSettings];
+    }
+    
+    param.statusCode = PJSIP_SC_OK;
+    
+    NSError *error;
+    
+    try {
+        self.call->setHold(param.callOpParam);
+    } catch(pj::Error& err) {
+        error = [NSError errorWithError:&err];
+    }
+    
+    if (completion) {
+        if (error) {
+            completion(error);
+        }
+        else {
+            completion(nil);
+        }
+    }
 }
 
 -(void)reinvite:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion {
+ 
+    if (!param) {
+        param = [SWCallOpParam defaultSettings];
+    }
     
+    param.statusCode = PJSIP_SC_OK;
+    
+    NSError *error;
+    
+    try {
+        self.call->reinvite(param.callOpParam);
+    } catch(pj::Error& err) {
+        error = [NSError errorWithError:&err];
+    }
+    
+    if (completion) {
+        if (error) {
+            completion(error);
+        }
+        else {
+            completion(nil);
+        }
+    }
 }
 
 -(void)update:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion{
     
+    if (!param) {
+        param = [SWCallOpParam defaultSettings];
+    }
+    
+    param.statusCode = PJSIP_SC_OK;
+    
+    NSError *error;
+    
+    try {
+        self.call->update(param.callOpParam);
+    } catch(pj::Error& err) {
+        error = [NSError errorWithError:&err];
+    }
+    
+    if (completion) {
+        if (error) {
+            completion(error);
+        }
+        else {
+            completion(nil);
+        }
+    }
 }
 
 #pragma SWCallCallbackProtocol
