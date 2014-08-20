@@ -32,8 +32,8 @@ static pj_thread_t     *a_thread;
     
     [userAgent beginWithTransportConfigurations:@[tcp, udp]];
 
-    [self didCall];
-//    [self sipCall];
+//    [self didCall];
+    [self sipCall];
     
 //    }
     //    [account makeCall:@"sip:trac@getonsip.com" callOpParams:nil];

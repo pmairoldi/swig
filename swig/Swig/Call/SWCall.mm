@@ -55,35 +55,32 @@
     return self.call->getId();
 }
 
--(void)makeCall:(NSString *)destinationUri callOpParams:(SWCallOpParam *)param success:(void (^)())success failure:(void (^)(NSError *error))failure {
-        
+-(void)makeCall:(NSString *)destinationUri callOpParams:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion {
+    
     if (!param) {
         param = [SWCallOpParam defaultSettings];
     }
-
+    
     NSError *error;
     
-    try {        
+    try {
         self.call->makeCall(*[destinationUri CPPString], param.callOpParam);
     } catch(pj::Error& err) {
         error = [NSError errorWithError:&err];
     }
-    
-    if (error) {
-        if (failure) {
-            failure(error);
+
+    if (completion) {
+        if (error) {
+            completion(error);
         }
-    }
-    
-    else {
-        if (success) {
-            success();
+        else {
+            completion(nil);
         }
     }
 }
 
--(void)answer:(SWCallOpParam *)param success:(void (^)())success failure:(void (^)(NSError *error))failure {
-
+-(void)answer:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion {
+    
     if (!param) {
         param = [SWCallOpParam defaultSettings];
     }
@@ -98,17 +95,29 @@
         error = [NSError errorWithError:&err];
     }
     
-    if (error) {
-        if (failure) {
-            failure(error);
+    if (completion) {
+        if (error) {
+            completion(error);
         }
-    }
+        else {
+            completion(nil);
+        }
+    }}
+
+-(void)hangup:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion {
     
-    else {
-        if (success) {
-            success();
-        }
-    }
+}
+
+-(void)setHold:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion {
+    
+}
+
+-(void)reinvite:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion {
+    
+}
+
+-(void)update:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion{
+    
 }
 
 #pragma SWCallCallbackProtocol

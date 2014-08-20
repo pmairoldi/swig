@@ -19,13 +19,13 @@
 
 //TODO add class methods
 
-//bool isValid() const;
-//void setDefault() throw(Error);
-//bool isDefault() const;
+//-(BOOL)isValid;
+//-(void)setDefault:(void(^)(NSError *error))error;
+//-(BOOL)isDefault;
 -(NSInteger)getId;
-//static Account *lookup(int acc_id);
+//+(SWAccount *)lookup:(NSInteger)accountId;
 //AccountInfo getInfo() const throw(Error);
-//void setRegistration(bool renew) throw(Error);
+//-(void)setRegistration:(BOOL)renew error:(void(^)(NSError *error))error;
 //void setOnlineStatus(const PresenceStatus &pres_st) throw(Error);
 //void setTransport(TransportId tp_id) throw(Error);
 //void presNotify(const PresNotifyParam &prm) throw(Error);

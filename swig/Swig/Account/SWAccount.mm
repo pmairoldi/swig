@@ -132,9 +132,7 @@
 
     SWCall *call = [SWCall callFromAccount:self];
 
-    [call makeCall:destinationUri callOpParams:callOpParams success:^{
-        
-    } failure:^(NSError *error) {
+    [call makeCall:destinationUri callOpParams:callOpParams completion:^(NSError *error) {
         
     }];
 }
@@ -147,6 +145,9 @@
 
     [self showIncomingCallAlert];
 
+    [call answer:nil completion:^(NSError *error) {
+        
+    }];
     
 //    [call answer:nil success:^{
 //        

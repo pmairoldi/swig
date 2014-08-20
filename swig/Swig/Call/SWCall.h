@@ -27,14 +27,13 @@
 //void setUserData(Token user_data);
 //Token getUserData() const;
 //pj_stun_nat_type getRemNatType() throw(Error);
--(void)makeCall:(NSString *)destinationUri callOpParams:(SWCallOpParam *)param success:(void (^)())success failure:(void (^)(NSError *error))failure;
--(void)answer:(SWCallOpParam *)param success:(void (^)())success failure:(void (^)(NSError *error))failure;
+-(void)makeCall:(NSString *)destinationUri callOpParams:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion;
+-(void)answer:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion;
+-(void)hangup:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion;
+-(void)setHold:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion;
+-(void)reinvite:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion;
+-(void)update:(SWCallOpParam *)param completion:(void(^)(NSError *error))completion;
 
-//void answer(const CallOpParam &prm) throw(Error);
-//void hangup(const CallOpParam &prm) throw(Error);
-//void setHold(const CallOpParam &prm) throw(Error);
-//void reinvite(const CallOpParam &prm) throw(Error);
-//void update(const CallOpParam &prm) throw(Error);
 //void xfer(const string &dest, const CallOpParam &prm) throw(Error);
 //void xferReplaces(const Call& dest_call, const CallOpParam &prm) throw(Error);
 //void processRedirect(pjsip_redirect_op cmd) throw(Error);
