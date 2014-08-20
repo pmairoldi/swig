@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+#ifdef __cplusplus
+#include "pjsua2.hpp"
+#endif
+
 @interface SWOnCreateMediaTransportParam : NSObject
+
+#ifdef __cplusplus
++(instancetype)onParamFromParam:(pj::OnCreateMediaTransportParam)param;
+#endif
 
 @end

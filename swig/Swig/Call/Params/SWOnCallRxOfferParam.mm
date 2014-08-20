@@ -10,4 +10,9 @@
 
 @implementation SWOnCallRxOfferParam
 
++(instancetype)onParamFromParam:(pj::OnCallRxOfferParam)param {
+
+    return [SWOnCallRxOfferParam new];
+}
+
 @end

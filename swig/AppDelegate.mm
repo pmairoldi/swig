@@ -33,7 +33,7 @@ static pj_thread_t     *a_thread;
     [userAgent beginWithTransportConfigurations:@[tcp, udp]];
 
     [self didCall];
-    [self sipCall];
+//    [self sipCall];
     
 //    }
     //    [account makeCall:@"sip:trac@getonsip.com" callOpParams:nil];
@@ -100,7 +100,7 @@ static pj_thread_t     *a_thread;
     
     accountConfiguration.sipConfig.proxies = proxy;
     
-    accountConfiguration.regConfig.registrarUri = @"sip:getonsip.com";
+    accountConfiguration.regConfig.registrarUri = @"sip:getonsip.com;transport=tcp";
     
     SWAccount *account = [[SWAccount alloc] initWithAccountConfiguration:accountConfiguration];
     

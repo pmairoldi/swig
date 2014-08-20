@@ -7,13 +7,14 @@
 //
 
 #import "SWAccount.h"
+#include "SwigCall.h"
 #import "SWUserAgent.h"
 
 void sw::Account::onIncomingCall(pj::OnIncomingCallParam &prm) {
 
     SWUserAgent *userAgent = [SWUserAgent sharedInstance];
     SWAccount *account = [userAgent accountWithId:getId()];
-    
+        
     [account onIncomingCall:[SWOnIncomingCallParam onParamFromParam:prm]];
 }
 

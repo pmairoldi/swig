@@ -10,4 +10,9 @@
 
 @implementation SWOnCallSdpCreatedParam
 
++(instancetype)onParamFromParam:(pj::OnCallSdpCreatedParam)param {
+    
+    return [SWOnCallSdpCreatedParam new];
+}
+
 @end

@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+#ifdef __cplusplus
+#include "pjsua2.hpp"
+#endif
+
 @interface SWOnDtmfDigitParam : NSObject
+
+#ifdef __cplusplus
++(instancetype)onParamFromParam:(pj::OnDtmfDigitParam)param;
+#endif
 
 @end

@@ -10,4 +10,9 @@
 
 @implementation SWOnStreamDestroyedParam
 
++(instancetype)onParamFromParam:(pj::OnStreamDestroyedParam)param {
+    
+    return [SWOnStreamDestroyedParam new];
+}
+
 @end

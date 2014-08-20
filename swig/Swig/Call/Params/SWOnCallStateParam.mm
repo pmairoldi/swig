@@ -10,4 +10,9 @@
 
 @implementation SWOnCallStateParam
 
++(instancetype)onParamFromParam:(pj::OnCallStateParam)param {
+    
+    return [SWOnCallStateParam new];
+}
+
 @end

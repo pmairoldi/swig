@@ -10,4 +10,9 @@
 
 @implementation SWOnCallReplaceRequestParam
 
++(instancetype)onParamFromParam:(pj::OnCallReplaceRequestParam)param {
+    
+    return [SWOnCallReplaceRequestParam new];
+}
+
 @end

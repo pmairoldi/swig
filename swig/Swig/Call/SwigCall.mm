@@ -10,6 +10,8 @@
 #import "SWUserAgent.h"
 #import "SWAccount.h"
 #import "SWCall.h"
+#import "SWCallParam.h"
+
 #include "pjsua2/endpoint.hpp"
 
 void sw::Call::onCallState(pj::OnCallStateParam &prm) {
@@ -19,8 +21,7 @@ void sw::Call::onCallState(pj::OnCallStateParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onCallState:nil];
+    [call onCallState:[SWOnCallStateParam onParamFromParam:prm]];
 }
 
 void sw::Call::onCallTsxState(pj::OnCallTsxStateParam &prm) {
@@ -30,8 +31,7 @@ void sw::Call::onCallTsxState(pj::OnCallTsxStateParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onCallTsxState:nil];
+   [call onCallTsxState:[SWOnCallTsxStateParam onParamFromParam:prm]];
 }
 
 void sw::Call::onCallMediaState(pj::OnCallMediaStateParam &prm) {
@@ -65,8 +65,7 @@ void sw::Call::onCallMediaState(pj::OnCallMediaStateParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onCallMediaState:nil];
+    [call onCallMediaState:[SWOnCallMediaStateParam onParamFromParam:prm]];
 }
 
 void sw::Call::onCallSdpCreated(pj::OnCallSdpCreatedParam &prm) {
@@ -76,8 +75,7 @@ void sw::Call::onCallSdpCreated(pj::OnCallSdpCreatedParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onCallSdpCreated:nil];
+    [call onCallSdpCreated:[SWOnCallSdpCreatedParam onParamFromParam:prm]];
 }
 
 void sw::Call::onStreamCreated(pj::OnStreamCreatedParam &prm) {
@@ -87,8 +85,7 @@ void sw::Call::onStreamCreated(pj::OnStreamCreatedParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onStreamCreated:nil];
+    [call onStreamCreated:[SWOnStreamCreatedParam onParamFromParam:prm]];
 }
 
 void sw::Call::onStreamDestroyed(pj::OnStreamDestroyedParam &prm) {
@@ -98,8 +95,7 @@ void sw::Call::onStreamDestroyed(pj::OnStreamDestroyedParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onStreamDestroyed:nil];
+    [call onStreamDestroyed:[SWOnStreamDestroyedParam onParamFromParam:prm]];
 }
 
 void sw::Call::onDtmfDigit(pj::OnDtmfDigitParam &prm) {
@@ -109,8 +105,7 @@ void sw::Call::onDtmfDigit(pj::OnDtmfDigitParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onDtmfDigit:nil];
+    [call onDtmfDigit:[SWOnDtmfDigitParam onParamFromParam:prm]];
 }
 
 void sw::Call::onCallTransferRequest(pj::OnCallTransferRequestParam &prm) {
@@ -120,8 +115,7 @@ void sw::Call::onCallTransferRequest(pj::OnCallTransferRequestParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onCallTransferRequest:nil];
+    [call onCallTransferRequest:[SWOnCallTransferRequestParam onParamFromParam:prm]];
 }
 
 void sw::Call::onCallTransferStatus(pj::OnCallTransferStatusParam &prm) {
@@ -131,8 +125,7 @@ void sw::Call::onCallTransferStatus(pj::OnCallTransferStatusParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onCallTransferStatus:nil];
+    [call onCallTransferStatus:[SWOnCallTransferStatusParam onParamFromParam:prm]];
 }
 
 void sw::Call::onCallReplaceRequest(pj::OnCallReplaceRequestParam &prm) {
@@ -142,8 +135,7 @@ void sw::Call::onCallReplaceRequest(pj::OnCallReplaceRequestParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onCallReplaceRequest:nil];
+    [call onCallReplaceRequest:[SWOnCallReplaceRequestParam onParamFromParam:prm]];
 }
 
 void sw::Call::onCallReplaced(pj::OnCallReplacedParam &prm) {
@@ -153,8 +145,7 @@ void sw::Call::onCallReplaced(pj::OnCallReplacedParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onCallReplaced:nil];
+    [call onCallReplaced:[SWOnCallReplacedParam onParamFromParam:prm]];
 }
 
 void sw::Call::onCallRxOffer(pj::OnCallRxOfferParam &prm) {
@@ -164,8 +155,7 @@ void sw::Call::onCallRxOffer(pj::OnCallRxOfferParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onCallRxOffer:nil];
+    [call onCallRxOffer:[SWOnCallRxOfferParam onParamFromParam:prm]];
 }
 
 void sw::Call::onInstantMessage(pj::OnInstantMessageParam &prm) {
@@ -175,8 +165,7 @@ void sw::Call::onInstantMessage(pj::OnInstantMessageParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onInstantMessage:nil];
+    [call onInstantMessage:[SWOnInstantMessageParam onParamFromParam:prm]];
 }
 
 void sw::Call::onInstantMessageStatus(pj::OnInstantMessageStatusParam &prm) {
@@ -186,8 +175,7 @@ void sw::Call::onInstantMessageStatus(pj::OnInstantMessageStatusParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onInstantMessageStatus:nil];
+    [call onInstantMessageStatus:[SWOnInstantMessageStatusParam onParamFromParam:prm]];
 }
 
 void sw::Call::onTypingIndication(pj::OnTypingIndicationParam &prm) {
@@ -197,8 +185,7 @@ void sw::Call::onTypingIndication(pj::OnTypingIndicationParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onTypingIndication:nil];
+    [call onTypingIndication:[SWOnTypingIndicationParam onParamFromParam:prm]];
 }
 
 pjsip_redirect_op sw::Call::onCallRedirected(pj::OnCallRedirectedParam &prm) {
@@ -208,8 +195,7 @@ pjsip_redirect_op sw::Call::onCallRedirected(pj::OnCallRedirectedParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    return [call onCallRedirected:nil];
+    return [call onCallRedirected:[SWOnCallRedirectedParam onParamFromParam:prm]];
 }
 
 void sw::Call::onCallMediaTransportState(pj::OnCallMediaTransportStateParam &prm) {
@@ -219,8 +205,7 @@ void sw::Call::onCallMediaTransportState(pj::OnCallMediaTransportStateParam &prm
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onCallMediaTransportState:nil];
+    [call onCallMediaTransportState:[SWOnCallMediaTransportStateParam onParamFromParam:prm]];
 }
 
 void sw::Call::onCallMediaEvent(pj::OnCallMediaEventParam &prm) {
@@ -230,8 +215,7 @@ void sw::Call::onCallMediaEvent(pj::OnCallMediaEventParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onCallMediaEvent:nil];
+    [call onCallMediaEvent:[SWOnCallMediaEventParam onParamFromParam:prm]];
 }
 
 void sw::Call::onCreateMediaTransport(pj::OnCreateMediaTransportParam &prm) {
@@ -241,6 +225,5 @@ void sw::Call::onCreateMediaTransport(pj::OnCreateMediaTransportParam &prm) {
     SWAccount *account = [userAgent accountWithId:callInfo.accId];
     SWCall *call = [account callWithId:getId()];
     
-    //TODO: add params
-    [call onCreateMediaTransport:nil];
+    [call onCreateMediaTransport:[SWOnCreateMediaTransportParam onParamFromParam:prm]];
 }

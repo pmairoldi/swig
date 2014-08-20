@@ -10,4 +10,9 @@
 
 @implementation SWOnCallMediaStateParam
 
++(instancetype)onParamFromParam:(pj::OnCallMediaStateParam)param {
+    
+    return [SWOnCallMediaStateParam new];
+}
+
 @end

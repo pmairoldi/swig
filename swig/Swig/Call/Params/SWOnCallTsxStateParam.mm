@@ -10,4 +10,9 @@
 
 @implementation SWOnCallTsxStateParam
 
++(instancetype)onParamFromParam:(pj::OnCallTsxStateParam)param {
+    
+    return [SWOnCallTsxStateParam new];
+}
+
 @end

@@ -10,4 +10,9 @@
 
 @implementation SWOnCallMediaEventParam
 
++(instancetype)onParamFromParam:(pj::OnCallMediaEventParam)param {
+
+    return [SWOnCallMediaEventParam new];
+}
+
 @end

@@ -10,4 +10,9 @@
 
 @implementation SWOnCallRedirectedParam
 
++(instancetype)onParamFromParam:(pj::OnCallRedirectedParam)param {
+    
+    return [SWOnCallRedirectedParam new];
+}
+
 @end

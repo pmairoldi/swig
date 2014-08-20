@@ -10,4 +10,9 @@
 
 @implementation SWOnDtmfDigitParam
 
++(instancetype)onParamFromParam:(pj::OnDtmfDigitParam)param {
+    
+    return [SWOnDtmfDigitParam new];
+}
+
 @end

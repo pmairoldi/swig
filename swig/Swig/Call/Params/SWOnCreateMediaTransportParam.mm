@@ -10,4 +10,9 @@
 
 @implementation SWOnCreateMediaTransportParam
 
++(instancetype)onParamFromParam:(pj::OnCreateMediaTransportParam)param {
+ 
+    return [SWOnCreateMediaTransportParam new];
+}
+
 @end

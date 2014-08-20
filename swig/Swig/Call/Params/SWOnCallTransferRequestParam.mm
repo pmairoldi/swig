@@ -10,4 +10,9 @@
 
 @implementation SWOnCallTransferRequestParam
 
++(instancetype)onParamFromParam:(pj::OnCallTransferRequestParam)param {
+    
+    return [SWOnCallTransferRequestParam new];
+}
+
 @end

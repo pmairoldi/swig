@@ -10,4 +10,9 @@
 
 @implementation SWOnStreamCreatedParam
 
++(instancetype)onParamFromParam:(pj::OnStreamCreatedParam)param {
+    
+    return [SWOnStreamCreatedParam new];
+}
+
 @end
