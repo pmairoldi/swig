@@ -32,12 +32,9 @@ static pj_thread_t     *a_thread;
     
     [userAgent beginWithTransportConfigurations:@[tcp, udp]];
 
-//    [self didCall];
-    [self sipCall];
-    
-//    }
-    //    [account makeCall:@"sip:trac@getonsip.com" callOpParams:nil];
-    
+    [self didCall];
+//    [self sipCall];
+ 
     return YES;
 }
 
@@ -45,11 +42,6 @@ static pj_thread_t     *a_thread;
     
     SWUserAgent *userAgent = [SWUserAgent sharedInstance];
     
-//    SWTransportConfiguration *tcp = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_TCP];
-//    SWTransportConfiguration *udp = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_UDP];
-//    
-//    [userAgent beginWithTransportConfigurations:@[tcp, udp]];
-
     SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:161672@montreal3.voip.ms"];
     
     NSMutableArray *auth = [accountConfiguration.sipConfig.authCreds mutableCopy];
@@ -74,11 +66,6 @@ static pj_thread_t     *a_thread;
 -(void)sipCall {
     
     SWUserAgent *userAgent = [SWUserAgent sharedInstance];
-    
-//    SWTransportConfiguration *tcp = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_TCP];
-//    SWTransportConfiguration *udp = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_UDP];
-//    
-//    [userAgent beginWithTransportConfigurations:@[tcp, udp]];
     
     SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:mobila@getonsip.com"];
     

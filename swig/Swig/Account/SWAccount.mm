@@ -23,6 +23,11 @@
 
 @implementation SWAccount
 
++(SWAccount *)lookup:(NSInteger)accountId {
+    
+    
+}
+
 -(instancetype)init {
     
     return [self initWithAccountConfiguration:nil];
@@ -47,17 +52,9 @@
     return self;
 }
 
--(instancetype)initWithSwigAccoung:(sw::Account *)swigAccount {
+-(void)dealloc {
     
-    self = [self initWithAccountConfiguration:[SWAccountConfiguration accountConfigurationFromAccountId:swigAccount->getId()]];
-    
-    if (!self) {
-        return nil;
-    }
-    
-    _account = swigAccount;
-   
-    return self;
+    delete _account;
 }
 
 -(void)createWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure {
@@ -145,9 +142,9 @@
 
     [self showIncomingCallAlert];
 
-    [call answer:nil completion:^(NSError *error) {
-        
-    }];
+//    [call answer:nil completion:^(NSError *error) {
+//        
+//    }];
     
 //    [call answer:nil success:^{
 //        
@@ -176,7 +173,9 @@
 
 -(void)onRegState:(SWOnRegStateParam *)param {
     
-    //TODO: add implementation
+    self.isValid = self.account->isValid();
+    self.isDefault = self.account->isDefault();
+    self.accountId = self.account->getId();
 }
 
 -(void)onIncomingSubscribe:(SWOnIncomingSubscribeParam *)param {
@@ -202,6 +201,51 @@
 -(void)onMwiInfo:(SWOnMwiInfoParam *)param {
     
     //TODO: add implementation
+}
+
+#pragma Setters & Getters
+
+-(void)setIsValid:(BOOL)isValid {
+    
+    if (_isValid == isValid) {
+        return;
+    }
+    
+    [self willChangeValueForKey:@"isValid"];
+    _isValid = isValid;
+    [self didChangeValueForKey:@"isValid"];
+}
+
+-(void)setIsDefault:(BOOL)isDefault {
+ 
+    if (_isDefault == isDefault) {
+        return;
+    }
+    
+    if (_isDefault == NO && isDefault == YES) {
+       
+        try {
+            self.account->setDefault();
+        } catch (pj::Error *error) {
+            NSLog(@"%@",[[NSError errorWithError:error] description]);
+        }
+    }
+
+    [self willChangeValueForKey:@"isDefault"];
+    _isDefault = self.account->isDefault();
+    [self didChangeValueForKey:@"isDefault"];
+}
+
+-(void)setAccountId:(NSInteger)accountId {
+    
+    if (_accountId == accountId) {
+        return;
+    }
+    
+    [self willChangeValueForKey:@"accountId"];
+    _accountId = accountId;
+    [self didChangeValueForKey:@"accountId"];
+
 }
 
 @end

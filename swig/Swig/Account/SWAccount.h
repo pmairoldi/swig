@@ -17,12 +17,13 @@
 
 @interface SWAccount : NSObject <SWAccountCallbackProtocol>
 
-//TODO add class methods
+@property (nonatomic, readonly) BOOL isValid;
+@property (nonatomic) BOOL isDefault;
+@property (nonatomic, readonly) NSInteger accountId;
 
-//-(BOOL)isValid;
-//-(void)setDefault:(void(^)(NSError *error))error;
-//-(BOOL)isDefault;
--(NSInteger)getId;
++(SWAccount *)lookup:(NSInteger)accountId;
+
+//TODO add class methods
 //+(SWAccount *)lookup:(NSInteger)accountId;
 //AccountInfo getInfo() const throw(Error);
 //-(void)setRegistration:(BOOL)renew error:(void(^)(NSError *error))error;
