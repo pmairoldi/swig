@@ -10,4 +10,13 @@
 
 @interface SWAccountConfiguration : NSObject
 
+@property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) NSString *domain;
+@property (nonatomic, strong) NSString *proxy;
+@property (nonatomic, strong) NSString *authScheme;
+@property (nonatomic, strong) NSString *authRealm;
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSString *password;
+@property (nonatomic) BOOL registerOnAdd;
+
 @end

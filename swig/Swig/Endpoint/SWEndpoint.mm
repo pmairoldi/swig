@@ -9,8 +9,21 @@
 #import "SWEndpoint.h"
 #import "pjsua2.hpp"
 #import "NSError+Error.h"
+#import "SWEndpointConfiguration+EpConfig.h"
+#import "SWTransportConfiguration.h"
+#import "SWEndpointConfiguration.h"
+#import "SWTransportConfiguration+TransportConfig.h"
+#import "SWAccount.h"
+
+typedef void (^SWAccountSIncomingCallBlock)(SWAccount *account, SWCall *call);
+typedef void (^SWAccountStateChangeBlock)(SWAccount *account, SWAccountState state);
 
 @interface SWEndpoint ()
+
+@property (nonatomic) pj::Endpoint *endpoint;
+@property (nonatomic, strong) NSMutableDictionary *accounts;
+@property (nonatomic, copy) SWAccountSIncomingCallBlock accountIncomingCallBlock;
+@property (nonatomic, copy) SWAccountStateChangeBlock accountStateChangeBlock;
 
 @end
 
@@ -66,25 +79,172 @@ static bool isFirstAccess = YES;
     
     self = [super init];
     
-    pj::Endpoint endpoint = pj::Endpoint::instance();
-
-    try {
-        
-        endpoint.libCreate();
-    
-        pj::EpConfig ep_cfg;
-        endpoint.libInit(ep_cfg);
-        
-    } catch(pj::Error &err) {
-        NSError *error = [NSError errorWithError:&err];
-        NSAssert(error, [error description]);
+    if (!self) {
+        return nil;
     }
+    
+    _accounts = [NSMutableDictionary dictionary];
     
     return self;
 }
 
--(void)startWithTransportConfigurations:(NSArray *)transportConfigurations {
+-(void)dealloc {
     
+    [self reset:nil];
+    
+    if (_endpoint){
+        delete _endpoint;
+    }
+}
+
+-(pj::Endpoint *)endpoint {
+    
+    if (!_endpoint) {
+        
+        _endpoint = new pj::Endpoint;
+    }
+    
+    else {
+        _endpoint = &pj::Endpoint::instance();
+    }
+    
+    return _endpoint;
+}
+
+-(void)configure:(SWEndpointConfiguration *)configuration completionHandler:(void(^)(NSError *error))handler {
+    
+    try {
+        
+        self.endpoint->libCreate();
+        
+        pj::EpConfig *epConfig = [configuration toEpConfig];
+        
+        self.endpoint->libInit(*epConfig);
+        
+        for (SWTransportConfiguration *transport in configuration.transportConfigurations) {
+            
+            pj::TransportConfig *transportConfig = [transport toTransportConfig];
+            
+            pjsip_transport_type_e transportType = (pjsip_transport_type_e)transport.transportType;
+            
+            self.endpoint->transportCreate(transportType, *transportConfig);
+        }
+        
+        self.endpoint->libStart();
+        
+    } catch(pj::Error &err) {
+       
+        NSError *error = [NSError errorWithError:&err];
+  
+        if (handler) {
+            handler(error);
+        }
+    }
+    
+    if (handler) {
+        handler(nil);
+    }
+}
+
+//-(void)start:(void(^)(NSError *error))handler {
+//    
+//    try {
+//        
+//        self.endpoint->libStart();
+//        
+//        if (handler) {
+//            handler(nil);
+//        }
+//        
+//    } catch(pj::Error &err) {
+//       
+//        NSError *error = [NSError errorWithError:&err];
+//    
+//        if (handler) {
+//            handler(error);
+//        }
+//    }
+//}
+
+-(void)reset:(void(^)(NSError *error))handler {
+    
+    //TODO
+    /**
+     * Destroy pjsua. Application is recommended to perform graceful shutdown
+     * before calling this function (such as unregister the account from the
+     * SIP server, terminate presense subscription, and hangup active calls),
+     * however, this function will do all of these if it finds there are
+     * active sessions that need to be terminated. This function will
+     * block for few seconds to wait for replies from remote.
+     *
+     * Application.may safely call this function more than once if it doesn't
+     * keep track of it's state.
+     *
+     * @param prmFlags	Combination of pjsua_destroy_flag enumeration.
+     */
+
+    try {
+        
+        self.endpoint->libDestroy();
+                
+        if (handler) {
+            handler(nil);
+        }
+        
+    } catch(pj::Error &err) {
+        
+        NSError *error = [NSError errorWithError:&err];
+        
+        if (handler) {
+            handler(error);
+        }
+    }
+}
+
+#pragma Account Management
+
+-(void)addAccount:(SWAccount *)account {
+    
+    [self.accounts setObject:account forKey:@(account.accountId)];
+ 
+    __block SWAccount *weak_account = account;
+    
+    [account setIncomingCallBlock:^(SWCall *call) {
+       
+        if (self.accountIncomingCallBlock) {
+            self.accountIncomingCallBlock(weak_account, call);
+        }
+    }];
+    
+    [account setStateChangeBlock:^(SWAccountState state) {
+        
+        if (self.accountStateChangeBlock) {
+            self.accountStateChangeBlock(weak_account, state);
+        }
+    }];
+}
+
+-(SWAccount *)lookupAccount:(NSInteger)accountId {
+    
+    if ([[self.accounts allKeys] containsObject:@(accountId)]) {
+        return [self.accounts objectForKey:@(accountId)];
+    }
+    
+    else {
+        return nil;
+    }
+}
+
+#pragma Block Parameters 
+
+-(void)setAccountIncomingCallBlock:(void(^)(SWAccount *account, SWCall *call))accountIncomingCallBlock {
+    
+    _accountIncomingCallBlock = accountIncomingCallBlock;
+}
+
+-(void)setAccountStateChangeBlock:(void(^)(SWAccount *account, SWAccountState state))accountStateChangeBlock {
+
+    _accountStateChangeBlock = accountStateChangeBlock;
 }
 
 @end

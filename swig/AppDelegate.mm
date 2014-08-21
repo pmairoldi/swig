@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "SWEndpoint.h"
+#import "Swig.h"
+
 #import "pjsua.h"
 
 #define KEEP_ALIVE_INTERVAL 600
@@ -24,74 +25,13 @@
     
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     
-//    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
-//    
-//    SWTransportConfiguration *tcp = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_TCP];
-//    SWTransportConfiguration *udp = [[SWTransportConfiguration alloc] initWithTransportType:PJSIP_TRANSPORT_UDP];
-//    
-//    [userAgent beginWithTransportConfigurations:@[tcp, udp]];
-//
-//    [self didCall];
-//    [self sipCall];
- 
+    [self configureEndpoint];
+    
+    [self addDIDAccount];
+    [self addSIPAccount];
+    
     return YES;
 }
-
-//-(void)didCall {
-//    
-//    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
-//    
-//    SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:161672@montreal3.voip.ms"];
-//    
-//    NSMutableArray *auth = [accountConfiguration.sipConfig.authCreds mutableCopy];
-//    
-//    SWAuthCredInfo *authInfo = [SWAuthCredInfo new];
-//    authInfo.scheme = @"digest";
-//    authInfo.realm = @"*";
-//    authInfo.username = @"161672";
-//    authInfo.data = @"qwer1234";
-//    
-//    [auth addObject:authInfo];
-//    
-//    accountConfiguration.sipConfig.authCreds = auth;
-//    
-//    accountConfiguration.regConfig.registrarUri = @"sip:montreal3.voip.ms;transport=tcp";
-//    
-//    SWAccount *account = [[SWAccount alloc] initWithAccountConfiguration:accountConfiguration];
-//    
-//    [userAgent addAccount:account];
-//}
-//
-//-(void)sipCall {
-//    
-//    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
-//    
-//    SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:mobila@getonsip.com"];
-//    
-//    NSMutableArray *auth = [accountConfiguration.sipConfig.authCreds mutableCopy];
-//    
-//    SWAuthCredInfo *authInfo = [SWAuthCredInfo new];
-//    authInfo.scheme = @"digest";
-//    authInfo.realm = @"*";
-//    authInfo.username = @"getonsip_mobila";
-//    authInfo.data = @"NQFxmwxw4wQMEfp3";
-//    
-//    [auth addObject:authInfo];
-//    
-//    accountConfiguration.sipConfig.authCreds = auth;
-//    
-//    NSMutableArray *proxy = [accountConfiguration.sipConfig.proxies mutableCopy];
-//    
-//    [proxy addObject:@"sip:sip.onsip.com"];
-//    
-//    accountConfiguration.sipConfig.proxies = proxy;
-//    
-//    accountConfiguration.regConfig.registrarUri = @"sip:getonsip.com;transport=tcp";
-//    
-//    SWAccount *account = [[SWAccount alloc] initWithAccountConfiguration:accountConfiguration];
-//    
-//    [userAgent addAccount:account];
-//}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -144,5 +84,119 @@
         }
     }
 }
+
+#pragma SWIG
+
+-(void)configureEndpoint {
+    
+    SWTransportConfiguration *tcp = [SWTransportConfiguration configurationWithTransportType:SWTransportTypeTCP];
+        SWTransportConfiguration *udp = [SWTransportConfiguration configurationWithTransportType:SWTransportTypeUDP];
+    
+    SWEndpointConfiguration *endpointConfiguration = [SWEndpointConfiguration configurationWithTransportConfigurations:@[tcp,udp]];
+    
+    SWEndpoint *endpoint = [SWEndpoint sharedInstance];
+    
+    [endpoint configure:endpointConfiguration completionHandler:^(NSError *error) {
+        
+        if (error) {
+            
+            NSLog(@"%@", [error description]);
+            
+            [endpoint reset:^(NSError *error) {
+                if(error) NSLog(@"%@", [error description]);
+            }];
+        }
+    }];
+    
+    [endpoint setAccountIncomingCallBlock:^(SWAccount *account, SWCall *call) {
+        
+    }];
+    
+    [endpoint setAccountStateChangeBlock:^(SWAccount *account, SWAccountState state) {
+        
+    }];
+}
+
+-(void)addDIDAccount {
+    
+    SWAccount *account = [SWAccount new];
+    
+    SWAccountConfiguration *configuration = [SWAccountConfiguration new];
+    configuration.username = @"161672";
+    configuration.password = @"qwer1234";
+    configuration.domain = @"montreal3.voip.ms;transport=tcp"; //TODO: move this to the class
+    configuration.address = [NSString stringWithFormat:@"%@@%@", configuration.username, configuration.domain];
+    
+    [account configure:configuration completionHandler:^(NSError *error) {
+       
+        if (error) {
+            NSLog(@"%@", [error description]);
+        }
+        
+        else {
+            
+            [account connect:^(NSError *error) {
+                NSLog(@"%@", [error description]);
+            }];
+        }
+    }];
+}
+
+-(void)addSIPAccount {
+    
+    SWAccount *account = [SWAccount new];
+    
+    SWAccountConfiguration *configuration = [SWAccountConfiguration new];
+    configuration.username = @"getonsip_mobila";
+    configuration.password = @"NQFxmwxw4wQMEfp3";
+    configuration.domain = @"getonsip.com;transport=tcp"; //TODO: move this to the class
+    configuration.address = [NSString stringWithFormat:@"%@@%@", @"mobila", configuration.domain];
+    configuration.proxy = @"sip.onsip.com";
+    
+    [account configure:configuration completionHandler:^(NSError *error) {
+        
+        if (error) {
+            NSLog(@"%@", [error description]);
+        }
+        
+        else {
+            
+            [account connect:^(NSError *error) {
+                if (error) NSLog(@"%@", [error description]);
+            }];
+        }
+    }];
+}
+
+//-(void)sipCall {
+//
+//    SWUserAgent *userAgent = [SWUserAgent sharedInstance];
+//
+//    SWAccountConfiguration *accountConfiguration = [[SWAccountConfiguration alloc] initWithURI:@"sip:mobila@getonsip.com"];
+//
+//    NSMutableArray *auth = [accountConfiguration.sipConfig.authCreds mutableCopy];
+//
+//    SWAuthCredInfo *authInfo = [SWAuthCredInfo new];
+//    authInfo.scheme = @"digest";
+//    authInfo.realm = @"*";
+//    authInfo.username = @"getonsip_mobila";
+//    authInfo.data = @"NQFxmwxw4wQMEfp3";
+//
+//    [auth addObject:authInfo];
+//
+//    accountConfiguration.sipConfig.authCreds = auth;
+//
+//    NSMutableArray *proxy = [accountConfiguration.sipConfig.proxies mutableCopy];
+//
+//    [proxy addObject:@"sip:sip.onsip.com"];
+//
+//    accountConfiguration.sipConfig.proxies = proxy;
+//
+//    accountConfiguration.regConfig.registrarUri = @"sip:getonsip.com;transport=tcp";
+//
+//    SWAccount *account = [[SWAccount alloc] initWithAccountConfiguration:accountConfiguration];
+//
+//    [userAgent addAccount:account];
+//}
 
 @end

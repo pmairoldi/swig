@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SWAccount.h"
 
-@class SWEndpointConfiguration;
+@class SWEndpointConfiguration, SWAccount, SWCall;
 
 @interface SWEndpoint : NSObject
 
@@ -17,8 +18,13 @@
  * @return singleton
  */
 +(SWEndpoint*)sharedInstance;
--(BOOL)configure;
--(void)connect;
--(void)disconnect;
+-(void)configure:(SWEndpointConfiguration *)configuration completionHandler:(void(^)(NSError *error))handler; //configure and start endpoint
+//-(void)start:(void(^)(NSError *error))handler;
+-(void)reset:(void(^)(NSError *error))handler; //reset endpoint
+-(void)addAccount:(SWAccount *)account;
+-(SWAccount *)lookupAccount:(NSInteger)accountId;
+
+-(void)setAccountIncomingCallBlock:(void(^)(SWAccount *account, SWCall *call))accountIncomingCallBlock;
+-(void)setAccountStateChangeBlock:(void(^)(SWAccount *account, SWAccountState state))accountStateChangeBlock;
 
 @end

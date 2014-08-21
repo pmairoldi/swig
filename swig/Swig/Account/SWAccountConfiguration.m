@@ -10,4 +10,24 @@
 
 @implementation SWAccountConfiguration
 
+-(instancetype)init {
+    
+    self = [super init];
+    
+    if (!self) {
+        return nil;
+    }
+    
+    _address = nil;
+    _domain = nil;
+    _proxy = nil;
+    _authScheme = @"digest";
+    _authRealm = @"*";
+    _username = nil;
+    _password = nil;
+    _registerOnAdd = NO;
+    
+    return self;
+}
+
 @end

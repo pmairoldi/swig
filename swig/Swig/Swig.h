@@ -9,6 +9,15 @@
 #ifndef swig_Swig_h
 #define swig_Swig_h
 
+//Endpoint
+#import "SWEndpoint.h"
+#import "SWEndpointConfiguration.h"
+#import "SWTransportConfiguration.h"
+
+//Account
+#import "SWAccount.h"
+#import "SWAccountConfiguration.h"
+
 //#import "SWUserAgent.h"
 //#import "SWEndpoint.h"
 //#import "SWAccount.h"

@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 PeteAppDesigns. All rights reserved.
 //
 
-#ifndef ACCOUNT_H
-#define ACCOUNT_H
+#ifndef SW_ACCOUNT_H
+#define SW_ACCOUNT_H
 
-#include "pjsua2/account.hpp"
+#include "pjsua2.hpp"
 
 namespace sw {
     
@@ -23,11 +23,11 @@ namespace sw {
         virtual void onIncomingCall(pj::OnIncomingCallParam &prm);
         virtual void onRegStarted(pj::OnRegStartedParam &prm);
         virtual void onRegState(pj::OnRegStateParam &prm);
-        virtual void onIncomingSubscribe(pj::OnIncomingSubscribeParam &prm);
-        virtual void onInstantMessage(pj::OnInstantMessageParam &prm);
-        virtual void onInstantMessageStatus(pj::OnInstantMessageStatusParam &prm);
-        virtual void onTypingIndication(pj::OnTypingIndicationParam &prm);
-        virtual void onMwiInfo(pj::OnMwiInfoParam &prm);
+//        virtual void onIncomingSubscribe(pj::OnIncomingSubscribeParam &prm);
+//        virtual void onInstantMessage(pj::OnInstantMessageParam &prm);
+//        virtual void onInstantMessageStatus(pj::OnInstantMessageStatusParam &prm);
+//        virtual void onTypingIndication(pj::OnTypingIndicationParam &prm);
+//        virtual void onMwiInfo(pj::OnMwiInfoParam &prm);
     };
 }
 #endif
