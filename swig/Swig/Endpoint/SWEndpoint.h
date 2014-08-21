@@ -21,6 +21,7 @@
 -(void)configure:(SWEndpointConfiguration *)configuration completionHandler:(void(^)(NSError *error))handler; //configure and start endpoint
 //-(void)start:(void(^)(NSError *error))handler;
 -(void)reset:(void(^)(NSError *error))handler; //reset endpoint
+
 -(void)addAccount:(SWAccount *)account;
 -(SWAccount *)lookupAccount:(NSInteger)accountId;
 

@@ -22,12 +22,12 @@ namespace sw {
         Call(sw::Account &acc, int call_id = PJSUA_INVALID_ID) : pj::Call(acc, call_id) {};
         ~Call() {};
         
-//        static Call *lookup(int call_id) {
-//            
-//            pj::Call *call = pj::Call::lookup(call_id);
-//            
-//            return (sw::Call *)call;
-//        };
+        static Call *lookup(int call_id) {
+            
+            pj::Call *call = pj::Call::lookup(call_id);
+            
+            return (sw::Call *)call;
+        };
         
         virtual void onCallState(pj::OnCallStateParam &prm);
 //        virtual void onCallTsxState(pj::OnCallTsxStateParam &prm);

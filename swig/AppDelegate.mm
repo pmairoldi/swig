@@ -28,7 +28,7 @@
     [self configureEndpoint];
     
     [self addDIDAccount];
-    [self addSIPAccount];
+//    [self addSIPAccount];
     
     return YES;
 }
@@ -81,6 +81,7 @@
     for (i = 0; i < (int)pjsua_acc_get_count(); ++i) {
         if (pjsua_acc_is_valid(i)) {
             pjsua_acc_set_registration(i, PJ_TRUE);
+            pjsua_acc_set_online_status(i, PJ_TRUE);
         }
     }
 }

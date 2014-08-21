@@ -22,6 +22,7 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
 
 @property (nonatomic) sw::Account *account;
 @property (nonatomic, strong) SWAccountConfiguration *configuration;
+@property (nonatomic, strong) NSMutableDictionary *calls;
 @property (nonatomic, copy) SWIncomingCallBlock incomingCallBlock;
 @property (nonatomic, copy) SWStateChangeBlock stateChangeBlock;
 
@@ -36,6 +37,8 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
     if (!self) {
         return nil;
     }
+    
+    _calls = [NSMutableDictionary dictionary];
     
     return self;
 }
@@ -148,12 +151,40 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
     }
 }
 
+#pragma Call Management 
+
+-(void)addCall:(SWCall *)call {
+    
+    [self.calls setObject:call forKey:@(call.callId)];
+    
+    //TODO:: setup blocks
+}
+
+-(void)removeCall:(SWCall *)call {
+    
+    if ([self lookupCall:call.callId]) {
+        [self.calls removeObjectForKey:@(call.callId)];
+    }
+    
+    call = nil;
+}
+
+-(SWCall *)lookupCall:(NSInteger)callId {
+    
+    if ([[self.calls allKeys] containsObject:@(callId)]) {
+        return [self.calls objectForKey:@(callId)];
+    }
+    
+    else {
+        return nil;
+    }
+}
+
 #pragma SWAccountCallbackProtocol Methods
 
 -(void)onIncomingCall:(NSInteger)callId {
     
-    //TODO add implementation
-    SWCall *call = [SWCall new];
+    SWCall *call = [SWCall callWithId:callId account:self];
     
     if (self.incomingCallBlock) {
         self.incomingCallBlock(call);

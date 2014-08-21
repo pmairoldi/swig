@@ -8,6 +8,38 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SWCall : NSObject
+//TODO: remove call from calls when disconnected
+//TODO: move to 2 sublclasses (incoming/outgoing)
+
+@class SWAccount;
+
+typedef NS_ENUM(NSInteger, SWCallState) {
+    SWCallStateReady,
+    SWCallStateCalling,
+    SWCallStateConnecting,
+    SWCallStateConnected,
+    SWCallStateDisconnected
+};
+
+#import "SWCallCallbackProtocol.h"
+
+@interface SWCall : NSObject <SWCallCallbackProtocol>
+
+@property (nonatomic, strong, readonly) SWAccount *account;
+@property (nonatomic, readonly) NSInteger callId;
+@property (nonatomic, readonly) SWCallState callState;
+
++(instancetype)callWithId:(NSInteger)callId account:(SWAccount *)account;
++(instancetype)callFromAccount:(SWAccount *)account;
+
+-(void)setStateChangeBlock:(void(^)(SWCallState state))stateChangeBlock;
+
+-(void)makeCall:(NSString *)destination completionHandler:(void(^)(NSError *error))handler;
+-(void)answer:(void(^)(NSError *error))handler;
+-(void)hangup:(void(^)(NSError *error))handler;
+//-(void)setHold:(void(^)(NSError *error))handler;
+//-(void)reinvite:(void(^)(NSError *error))handler;
+//-(void)transferCall:(NSString *)destination completionHandler:(void(^)(NSError *error))handler;
+//-(void)replaceCall:(SWCall *)call completionHandler:(void (^)(NSError *))handler;
 
 @end

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
+        <capability name="Constraints with attributes relative to the layout margin" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -15,8 +17,74 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qUQ-bo-FUk">
+                                <rect key="frame" x="275" y="116" width="51" height="30"/>
+                                <state key="normal" title="Answer">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="answer:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="zwk-qh-Vd0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bof-So-iw2">
+                                <rect key="frame" x="266" y="78" width="69" height="30"/>
+                                <state key="normal" title="Make Call">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="makeCall:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="GBj-Km-9db"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymd-nz-NEo">
+                                <rect key="frame" x="16" y="49" width="568" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="lbV-hi-dtN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9df-hh-Axl">
+                                <rect key="frame" x="16" y="20" width="568" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pPX-5l-iWp">
+                                <rect key="frame" x="273" y="154" width="54" height="30"/>
+                                <state key="normal" title="Hangup">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="hangup:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="sSX-r5-OPH"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9df-hh-Axl" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="5Rr-XK-o5G"/>
+                            <constraint firstItem="qUQ-bo-FUk" firstAttribute="top" secondItem="bof-So-iw2" secondAttribute="bottom" constant="8" symbolic="YES" id="8Ey-XS-9cY"/>
+                            <constraint firstItem="9df-hh-Axl" firstAttribute="trailing" secondItem="ymd-nz-NEo" secondAttribute="trailing" id="9IO-ns-B36"/>
+                            <constraint firstAttribute="centerX" secondItem="qUQ-bo-FUk" secondAttribute="centerX" id="DQ3-Hm-fah"/>
+                            <constraint firstAttribute="centerX" secondItem="pPX-5l-iWp" secondAttribute="centerX" id="DgK-Qv-JJi"/>
+                            <constraint firstItem="bof-So-iw2" firstAttribute="centerX" secondItem="ymd-nz-NEo" secondAttribute="centerX" id="EQz-vB-soa"/>
+                            <constraint firstItem="9df-hh-Axl" firstAttribute="centerX" secondItem="jyV-Pf-zRb" secondAttribute="centerX" id="GZU-Gm-1Et"/>
+                            <constraint firstAttribute="centerX" secondItem="9df-hh-Axl" secondAttribute="centerX" id="SHC-K6-C9I"/>
+                            <constraint firstItem="ymd-nz-NEo" firstAttribute="top" secondItem="9df-hh-Axl" secondAttribute="bottom" constant="8" symbolic="YES" id="SoE-1A-f6j"/>
+                            <constraint firstAttribute="centerX" secondItem="ymd-nz-NEo" secondAttribute="centerX" id="X7F-jV-cKx"/>
+                            <constraint firstItem="pPX-5l-iWp" firstAttribute="centerX" secondItem="qUQ-bo-FUk" secondAttribute="centerX" id="Xev-op-yxh"/>
+                            <constraint firstItem="qUQ-bo-FUk" firstAttribute="centerX" secondItem="bof-So-iw2" secondAttribute="centerX" id="dxm-F7-aIa"/>
+                            <constraint firstItem="9df-hh-Axl" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="kwL-46-JnM"/>
+                            <constraint firstItem="bof-So-iw2" firstAttribute="top" secondItem="ymd-nz-NEo" secondAttribute="bottom" constant="8" symbolic="YES" id="qkU-js-ekA"/>
+                            <constraint firstItem="9df-hh-Axl" firstAttribute="leading" secondItem="ymd-nz-NEo" secondAttribute="leading" id="rbz-S6-p8W"/>
+                            <constraint firstItem="pPX-5l-iWp" firstAttribute="top" secondItem="qUQ-bo-FUk" secondAttribute="bottom" constant="8" symbolic="YES" id="uFJ-9f-q4R"/>
+                            <constraint firstAttribute="centerX" secondItem="bof-So-iw2" secondAttribute="centerX" id="wK8-gA-tn2"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="statusLabel" destination="ymd-nz-NEo" id="G0O-un-WNe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

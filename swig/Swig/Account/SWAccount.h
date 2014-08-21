@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+//TODO: remove account from accounts when disconnected
+
 @class SWAccountConfiguration, SWCall;
 
 typedef NS_ENUM(NSInteger, SWAccountState) {
@@ -28,6 +30,10 @@ typedef NS_ENUM(NSInteger, SWAccountState) {
 -(void)configure:(SWAccountConfiguration *)configuration completionHandler:(void(^)(NSError *error))handler; //configure and add account
 -(void)connect:(void(^)(NSError *error))handler;
 -(void)disconnect:(void(^)(NSError *error))handler;
+
+-(void)addCall:(SWCall *)call;
+-(void)removeCall:(SWCall *)call;
+-(SWCall *)lookupCall:(NSInteger)callId;
 
 -(void)setIncomingCallBlock:(void(^)(SWCall *call))incomingCallBlock;
 -(void)setStateChangeBlock:(void(^)(SWAccountState state))stateChangeBlock;

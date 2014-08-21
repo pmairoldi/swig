@@ -20,6 +20,13 @@ namespace sw {
         Account() {}
         ~Account() {}
         
+        static Account *lookup(int acc_id){
+            
+            pj::Account *account = pj::Account::lookup(acc_id);
+            
+            return (sw::Account *)account;
+        }
+        
         virtual void onIncomingCall(pj::OnIncomingCallParam &prm);
         virtual void onRegStarted(pj::OnRegStartedParam &prm);
         virtual void onRegState(pj::OnRegStateParam &prm);

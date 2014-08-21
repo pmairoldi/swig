@@ -14,7 +14,7 @@
     
     NSString *sipUri = uri;
     
-    if ([sipUri rangeOfString:@"sip:"].location == NSNotFound) {
+    if (![sipUri hasPrefix:@"sip:"]) {
         sipUri = [NSString stringWithFormat:@"sip:%@", sipUri];
     }
     
