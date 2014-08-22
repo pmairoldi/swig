@@ -13,19 +13,22 @@
 
 @interface SWEndpoint : NSObject
 
+@property (nonatomic, strong, readonly) SWEndpointConfiguration *endpointConfiguration;
+
 /**
  * gets singleton object.
  * @return singleton
  */
 +(SWEndpoint*)sharedInstance;
 -(void)configure:(SWEndpointConfiguration *)configuration completionHandler:(void(^)(NSError *error))handler; //configure and start endpoint
+-(BOOL)hasTCPConfiguration;
 //-(void)start:(void(^)(NSError *error))handler;
 -(void)reset:(void(^)(NSError *error))handler; //reset endpoint
 
 -(void)addAccount:(SWAccount *)account;
 -(SWAccount *)lookupAccount:(NSInteger)accountId;
 
--(void)setAccountIncomingCallBlock:(void(^)(SWAccount *account, SWCall *call))accountIncomingCallBlock;
--(void)setAccountStateChangeBlock:(void(^)(SWAccount *account, SWAccountState state))accountStateChangeBlock;
+-(void)setAccountIncomingCallBlock:(void(^)(__weak SWAccount *account, __weak SWCall *call))accountIncomingCallBlock;
+-(void)setAccountStateChangeBlock:(void(^)(__weak SWAccount *account, SWAccountState state))accountStateChangeBlock;
 
 @end

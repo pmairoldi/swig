@@ -26,13 +26,14 @@ typedef NS_ENUM(NSInteger, SWAccountState) {
 
 @property (nonatomic, readonly) NSInteger accountId;
 @property (nonatomic, readonly) SWAccountState accountState;
+@property (nonatomic, readonly, strong) SWAccountConfiguration *accountConfiguration;
 
 -(void)configure:(SWAccountConfiguration *)configuration completionHandler:(void(^)(NSError *error))handler; //configure and add account
 -(void)connect:(void(^)(NSError *error))handler;
 -(void)disconnect:(void(^)(NSError *error))handler;
 
 -(void)addCall:(SWCall *)call;
--(void)removeCall:(SWCall *)call;
+-(void)removeCall:(NSUInteger)callId;
 -(SWCall *)lookupCall:(NSInteger)callId;
 
 -(void)setIncomingCallBlock:(void(^)(SWCall *call))incomingCallBlock;

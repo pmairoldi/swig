@@ -109,12 +109,15 @@
         }
     }];
     
-    [endpoint setAccountIncomingCallBlock:^(SWAccount *account, SWCall *call) {
+    [endpoint setAccountIncomingCallBlock:^(__weak SWAccount *account, __weak SWCall *call) {
         
+        account = nil;
+        call = nil;
     }];
     
-    [endpoint setAccountStateChangeBlock:^(SWAccount *account, SWAccountState state) {
+    [endpoint setAccountStateChangeBlock:^(__weak SWAccount *account, SWAccountState state) {
         
+        account = nil;
     }];
 }
 
@@ -123,10 +126,9 @@
     SWAccount *account = [SWAccount new];
     
     SWAccountConfiguration *configuration = [SWAccountConfiguration new];
-    configuration.username = @"161672";
-    configuration.password = @"qwer1234";
-    configuration.domain = @"montreal3.voip.ms;transport=tcp"; //TODO: move this to the class
-    configuration.address = [NSString stringWithFormat:@"%@@%@", configuration.username, configuration.domain];
+    configuration.username = @"161672_6001";
+    configuration.password = @"Asdf6001";
+    configuration.domain = @"toronto3.voip.ms";
     
     [account configure:configuration completionHandler:^(NSError *error) {
        
@@ -150,8 +152,8 @@
     SWAccountConfiguration *configuration = [SWAccountConfiguration new];
     configuration.username = @"getonsip_mobila";
     configuration.password = @"NQFxmwxw4wQMEfp3";
-    configuration.domain = @"getonsip.com;transport=tcp"; //TODO: move this to the class
-    configuration.address = [NSString stringWithFormat:@"%@@%@", @"mobila", configuration.domain];
+    configuration.domain = @"getonsip.com;transport=tcp";
+    configuration.address = [SWAccountConfiguration addressFromUsername:@"mobila" domain:configuration.domain];
     configuration.proxy = @"sip.onsip.com";
     
     [account configure:configuration completionHandler:^(NSError *error) {

@@ -15,14 +15,14 @@
 #import "SWEndpoint.h"
 #import "SWCall.h"
 
-typedef void (^SWIncomingCallBlock)(SWCall *call);
+typedef void (^SWIncomingCallBlock)(__weak SWCall *call);
 typedef void (^SWStateChangeBlock)(SWAccountState state);
 
 @interface SWAccount ()
 
 @property (nonatomic) sw::Account *account;
 @property (nonatomic, strong) SWAccountConfiguration *configuration;
-@property (nonatomic, strong) NSMutableDictionary *calls;
+@property (nonatomic, strong) NSMutableArray *calls; //more than one call can have value of -1
 @property (nonatomic, copy) SWIncomingCallBlock incomingCallBlock;
 @property (nonatomic, copy) SWStateChangeBlock stateChangeBlock;
 
@@ -38,7 +38,7 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
         return nil;
     }
     
-    _calls = [NSMutableDictionary dictionary];
+    _calls = [NSMutableArray new];
     
     return self;
 }
@@ -76,7 +76,20 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
     }
 }
 
+-(void)setAccountConfiguration:(SWAccountConfiguration *)accountConfiguration {
+    
+    [self willChangeValueForKey:@"accountConfiguration"];
+    _accountConfiguration = accountConfiguration;
+    [self didChangeValueForKey:@"accountConfiguration"];
+}
+
 -(void)configure:(SWAccountConfiguration *)configuration completionHandler:(void(^)(NSError *error))handler {
+    
+    self.accountConfiguration = configuration;
+    
+    if (!self.accountConfiguration.address) {
+        self.accountConfiguration.address = [SWAccountConfiguration addressFromUsername:self.accountConfiguration.username domain:self.accountConfiguration.domain];
+    }
     
     try {
         
@@ -155,15 +168,17 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
 
 -(void)addCall:(SWCall *)call {
     
-    [self.calls setObject:call forKey:@(call.callId)];
+    [self.calls addObject:call];
     
     //TODO:: setup blocks
 }
 
--(void)removeCall:(SWCall *)call {
+-(void)removeCall:(NSUInteger)callId {
     
-    if ([self lookupCall:call.callId]) {
-        [self.calls removeObjectForKey:@(call.callId)];
+    SWCall *call = [self lookupCall:callId];
+
+    if (call) {
+        [self.calls removeObject:call];
     }
     
     call = nil;
@@ -171,23 +186,36 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
 
 -(SWCall *)lookupCall:(NSInteger)callId {
     
-    if ([[self.calls allKeys] containsObject:@(callId)]) {
-        return [self.calls objectForKey:@(callId)];
-    }
-    
-    else {
-        return nil;
-    }
+    NSArray *array = [self.calls filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(__weak SWCall *call, NSDictionary *bindings) {
+        
+        if (call.callId == PJSUA_INVALID_ID) {
+            return NO;
+        }
+        
+        else if (call.callId == callId) {
+            return YES;
+        }
+        
+        else {
+            return NO;
+        }
+    }]];
+
+    SWCall *call = [array firstObject]; //TODO add more management
+        
+    return call;
 }
 
 #pragma SWAccountCallbackProtocol Methods
 
 -(void)onIncomingCall:(NSInteger)callId {
     
-    SWCall *call = [SWCall callWithId:callId account:self];
+    SWCall *call = [[SWCall alloc] initWithCallId:callId accountId:_accountId];
     
-    if (self.incomingCallBlock) {
-        self.incomingCallBlock(call);
+    [self addCall:call];
+
+    if (_incomingCallBlock) {
+        _incomingCallBlock(call);
     }
 }
 
@@ -212,7 +240,7 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
 }
 
 #pragma Block Parameters
--(void)setIncomingCallBlock:(void(^)(SWCall *call))incomingCallBlock {
+-(void)setIncomingCallBlock:(void(^)(__weak SWCall *call))incomingCallBlock {
     
     _incomingCallBlock = incomingCallBlock;
 }

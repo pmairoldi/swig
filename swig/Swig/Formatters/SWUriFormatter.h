@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class SWAccount;
+
 @interface SWUriFormatter : NSFormatter
 
 +(NSString *)sipUri:(NSString *)uri;
++(NSString *)sipUri:(NSString *)uri fromAccount:(SWAccount *)account;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "SWUriFormatter.h"
+#import "Swig.h"
 
 @implementation SWUriFormatter
 
@@ -16,6 +17,23 @@
     
     if (![sipUri hasPrefix:@"sip:"]) {
         sipUri = [NSString stringWithFormat:@"sip:%@", sipUri];
+    }
+    
+    return sipUri;
+}
+
++(NSString *)sipUri:(NSString *)uri fromAccount:(SWAccount *)account {
+
+    NSString *sipUri = [SWUriFormatter sipUri:uri];
+    
+    if ([sipUri rangeOfString:@"@"].location == NSNotFound) {
+        sipUri = [NSString stringWithFormat:@"%@@%@", sipUri, account.accountConfiguration.domain];
+    }
+    
+    if (![sipUri hasSuffix:account.accountConfiguration.domain]) {
+    
+        sipUri = [sipUri stringByPaddingToLength:[sipUri rangeOfString:@"@"].location withString:@"" startingAtIndex:0];
+        sipUri = [NSString stringWithFormat:@"%@@%@", sipUri, account.accountConfiguration.domain];
     }
     
     return sipUri;

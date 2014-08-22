@@ -18,5 +18,7 @@
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic) BOOL registerOnAdd;
+@property (nonatomic) BOOL publishEnabled;
 
++(NSString *)addressFromUsername:(NSString *)username domain:(NSString *)domain;
 @end

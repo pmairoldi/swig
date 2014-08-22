@@ -9,6 +9,7 @@
 #import "SWAccountConfiguration+AccountConfig.h"
 #import "NSString+String.h"
 #import "SWUriFormatter.h"
+#import "SWEndpoint.h"
 
 @implementation SWAccountConfiguration (AccountConfig)
 
@@ -16,16 +17,18 @@
     
     pj::AccountConfig *config = new pj::AccountConfig;
     
-    NSString *address = self.address;
+    NSString *tcpSuffix = @"";
     
-    if ([address rangeOfString:@"@"].location == NSNotFound) {
-        address = [NSString stringWithFormat:@"%@@%@", address, self.domain];
+    if ([[SWEndpoint sharedInstance] hasTCPConfiguration]) {
+        tcpSuffix = @";transport=TCP";
     }
     
-    config->idUri = *[[SWUriFormatter sipUri:address] CPPString]; //use uri formatter
+    //TODO test tcp stuff is working
     
-    config->regConfig.registrarUri = *[[SWUriFormatter sipUri:self.domain] CPPString];
+    config->idUri = *[[SWUriFormatter sipUri:self.address] CPPString];
+    config->regConfig.registrarUri = *[[SWUriFormatter sipUri:[self.domain stringByAppendingString:tcpSuffix]] CPPString];
     config->regConfig.registerOnAdd = self.registerOnAdd;
+//    config->regConfig.timeoutSec = 600;
     
     pj::AuthCredInfo authInfo;
     authInfo.scheme = *[self.authScheme CPPString];
@@ -36,8 +39,10 @@
     config->sipConfig.authCreds.push_back(authInfo);
     
     if (self.proxy) {
-        config->sipConfig.proxies.push_back(*[[SWUriFormatter sipUri:self.proxy] CPPString]);
+        config->sipConfig.proxies.push_back(*[[SWUriFormatter sipUri:[self.proxy stringByAppendingString:tcpSuffix]] CPPString]);
     }
+    
+    config->presConfig.publishEnabled = self.publishEnabled;
     
     return config;
 }

@@ -30,4 +30,9 @@
     return self;
 }
 
++(NSString *)addressFromUsername:(NSString *)username domain:(NSString *)domain {
+    
+    return [NSString stringWithFormat:@"%@@%@", username, domain];
+}
+
 @end

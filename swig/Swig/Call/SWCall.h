@@ -25,12 +25,14 @@ typedef NS_ENUM(NSInteger, SWCallState) {
 
 @interface SWCall : NSObject <SWCallCallbackProtocol>
 
-@property (nonatomic, strong, readonly) SWAccount *account;
 @property (nonatomic, readonly) NSInteger callId;
 @property (nonatomic, readonly) SWCallState callState;
 
-+(instancetype)callWithId:(NSInteger)callId account:(SWAccount *)account;
-+(instancetype)callFromAccount:(SWAccount *)account;
+-(instancetype)initWithCallId:(NSUInteger)callId accountId:(NSInteger)accountId;
++(instancetype)callWithId:(NSInteger)callId accountId:(NSInteger)accountId;
++(instancetype)callFromAccountId:(NSInteger)accountId;
+
+-(SWAccount *)getAccount;
 
 -(void)setStateChangeBlock:(void(^)(SWCallState state))stateChangeBlock;
 

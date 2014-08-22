@@ -15,8 +15,8 @@
 #import "SWTransportConfiguration+TransportConfig.h"
 #import "SWAccount.h"
 
-typedef void (^SWAccountSIncomingCallBlock)(SWAccount *account, SWCall *call);
-typedef void (^SWAccountStateChangeBlock)(SWAccount *account, SWAccountState state);
+typedef void (^SWAccountSIncomingCallBlock)(__weak SWAccount *account, __weak SWCall *call);
+typedef void (^SWAccountStateChangeBlock)(__weak SWAccount *account, SWAccountState state);
 
 @interface SWEndpoint ()
 
@@ -90,8 +90,6 @@ static bool isFirstAccess = YES;
 
 -(void)dealloc {
     
-    [self reset:nil];
-    
     if (_endpoint){
         delete _endpoint;
     }
@@ -111,17 +109,26 @@ static bool isFirstAccess = YES;
     return _endpoint;
 }
 
+-(void)setEndpointConfiguration:(SWEndpointConfiguration *)endpointConfiguration {
+    
+    [self willChangeValueForKey:@"endpointConfiguration"];
+    _endpointConfiguration = endpointConfiguration;
+    [self didChangeValueForKey:@"endpointConfiguration"];
+}
+
 -(void)configure:(SWEndpointConfiguration *)configuration completionHandler:(void(^)(NSError *error))handler {
+    
+    self.endpointConfiguration = configuration;
     
     try {
         
         self.endpoint->libCreate();
         
-        pj::EpConfig *epConfig = [configuration toEpConfig];
+        pj::EpConfig *epConfig = [self.endpointConfiguration toEpConfig];
         
         self.endpoint->libInit(*epConfig);
         
-        for (SWTransportConfiguration *transport in configuration.transportConfigurations) {
+        for (SWTransportConfiguration *transport in self.endpointConfiguration.transportConfigurations) {
             
             pj::TransportConfig *transportConfig = [transport toTransportConfig];
             
@@ -143,6 +150,29 @@ static bool isFirstAccess = YES;
     
     if (handler) {
         handler(nil);
+    }
+}
+
+-(BOOL)hasTCPConfiguration {
+
+    NSUInteger index = [self.endpointConfiguration.transportConfigurations indexOfObjectPassingTest:^BOOL(SWTransportConfiguration *obj, NSUInteger idx, BOOL *stop) {
+       
+        if (obj.transportType == SWTransportTypeTCP || obj.transportType == SWTransportTypeTCP6) {
+            return YES;
+            *stop = YES;
+        }
+        
+        else {
+            return NO;
+        }
+    }];
+    
+    if (index == NSNotFound) {
+        return NO;
+    }
+    
+    else {
+        return YES;
     }
 }
 
@@ -207,16 +237,16 @@ static bool isFirstAccess = YES;
     
     [self.accounts setObject:account forKey:@(account.accountId)];
  
-    __block SWAccount *weak_account = account;
+    __weak SWAccount *weak_account = account;
     
-    [account setIncomingCallBlock:^(SWCall *call) {
+    [weak_account setIncomingCallBlock:^(__weak SWCall *call) {
        
         if (self.accountIncomingCallBlock) {
             self.accountIncomingCallBlock(weak_account, call);
         }
     }];
     
-    [account setStateChangeBlock:^(SWAccountState state) {
+    [weak_account setStateChangeBlock:^(SWAccountState state) {
         
         if (self.accountStateChangeBlock) {
             self.accountStateChangeBlock(weak_account, state);
@@ -237,12 +267,12 @@ static bool isFirstAccess = YES;
 
 #pragma Block Parameters 
 
--(void)setAccountIncomingCallBlock:(void(^)(SWAccount *account, SWCall *call))accountIncomingCallBlock {
+-(void)setAccountIncomingCallBlock:(void(^)(__weak SWAccount *account, __weak SWCall *call))accountIncomingCallBlock {
     
     _accountIncomingCallBlock = accountIncomingCallBlock;
 }
 
--(void)setAccountStateChangeBlock:(void(^)(SWAccount *account, SWAccountState state))accountStateChangeBlock {
+-(void)setAccountStateChangeBlock:(void(^)(__weak SWAccount *account, SWAccountState state))accountStateChangeBlock {
 
     _accountStateChangeBlock = accountStateChangeBlock;
 }

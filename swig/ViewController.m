@@ -11,7 +11,7 @@
 
 @interface ViewController ()
 
-@property (nonatomic, strong) SWCall *currentCall;
+//@property (nonatomic, weak) SWCall *currentCall;
 
 @end
 
@@ -23,23 +23,27 @@
     
     SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:0];
     
-    [account setStateChangeBlock:^(SWAccountState state) {
-        self.statusLabel.text = [NSString stringWithFormat:@"%d", state];
-    }];
     
-    [account setIncomingCallBlock:^(SWCall *call) {
+    [account setStateChangeBlock:^(SWAccountState state) {
         
-        if (self.currentCall) {
-            
-            [self.currentCall hangup:^(NSError *error) {
-                self.currentCall = call;
-            }];
-        }
-        
-        else {
-            self.currentCall = call;
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.statusLabel.text = [NSString stringWithFormat:@"%d", state];
+        });
     }];
+//    
+//    [account setIncomingCallBlock:^(SWCall *call) {
+//        
+//        if (self.currentCall) {
+//            
+//            [self.currentCall hangup:^(NSError *error) {
+//                self.currentCall = call;
+//            }];
+//        }
+//        
+//        else {
+//            self.currentCall = call;
+//        }
+//    }];
 }
 
 -(void)didReceiveMemoryWarning {
@@ -49,42 +53,42 @@
 
 -(IBAction)makeCall:(id)sender {
     
-    SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:0];
-    
-    if (self.currentCall) {
-        
-        [self.currentCall hangup:^(NSError *error) {
-            
-            self.currentCall = [SWCall callFromAccount:account];
-            
-            [self.currentCall makeCall:@"6474785132" completionHandler:^(NSError *error) {
-                
-            }];
-        }];
-    }
-    
-    else {
-        
-        self.currentCall = [SWCall callFromAccount:account];
-        
-        [self.currentCall makeCall:@"6474785132" completionHandler:^(NSError *error) {
-            
-        }];
-    }
+//    __weak SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:0];
+//    
+//    if (self.currentCall) {
+//        
+//        [self.currentCall hangup:^(NSError *error) {
+//            
+//            self.currentCall = [SWCall callFromAccountId:account.accountId];
+//            
+//            [self.currentCall makeCall:@"6474785132" completionHandler:^(NSError *error) {
+//                
+//            }];
+//        }];
+//    }
+//    
+//    else {
+//        
+//        self.currentCall = [SWCall callFromAccountId:account.accountId];
+//        
+//        [self.currentCall makeCall:@"6474785132" completionHandler:^(NSError *error) {
+//            
+//        }];
+//    }
 }
 
 -(IBAction)answer:(id)sender {
     
-    [self.currentCall answer:^(NSError *error) {
-        
-    }];
+//    [self.currentCall answer:^(NSError *error) {
+//        
+//    }];
 }
 
 -(IBAction)hangup:(id)sender {
     
-    [self.currentCall hangup:^(NSError *error) {
-        
-    }];
+//    [self.currentCall hangup:^(NSError *error) {
+//        
+//    }];
 }
 
 @end
