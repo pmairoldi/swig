@@ -109,13 +109,13 @@
         }
     }];
     
-    [endpoint setAccountIncomingCallBlock:^(__weak SWAccount *account, __weak SWCall *call) {
+    [endpoint setAccountIncomingCallBlock:^(SWAccount *account, SWCall *call) {
         
         account = nil;
         call = nil;
     }];
     
-    [endpoint setAccountStateChangeBlock:^(__weak SWAccount *account, SWAccountState state) {
+    [endpoint setAccountStateChangeBlock:^(SWAccount *account, SWAccountState state) {
         
         account = nil;
     }];

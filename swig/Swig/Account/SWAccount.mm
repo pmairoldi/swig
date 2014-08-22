@@ -15,7 +15,7 @@
 #import "SWEndpoint.h"
 #import "SWCall.h"
 
-typedef void (^SWIncomingCallBlock)(__weak SWCall *call);
+typedef void (^SWIncomingCallBlock)(SWCall *call);
 typedef void (^SWStateChangeBlock)(SWAccountState state);
 
 @interface SWAccount ()
@@ -186,7 +186,7 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
 
 -(SWCall *)lookupCall:(NSInteger)callId {
     
-    NSArray *array = [self.calls filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(__weak SWCall *call, NSDictionary *bindings) {
+    NSArray *array = [self.calls filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SWCall *call, NSDictionary *bindings) {
         
         if (call.callId == PJSUA_INVALID_ID) {
             return NO;
@@ -240,7 +240,7 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
 }
 
 #pragma Block Parameters
--(void)setIncomingCallBlock:(void(^)(__weak SWCall *call))incomingCallBlock {
+-(void)setIncomingCallBlock:(void(^)(SWCall *call))incomingCallBlock {
     
     _incomingCallBlock = incomingCallBlock;
 }

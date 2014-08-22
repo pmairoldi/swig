@@ -15,8 +15,8 @@
 #import "SWTransportConfiguration+TransportConfig.h"
 #import "SWAccount.h"
 
-typedef void (^SWAccountSIncomingCallBlock)(__weak SWAccount *account, __weak SWCall *call);
-typedef void (^SWAccountStateChangeBlock)(__weak SWAccount *account, SWAccountState state);
+typedef void (^SWAccountSIncomingCallBlock)(SWAccount *account, SWCall *call);
+typedef void (^SWAccountStateChangeBlock)(SWAccount *account, SWAccountState state);
 
 @interface SWEndpoint ()
 
@@ -89,7 +89,7 @@ static bool isFirstAccess = YES;
 }
 
 -(void)dealloc {
-    
+        
     if (_endpoint){
         delete _endpoint;
     }
@@ -239,7 +239,7 @@ static bool isFirstAccess = YES;
  
     __weak SWAccount *weak_account = account;
     
-    [weak_account setIncomingCallBlock:^(__weak SWCall *call) {
+    [weak_account setIncomingCallBlock:^(SWCall *call) {
        
         if (self.accountIncomingCallBlock) {
             self.accountIncomingCallBlock(weak_account, call);
@@ -267,12 +267,12 @@ static bool isFirstAccess = YES;
 
 #pragma Block Parameters 
 
--(void)setAccountIncomingCallBlock:(void(^)(__weak SWAccount *account, __weak SWCall *call))accountIncomingCallBlock {
+-(void)setAccountIncomingCallBlock:(void(^)(SWAccount *account, SWCall *call))accountIncomingCallBlock {
     
     _accountIncomingCallBlock = accountIncomingCallBlock;
 }
 
--(void)setAccountStateChangeBlock:(void(^)(__weak SWAccount *account, SWAccountState state))accountStateChangeBlock {
+-(void)setAccountStateChangeBlock:(void(^)(SWAccount *account, SWAccountState state))accountStateChangeBlock {
 
     _accountStateChangeBlock = accountStateChangeBlock;
 }
