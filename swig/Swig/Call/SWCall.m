@@ -8,21 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "SWCall.h"
-#import "pjsua2.hpp"
-#import "SwigCall.h"
 #import "SWAccount.h"
-#import "SwigAccount.h"
-#import "NSString+String.h"
-#import "NSError+Error.h"
-#import "SWUriFormatter.h"
 #import "SWEndpoint.h"
+#import "SWUriFormatter.h"
+
+#import "pjsua.h"
 
 typedef void (^SWStateChangeBlock)(SWCallState state);
 
 @interface SWCall ()
 
 @property (nonatomic, strong) UILocalNotification *notification;
-@property (nonatomic) sw::Call *call;
 @property (nonatomic, copy) SWStateChangeBlock stateChangeBlock;
 
 @end
@@ -44,8 +40,8 @@ typedef void (^SWStateChangeBlock)(SWCallState state);
         return nil;
     }
     
-    _call = new sw::Call(*(sw::Account::lookup(accountId)), callId);
-    _callId = _call->getId();
+//    _call = new sw::Call(*(sw::Account::lookup(accountId)), callId);
+//    _callId = _call->getId();
     _callState = SWCallStateReady;
     
     return self;
@@ -62,9 +58,9 @@ typedef void (^SWStateChangeBlock)(SWCallState state);
 
 +(instancetype)callFromAccountId:(NSInteger)accountId {
 
-    SWCall *call = [SWCall callWithId:PJSUA_INVALID_ID accountId:accountId];
+//    SWCall *call = [SWCall callWithId:PJSUA_INVALID_ID accountId:accountId];
 
-    return call;
+    return [SWCall new];
 }
 
 -(void)createLocalNotification {
@@ -72,10 +68,10 @@ typedef void (^SWStateChangeBlock)(SWCallState state);
     _notification = [[UILocalNotification alloc] init];
     _notification.repeatInterval = 0;
     
-    pj::CallInfo info = _call->getInfo();
-    
-    _notification.alertBody = [NSString stringWithFormat:@"Incoming call from %@", [NSString stringWithCPPString:&info.remoteContact]];
-    _notification.alertAction = @"Activate app";
+//    pj::CallInfo info = _call->getInfo();
+//    
+//    _notification.alertBody = [NSString stringWithFormat:@"Incoming call from %@", [NSString stringWithCPPString:&info.remoteContact]];
+//    _notification.alertAction = @"Activate app";
     
     [[UIApplication sharedApplication] presentLocalNotificationNow:_notification];
 }
@@ -83,9 +79,6 @@ typedef void (^SWStateChangeBlock)(SWCallState state);
 -(void)dealloc {
     
     //TODO hangup before
-    if (_call) {
-        delete _call;
-    }
     
     [[UIApplication sharedApplication] cancelLocalNotification:_notification];
 }
@@ -117,86 +110,87 @@ typedef void (^SWStateChangeBlock)(SWCallState state);
 
 -(SWAccount *)getAccount {
     
-    pj::CallInfo info = self.call->getInfo();
+    pjsua_call_info info;
+    pjsua_call_get_info(self.callId, &info);
     
-   return [[SWEndpoint sharedInstance] lookupAccount:info.accId];
+   return [[SWEndpoint sharedInstance] lookupAccount:info.acc_id];
 }
 
 #pragma Call Management
 
 -(void)makeCall:(NSString *)destination completionHandler:(void(^)(NSError *error))handler {
     
-    try {
-        
-        pj::CallOpParam param(true);
-        param.statusCode = PJSIP_SC_OK;
-        
-        self.call->makeCall(*[[SWUriFormatter sipUri:destination fromAccount:[self getAccount]] CPPString], param);
-        self.callState = SWCallStateCalling;
-        
-    } catch(pj::Error &err) {
-        
-        NSError *error = [NSError errorWithError:&err];
-        
-        if (handler) {
-            handler(error);
-        }
-    }
-    
-    if (handler) {
-        handler(nil);
-    }
+//    try {
+//        
+//        pj::CallOpParam param(true);
+//        param.statusCode = PJSIP_SC_OK;
+//        
+//        self.call->makeCall(*[[SWUriFormatter sipUri:destination fromAccount:[self getAccount]] CPPString], param);
+//        self.callState = SWCallStateCalling;
+//        
+//    } catch(pj::Error &err) {
+//        
+//        NSError *error = [NSError errorWithError:&err];
+//        
+//        if (handler) {
+//            handler(error);
+//        }
+//    }
+//    
+//    if (handler) {
+//        handler(nil);
+//    }
 }
 
 -(void)answer:(void(^)(NSError *error))handler {
     
-    try {
-        
-        pj::CallOpParam param;
-        param.statusCode = PJSIP_SC_OK;
-        
-        self.call->answer(param);
-        
-    } catch(pj::Error &err) {
-        
-        NSError *error = [NSError errorWithError:&err];
-        
-        if (handler) {
-            handler(error);
-        }
-    }
-    
-    if (handler) {
-        handler(nil);
-    }
+//    try {
+//        
+//        pj::CallOpParam param;
+//        param.statusCode = PJSIP_SC_OK;
+//        
+//        self.call->answer(param);
+//        
+//    } catch(pj::Error &err) {
+//        
+//        NSError *error = [NSError errorWithError:&err];
+//        
+//        if (handler) {
+//            handler(error);
+//        }
+//    }
+//    
+//    if (handler) {
+//        handler(nil);
+//    }
 }
 
 -(void)hangup:(void(^)(NSError *error))handler {
     
-    try {
-        
-        pj::CallOpParam param;
-        
-        if (self.callState == SWCallStateReady || self.callState == SWCallStateCalling) {
-            param.statusCode = PJSIP_SC_DECLINE; //TODO fix busy
-        }
-        
-        if (self.callState != SWCallStateDisconnected) {
-            self.call->hangup(param); //FIX error with hangup
-        }
-        
-    } catch(pj::Error &err) {
-        
-        NSError *error = [NSError errorWithError:&err];
-        
-        if (handler) {
-            handler(error);
-        }
-    }
-    
-    if (handler) {
-        handler(nil);
-    }
+//    try {
+//        
+//        pj::CallOpParam param;
+//        
+//        if (self.callState == SWCallStateReady || self.callState == SWCallStateCalling) {
+//            param.statusCode = PJSIP_SC_DECLINE; //TODO fix busy
+//        }
+//        
+//        if (self.callState != SWCallStateDisconnected) {
+//            self.call->hangup(param); //FIX error with hangup
+//        }
+//        
+//    } catch(pj::Error &err) {
+//        
+//        NSError *error = [NSError errorWithError:&err];
+//        
+//        if (handler) {
+//            handler(error);
+//        }
+//    }
+//    
+//    if (handler) {
+//        handler(nil);
+//    }
 }
 
 #pragma SWCallCallbackProtocol

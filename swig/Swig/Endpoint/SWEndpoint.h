@@ -22,7 +22,7 @@
 +(SWEndpoint*)sharedInstance;
 -(void)configure:(SWEndpointConfiguration *)configuration completionHandler:(void(^)(NSError *error))handler; //configure and start endpoint
 -(BOOL)hasTCPConfiguration;
-//-(void)start:(void(^)(NSError *error))handler;
+-(void)start:(void(^)(NSError *error))handler;
 -(void)reset:(void(^)(NSError *error))handler; //reset endpoint
 
 -(void)addAccount:(SWAccount *)account;

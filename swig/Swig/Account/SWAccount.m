@@ -7,20 +7,19 @@
 //
 
 #import "SWAccount.h"
-#import "NSError+Error.h"
 #import "SWAccountConfiguration.h"
-#import "SWAccountConfiguration+AccountConfig.h"
-#include "SwigAccount.h"
-#include "pjsua2.hpp"
 #import "SWEndpoint.h"
 #import "SWCall.h"
+#import "SWUriFormatter.h"
+#import "NSString+PJString.h"
+
+#import "pjsua.h"
 
 typedef void (^SWIncomingCallBlock)(SWCall *call);
 typedef void (^SWStateChangeBlock)(SWAccountState state);
 
 @interface SWAccount ()
 
-@property (nonatomic) sw::Account *account;
 @property (nonatomic, strong) SWAccountConfiguration *configuration;
 @property (nonatomic, strong) NSMutableArray *calls; //more than one call can have value of -1
 @property (nonatomic, copy) SWIncomingCallBlock incomingCallBlock;
@@ -45,19 +44,6 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
 
 -(void)dealloc {
   
-    if (_account) {
-        delete _account;
-    }
-}
-
--(sw::Account *)account {
-    
-    if (!_account) {
-        
-        _account = new sw::Account;
-    }
-    
-    return _account;
 }
 
 -(void)setAccountId:(NSInteger)accountId {
@@ -91,23 +77,65 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
         self.accountConfiguration.address = [SWAccountConfiguration addressFromUsername:self.accountConfiguration.username domain:self.accountConfiguration.domain];
     }
     
-    try {
-        
-        pj::AccountConfig *config = [configuration toAccountConfig];
-        
-        self.account->create(*config);
-        self.accountId = self.account->getId();
-        
-        [[SWEndpoint sharedInstance] addAccount:self];
-        
-    } catch(pj::Error &err) {
-        
-        NSError *error = [NSError errorWithError:&err];
-        
-        if (handler) {
-            handler(error);
-        }
+    NSString *tcpSuffix = @"";
+    
+    if ([[SWEndpoint sharedInstance] hasTCPConfiguration]) {
+        tcpSuffix = @";transport=TCP";
     }
+    
+    pjsua_acc_config acc_cfg;
+    pjsua_acc_config_default(&acc_cfg);
+    
+    acc_cfg.id = [[SWUriFormatter sipUri:[self.accountConfiguration.address stringByAppendingString:tcpSuffix]] pjString];
+    acc_cfg.reg_uri = [[SWUriFormatter sipUri:[self.accountConfiguration.domain stringByAppendingString:tcpSuffix]] pjString];
+    acc_cfg.register_on_acc_add = PJ_FALSE;
+    acc_cfg.reg_timeout = 600; //TODO test if bg stays alive
+    
+    acc_cfg.cred_count = 1;
+    acc_cfg.cred_info[0].scheme = [self.accountConfiguration.authScheme pjString];
+    acc_cfg.cred_info[0].realm = [self.accountConfiguration.authRealm pjString];
+    acc_cfg.cred_info[0].
+    //TODO test tcp stuff is working
+    
+//    config->idUri = *[[SWUriFormatter sipUri:self.address] CPPString];
+//    config->regConfig.registrarUri = *[[SWUriFormatter sipUri:[self.domain stringByAppendingString:tcpSuffix]] CPPString];
+//    config->regConfig.registerOnAdd = self.registerOnAdd;
+//    //    config->regConfig.timeoutSec = 600;
+//    
+//    pj::AuthCredInfo authInfo;
+//    authInfo.scheme = *[self.authScheme CPPString];
+//    authInfo.realm = *[self.authRealm CPPString];
+//    authInfo.username = *[self.username CPPString];
+//    authInfo.data = *[self.password CPPString];
+//    
+//    config->sipConfig.authCreds.push_back(authInfo);
+//    
+//    if (self.proxy) {
+//        config->sipConfig.proxies.push_back(*[[SWUriFormatter sipUri:[self.proxy stringByAppendingString:tcpSuffix]] CPPString]);
+//    }
+//    
+//    config->presConfig.publishEnabled = self.publishEnabled;
+    
+    return config;
+
+    
+//    try {
+//        
+//        pj::AccountConfig *config = [configuration toAccountConfig];
+//        
+//        self.account->create(*config);
+//        self.accountId = self.account->getId();
+//        
+//        [[SWEndpoint sharedInstance] addAccount:self];
+//        
+//    } catch(pj::Error &err) {
+//        
+//        NSError *error = [NSError errorWithError:&err];
+//        
+//        if (handler) {
+//            handler(error);
+//        }
+//    }
     
     if (handler) {
         handler(nil);
@@ -116,52 +144,52 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
 
 -(void)connect:(void(^)(NSError *error))handler {
    
-    try {
-        
-        self.account->setRegistration(true);
-        
-        pj::PresenceStatus presence;
-        presence.status = PJSUA_BUDDY_STATUS_ONLINE;
-        
-        self.account->setOnlineStatus(presence);
-        
-    } catch(pj::Error &err) {
-        
-        NSError *error = [NSError errorWithError:&err];
-        
-        if (handler) {
-            handler(error);
-        }
-    }
-    
-    if (handler) {
-        handler(nil);
-    }
+//    try {
+//        
+//        self.account->setRegistration(true);
+//        
+//        pj::PresenceStatus presence;
+//        presence.status = PJSUA_BUDDY_STATUS_ONLINE;
+//        
+//        self.account->setOnlineStatus(presence);
+//        
+//    } catch(pj::Error &err) {
+//        
+//        NSError *error = [NSError errorWithError:&err];
+//        
+//        if (handler) {
+//            handler(error);
+//        }
+//    }
+//    
+//    if (handler) {
+//        handler(nil);
+//    }
 }
 
 -(void)disconnect:(void(^)(NSError *error))handler {
     
-    try {
-        
-        pj::PresenceStatus presence;
-        presence.status = PJSUA_BUDDY_STATUS_OFFLINE;
-        
-        self.account->setOnlineStatus(presence);
-        
-        self.account->setRegistration(false);
-
-    } catch(pj::Error &err) {
-        
-        NSError *error = [NSError errorWithError:&err];
-        
-        if (handler) {
-            handler(error);
-        }
-    }
-    
-    if (handler) {
-        handler(nil);
-    }
+//    try {
+//        
+//        pj::PresenceStatus presence;
+//        presence.status = PJSUA_BUDDY_STATUS_OFFLINE;
+//        
+//        self.account->setOnlineStatus(presence);
+//        
+//        self.account->setRegistration(false);
+//
+//    } catch(pj::Error &err) {
+//        
+//        NSError *error = [NSError errorWithError:&err];
+//        
+//        if (handler) {
+//            handler(error);
+//        }
+//    }
+//    
+//    if (handler) {
+//        handler(nil);
+//    }
 }
 
 #pragma Call Management 
