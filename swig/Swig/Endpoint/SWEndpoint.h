@@ -28,7 +28,7 @@
 -(void)addAccount:(SWAccount *)account;
 -(SWAccount *)lookupAccount:(NSInteger)accountId;
 
--(void)setAccountIncomingCallBlock:(void(^)(SWAccount *account, SWCall *call))accountIncomingCallBlock;
+-(void)setIncomingCallBlock:(void(^)(SWAccount *account, SWCall *call))incomingCallBlock;
 -(void)setAccountStateChangeBlock:(void(^)(SWAccount *account, SWAccountState state))accountStateChangeBlock;
 
 @end

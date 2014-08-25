@@ -68,7 +68,6 @@
 		2B4BA25719A64C790089478D /* SWAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWAccount.m; sourceTree = "<group>"; };
 		2B4BA25D19A652610089478D /* SWUriFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUriFormatter.h; sourceTree = "<group>"; };
 		2B4BA25E19A652610089478D /* SWUriFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUriFormatter.m; sourceTree = "<group>"; };
-		2B4BA26319A668C70089478D /* SWAccountCallbackProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWAccountCallbackProtocol.h; sourceTree = "<group>"; };
 		2B4BA26419A672D10089478D /* SWCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCall.h; sourceTree = "<group>"; };
 		2B4BA26519A672D10089478D /* SWCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWCall.m; sourceTree = "<group>"; };
 		2B4BA26719A6832C0089478D /* SWCallCallbackProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCallCallbackProtocol.h; sourceTree = "<group>"; };
@@ -167,7 +166,6 @@
 		2B414A0819A53CAB0012891F /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				2B4BA26319A668C70089478D /* SWAccountCallbackProtocol.h */,
 				2B4BA25619A64C790089478D /* SWAccount.h */,
 				2B4BA25719A64C790089478D /* SWAccount.m */,
 				2B414A4019A53FDC0012891F /* SWAccountConfiguration.h */,

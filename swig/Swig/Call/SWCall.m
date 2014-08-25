@@ -11,7 +11,7 @@
 #import "SWAccount.h"
 #import "SWEndpoint.h"
 #import "SWUriFormatter.h"
-
+#import "NSString+PJString.h"
 #import "pjsua.h"
 
 typedef void (^SWStateChangeBlock)(SWCallState state);
@@ -40,9 +40,9 @@ typedef void (^SWStateChangeBlock)(SWCallState state);
         return nil;
     }
     
-//    _call = new sw::Call(*(sw::Account::lookup(accountId)), callId);
-//    _callId = _call->getId();
     _callState = SWCallStateReady;
+    _callId = callId;
+    _accountId = accountId;
     
     return self;
 }
@@ -58,9 +58,9 @@ typedef void (^SWStateChangeBlock)(SWCallState state);
 
 +(instancetype)callFromAccountId:(NSInteger)accountId {
 
-//    SWCall *call = [SWCall callWithId:PJSUA_INVALID_ID accountId:accountId];
+    SWCall *call = [SWCall callWithId:PJSUA_INVALID_ID accountId:accountId];
 
-    return [SWCall new];
+    return call;
 }
 
 -(void)createLocalNotification {
@@ -68,10 +68,21 @@ typedef void (^SWStateChangeBlock)(SWCallState state);
     _notification = [[UILocalNotification alloc] init];
     _notification.repeatInterval = 0;
     
-//    pj::CallInfo info = _call->getInfo();
-//    
-//    _notification.alertBody = [NSString stringWithFormat:@"Incoming call from %@", [NSString stringWithCPPString:&info.remoteContact]];
-//    _notification.alertAction = @"Activate app";
+    pj_status_t status;
+    
+    pjsua_call_info info;
+    
+    status = pjsua_call_get_info(self.callId, &info);
+    
+    if (status == PJ_TRUE) {
+        _notification.alertBody = [NSString stringWithFormat:@"Incoming call from %@", [NSString stringWithPJString:info.remote_contact]];
+    }
+    
+    else {
+        _notification.alertBody = @"Incoming call";
+    }
+    
+    _notification.alertAction = @"Activate app";
     
     [[UIApplication sharedApplication] presentLocalNotificationNow:_notification];
 }
@@ -83,17 +94,17 @@ typedef void (^SWStateChangeBlock)(SWCallState state);
     [[UIApplication sharedApplication] cancelLocalNotification:_notification];
 }
 
-//-(void)setAccount:(SWAccount *)account {
-//    
-//    [self willChangeValueForKey:@"account"];
-//    _account = account;
-//    [self didChangeValueForKey:@"account"];
-//}
-
 -(void)setCallId:(NSInteger)callId {
     
     [self willChangeValueForKey:@"callId"];
     _callId = callId;
+    [self didChangeValueForKey:@"callId"];
+}
+
+-(void)setAccountId:(NSInteger)accountId {
+    
+    [self willChangeValueForKey:@"callId"];
+    _accountId = accountId;
     [self didChangeValueForKey:@"callId"];
 }
 

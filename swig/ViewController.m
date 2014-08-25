@@ -21,16 +21,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:0];
-    
-    
-    [account setStateChangeBlock:^(SWAccountState state) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.statusLabel.text = [NSString stringWithFormat:@"%d", state];
-        });
-    }];
+//    SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:0];
 //    
+//    
+//    [account setStateChangeBlock:^(SWAccountState state) {
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            self.statusLabel.text = [NSString stringWithFormat:@"%d", state];
+//        });
+//    }];
+//
 //    [account setIncomingCallBlock:^(SWCall *call) {
 //        
 //        if (self.currentCall) {

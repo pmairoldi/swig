@@ -26,6 +26,7 @@ typedef NS_ENUM(NSInteger, SWCallState) {
 @interface SWCall : NSObject <SWCallCallbackProtocol>
 
 @property (nonatomic, readonly) NSInteger callId;
+@property (nonatomic, readonly) NSInteger accountId;
 @property (nonatomic, readonly) SWCallState callState;
 
 -(instancetype)initWithCallId:(NSUInteger)callId accountId:(NSInteger)accountId;

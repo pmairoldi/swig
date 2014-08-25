@@ -10,12 +10,12 @@
 #import "SWTransportConfiguration.h"
 #import "SWEndpointConfiguration.h"
 #import "SWAccount.h"
-
+#import "SWCall.h"
 #import "pjsua.h"
 
 #import "NSString+PJString.h"
 
-typedef void (^SWAccountSIncomingCallBlock)(SWAccount *account, SWCall *call);
+typedef void (^SWIncomingCallBlock)(SWAccount *account, SWCall *call);
 typedef void (^SWAccountStateChangeBlock)(SWAccount *account, SWAccountState state);
 
 //callback functions
@@ -37,7 +37,7 @@ static void SWOnNatDetect(const pj_stun_nat_detect_result *res);
 @interface SWEndpoint ()
 
 @property (nonatomic, strong) NSMutableDictionary *accounts; //TODO change to array?
-@property (nonatomic, copy) SWAccountSIncomingCallBlock accountIncomingCallBlock;
+@property (nonatomic, copy) SWIncomingCallBlock incomingCallBlock;
 @property (nonatomic, copy) SWAccountStateChangeBlock accountStateChangeBlock;
 
 @end
@@ -274,26 +274,6 @@ static bool isFirstAccess = YES;
 -(void)addAccount:(SWAccount *)account {
     
     [self.accounts setObject:account forKey:@(account.accountId)];
-    
-    __weak SWAccount *weak_account = account;
-    
-    [account setIncomingCallBlock:^(SWCall *call) {
-        
-        SWAccount *strong_account = weak_account;
-        
-        if (self.accountIncomingCallBlock) {
-            self.accountIncomingCallBlock(strong_account, call);
-        }
-    }];
-    
-    [account setStateChangeBlock:^(SWAccountState state) {
-        
-        SWAccount *strong_account = weak_account;
-
-        if (self.accountStateChangeBlock) {
-            self.accountStateChangeBlock(strong_account, state);
-        }
-    }];
 }
 
 -(SWAccount *)lookupAccount:(NSInteger)accountId {
@@ -309,9 +289,9 @@ static bool isFirstAccess = YES;
 
 #pragma Block Parameters
 
--(void)setAccountIncomingCallBlock:(void(^)(SWAccount *account, SWCall *call))accountIncomingCallBlock {
+-(void)setIncomingCallBlock:(void(^)(SWAccount *account, SWCall *call))incomingCallBlock {
     
-    _accountIncomingCallBlock = accountIncomingCallBlock;
+    _incomingCallBlock = incomingCallBlock;
 }
 
 -(void)setAccountStateChangeBlock:(void(^)(SWAccount *account, SWAccountState state))accountStateChangeBlock {
@@ -323,6 +303,14 @@ static bool isFirstAccess = YES;
 
 static void SWOnIncomingCall(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_rx_data *rdata) {
     
+    SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:acc_id];
+    SWCall *call = [SWCall callWithId:call_id accountId:acc_id];
+    
+    [account addCall:call];
+    
+    if ([SWEndpoint sharedInstance].incomingCallBlock) {
+        [SWEndpoint sharedInstance].incomingCallBlock(account, call);
+    }
 }
 
 static void SWOnCallMediaState(pjsua_call_id call_id) {

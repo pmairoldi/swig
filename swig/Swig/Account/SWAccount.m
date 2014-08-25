@@ -15,15 +15,10 @@
 
 #import "pjsua.h"
 
-typedef void (^SWIncomingCallBlock)(SWCall *call);
-typedef void (^SWStateChangeBlock)(SWAccountState state);
-
 @interface SWAccount ()
 
 @property (nonatomic, strong) SWAccountConfiguration *configuration;
 @property (nonatomic, strong) NSMutableArray *calls; //more than one call can have value of -1
-@property (nonatomic, copy) SWIncomingCallBlock incomingCallBlock;
-@property (nonatomic, copy) SWStateChangeBlock stateChangeBlock;
 
 @end
 
@@ -56,10 +51,6 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
     [self willChangeValueForKey:@"accountState"];
     _accountState = accountState;
     [self didChangeValueForKey:@"accountState"];
-    
-    if (self.stateChangeBlock) {
-        self.stateChangeBlock(self.accountState);
-    }
 }
 
 -(void)setAccountConfiguration:(SWAccountConfiguration *)accountConfiguration {
@@ -254,10 +245,6 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
     SWCall *call = [[SWCall alloc] initWithCallId:callId accountId:_accountId];
     
     [self addCall:call];
-    
-    if (_incomingCallBlock) {
-        _incomingCallBlock(call);
-    }
 }
 
 -(void)onRegStarted:(BOOL)renew {
@@ -278,17 +265,6 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
 -(void)onRegState:(SWAccountState)accountState {
     
     self.accountState = accountState;
-}
-
-#pragma Block Parameters
--(void)setIncomingCallBlock:(void(^)(SWCall *call))incomingCallBlock {
-    
-    _incomingCallBlock = incomingCallBlock;
-}
-
--(void)setStateChangeBlock:(void(^)(SWAccountState state))stateChangeBlock {
-    
-    _stateChangeBlock = stateChangeBlock;
 }
 
 @end

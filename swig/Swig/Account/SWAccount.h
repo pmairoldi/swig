@@ -20,9 +20,7 @@ typedef NS_ENUM(NSInteger, SWAccountState) {
     SWAccountStateDisconnecting
 };
 
-#import "SWAccountCallbackProtocol.h"
-
-@interface SWAccount : NSObject <SWAccountCallbackProtocol>
+@interface SWAccount : NSObject
 
 @property (nonatomic, readonly) NSInteger accountId;
 @property (nonatomic, readonly) SWAccountState accountState;
@@ -35,8 +33,5 @@ typedef NS_ENUM(NSInteger, SWAccountState) {
 -(void)addCall:(SWCall *)call;
 -(void)removeCall:(NSUInteger)callId;
 -(SWCall *)lookupCall:(NSInteger)callId;
-
--(void)setIncomingCallBlock:(void(^)(SWCall *call))incomingCallBlock;
--(void)setStateChangeBlock:(void(^)(SWAccountState state))stateChangeBlock;
 
 @end

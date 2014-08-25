@@ -109,7 +109,7 @@
         }
     }];
     
-    [endpoint setAccountIncomingCallBlock:^(SWAccount *account, SWCall *call) {
+    [endpoint setIncomingCallBlock:^(SWAccount *account, SWCall *call) {
         
         account = nil;
         call = nil;
