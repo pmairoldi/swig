@@ -43,7 +43,7 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
 }
 
 -(void)dealloc {
-  
+    
 }
 
 -(void)setAccountId:(NSInteger)accountId {
@@ -88,111 +88,124 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
     
     acc_cfg.id = [[SWUriFormatter sipUri:[self.accountConfiguration.address stringByAppendingString:tcpSuffix]] pjString];
     acc_cfg.reg_uri = [[SWUriFormatter sipUri:[self.accountConfiguration.domain stringByAppendingString:tcpSuffix]] pjString];
-    acc_cfg.register_on_acc_add = PJ_FALSE;
+    acc_cfg.register_on_acc_add = self.accountConfiguration.registerOnAdd ? PJ_TRUE : PJ_FALSE;;
+    acc_cfg.publish_enabled = self.accountConfiguration.publishEnabled ? PJ_TRUE : PJ_FALSE;
     acc_cfg.reg_timeout = 600; //TODO test if bg stays alive
     
     acc_cfg.cred_count = 1;
     acc_cfg.cred_info[0].scheme = [self.accountConfiguration.authScheme pjString];
     acc_cfg.cred_info[0].realm = [self.accountConfiguration.authRealm pjString];
-    acc_cfg.cred_info[0].
-    //TODO test tcp stuff is working
+    acc_cfg.cred_info[0].username = [self.accountConfiguration.username pjString];
+    acc_cfg.cred_info[0].data_type = PJSIP_CRED_DATA_PLAIN_PASSWD;
+    acc_cfg.cred_info[0].data = [self.accountConfiguration.password pjString];
     
-//    config->idUri = *[[SWUriFormatter sipUri:self.address] CPPString];
-//    config->regConfig.registrarUri = *[[SWUriFormatter sipUri:[self.domain stringByAppendingString:tcpSuffix]] CPPString];
-//    config->regConfig.registerOnAdd = self.registerOnAdd;
-//    //    config->regConfig.timeoutSec = 600;
-//    
-//    pj::AuthCredInfo authInfo;
-//    authInfo.scheme = *[self.authScheme CPPString];
-//    authInfo.realm = *[self.authRealm CPPString];
-//    authInfo.username = *[self.username CPPString];
-//    authInfo.data = *[self.password CPPString];
-//    
-//    config->sipConfig.authCreds.push_back(authInfo);
-//    
-//    if (self.proxy) {
-//        config->sipConfig.proxies.push_back(*[[SWUriFormatter sipUri:[self.proxy stringByAppendingString:tcpSuffix]] CPPString]);
-//    }
-//    
-//    config->presConfig.publishEnabled = self.publishEnabled;
+    if (!self.accountConfiguration.proxy) {
+        acc_cfg.proxy_cnt = 0;
+    }
     
-    return config;
+    else {
+        acc_cfg.proxy_cnt = 1;
+        acc_cfg.proxy[0] = [[self.accountConfiguration.proxy stringByAppendingString:tcpSuffix] pjString];
+    }
+    
+    pj_status_t status;
+    
+    status = pjsua_acc_add(&acc_cfg, PJ_TRUE, &_accountId);
+    
+    if (status != PJ_SUCCESS) {
 
+        NSError *error = [NSError errorWithDomain:@"Error adding account" code:status userInfo:nil];
+        
+        if (handler) {
+            handler(error);
+        }
+        
+        return;
+    }
+
+    if (self.accountConfiguration.registerOnAdd) {
+        [self connect:handler];
+    }
     
-//    try {
-//        
-//        pj::AccountConfig *config = [configuration toAccountConfig];
-//        
-//        self.account->create(*config);
-//        self.accountId = self.account->getId();
-//        
-//        [[SWEndpoint sharedInstance] addAccount:self];
-//        
-//    } catch(pj::Error &err) {
-//        
-//        NSError *error = [NSError errorWithError:&err];
-//        
-//        if (handler) {
-//            handler(error);
-//        }
-//    }
+    else {
+        
+        if (handler) {
+            handler(nil);
+        }
+    }
+}
+
+-(void)connect:(void(^)(NSError *error))handler {
+    
+    pj_status_t status;
+
+    status = pjsua_acc_set_registration(self.accountId, PJ_TRUE);
+    
+    if (status != PJ_SUCCESS) {
+        
+        NSError *error = [NSError errorWithDomain:@"Error setting registration" code:status userInfo:nil];
+        
+        if (handler) {
+            handler(error);
+        }
+        
+        return;
+    }
+
+    status = pjsua_acc_set_online_status(self.accountId, PJ_TRUE);
+    
+    if (status != PJ_SUCCESS) {
+        
+        NSError *error = [NSError errorWithDomain:@"Error setting online status" code:status userInfo:nil];
+        
+        if (handler) {
+            handler(error);
+        }
+        
+        return;
+    }
     
     if (handler) {
         handler(nil);
     }
 }
 
--(void)connect:(void(^)(NSError *error))handler {
-   
-//    try {
-//        
-//        self.account->setRegistration(true);
-//        
-//        pj::PresenceStatus presence;
-//        presence.status = PJSUA_BUDDY_STATUS_ONLINE;
-//        
-//        self.account->setOnlineStatus(presence);
-//        
-//    } catch(pj::Error &err) {
-//        
-//        NSError *error = [NSError errorWithError:&err];
-//        
-//        if (handler) {
-//            handler(error);
-//        }
-//    }
-//    
-//    if (handler) {
-//        handler(nil);
-//    }
-}
-
 -(void)disconnect:(void(^)(NSError *error))handler {
     
-//    try {
-//        
-//        pj::PresenceStatus presence;
-//        presence.status = PJSUA_BUDDY_STATUS_OFFLINE;
-//        
-//        self.account->setOnlineStatus(presence);
-//        
-//        self.account->setRegistration(false);
-//
-//    } catch(pj::Error &err) {
-//        
-//        NSError *error = [NSError errorWithError:&err];
-//        
-//        if (handler) {
-//            handler(error);
-//        }
-//    }
-//    
-//    if (handler) {
-//        handler(nil);
-//    }
+    pj_status_t status;
+    
+    status = pjsua_acc_set_online_status(self.accountId, PJ_FALSE);
+    
+    if (status != PJ_SUCCESS) {
+        
+        NSError *error = [NSError errorWithDomain:@"Error setting online status" code:status userInfo:nil];
+        
+        if (handler) {
+            handler(error);
+        }
+        
+        return;
+    }
+
+    status = pjsua_acc_set_registration(self.accountId, PJ_FALSE);
+    
+    if (status != PJ_SUCCESS) {
+        
+        NSError *error = [NSError errorWithDomain:@"Error setting registration" code:status userInfo:nil];
+        
+        if (handler) {
+            handler(error);
+        }
+        
+        return;
+    }
+    
+    if (handler) {
+        handler(nil);
+    }
 }
 
-#pragma Call Management 
+#pragma Call Management
 
 -(void)addCall:(SWCall *)call {
     
@@ -204,7 +217,7 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
 -(void)removeCall:(NSUInteger)callId {
     
     SWCall *call = [self lookupCall:callId];
-
+    
     if (call) {
         [self.calls removeObject:call];
     }
@@ -228,9 +241,9 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
             return NO;
         }
     }]];
-
+    
     SWCall *call = [array firstObject]; //TODO add more management
-        
+    
     return call;
 }
 
@@ -241,7 +254,7 @@ typedef void (^SWStateChangeBlock)(SWAccountState state);
     SWCall *call = [[SWCall alloc] initWithCallId:callId accountId:_accountId];
     
     [self addCall:call];
-
+    
     if (_incomingCallBlock) {
         _incomingCallBlock(call);
     }
