@@ -119,6 +119,14 @@ typedef void (^SWStateChangeBlock)(SWCallState state);
     }
 }
 
+-(void)callStateChanged {
+    
+}
+
+-(void)mediaStateChanged {
+    
+}
+
 -(SWAccount *)getAccount {
     
     pjsua_call_info info;

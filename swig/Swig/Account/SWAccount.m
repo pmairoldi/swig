@@ -196,7 +196,7 @@
     }
 }
 
--(void)registrationChange {
+-(void)accountStateChanged {
     
     pjsua_acc_info accountInfo;
     pjsua_acc_get_info(self.accountId, &accountInfo);

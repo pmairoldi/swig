@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, SWAccountState) {
 -(void)configure:(SWAccountConfiguration *)configuration completionHandler:(void(^)(NSError *error))handler; //configure and add account
 -(void)connect:(void(^)(NSError *error))handler;
 -(void)disconnect:(void(^)(NSError *error))handler;
--(void)registrationChange;
+-(void)accountStateChanged;
 
 -(void)addCall:(SWCall *)call;
 -(void)removeCall:(NSUInteger)callId;

@@ -94,6 +94,8 @@
         SWTransportConfiguration *udp = [SWTransportConfiguration configurationWithTransportType:SWTransportTypeUDP];
     
     SWEndpointConfiguration *endpointConfiguration = [SWEndpointConfiguration configurationWithTransportConfigurations:@[udp,tcp]];
+    endpointConfiguration.logConsoleLevel = 0;
+    endpointConfiguration.logLevel = 0;
     
     SWEndpoint *endpoint = [SWEndpoint sharedInstance];
     
@@ -111,15 +113,27 @@
     
     [endpoint setIncomingCallBlock:^(SWAccount *account, SWCall *call) {
         
+        NSLog(@"\n\nIncoming Call : %d\n\n", call.callId);
+
         [account endCall:call.callId completionHandler:^(NSError *error) {
            
             NSLog([error description]);
         }];
     }];
     
-    [endpoint setAccountStateChangeBlock:^(SWAccount *account, SWAccountState state) {
+    [endpoint setAccountStateChangeBlock:^(SWAccount *account) {
         
-        NSLog(@"\n\nAccount State : %d\n\n", state);
+        NSLog(@"\n\nAccount State : %d\n\n", account.accountState);
+    }];
+    
+    [endpoint setCallStateChangeBlock:^(SWAccount *account, SWCall *call) {
+        
+        NSLog(@"\n\nCall State : %d\n\n", call.callState);
+    }];
+    
+    [endpoint setCallMediaStateChangeBlock:^(SWAccount *account, SWCall *call) {
+        
+        NSLog(@"\n\nMedia State Changed\n\n");
     }];
 }
 

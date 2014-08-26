@@ -33,6 +33,9 @@ typedef NS_ENUM(NSInteger, SWCallState) {
 +(instancetype)callWithId:(NSInteger)callId accountId:(NSInteger)accountId;
 +(instancetype)callFromAccountId:(NSInteger)accountId;
 
+-(void)callStateChanged;
+-(void)mediaStateChanged;
+
 -(SWAccount *)getAccount;
 
 -(void)setStateChangeBlock:(void(^)(SWCallState state))stateChangeBlock;

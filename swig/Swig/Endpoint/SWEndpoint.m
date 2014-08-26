@@ -15,8 +15,10 @@
 
 #import "NSString+PJString.h"
 
+typedef void (^SWAccountStateChangeBlock)(SWAccount *account);
 typedef void (^SWIncomingCallBlock)(SWAccount *account, SWCall *call);
-typedef void (^SWAccountStateChangeBlock)(SWAccount *account, SWAccountState state);
+typedef void (^SWCallStateChangeBlock)(SWAccount *account, SWCall *call);
+typedef void (^SWCallMediaStateChangeBlock)(SWAccount *account, SWCall *call);
 
 //callback functions
 
@@ -39,6 +41,8 @@ static void SWOnNatDetect(const pj_stun_nat_detect_result *res);
 @property (nonatomic, strong) NSMutableArray *accounts; //TODO change to array?
 @property (nonatomic, copy) SWIncomingCallBlock incomingCallBlock;
 @property (nonatomic, copy) SWAccountStateChangeBlock accountStateChangeBlock;
+@property (nonatomic, copy) SWCallStateChangeBlock callStateChangeBlock;
+@property (nonatomic, copy) SWCallMediaStateChangeBlock callMediaStateChangeBlock;
 
 @end
 
@@ -176,7 +180,7 @@ static bool isFirstAccess = YES;
     //TODO autodetect port by checking transportId
     
     for (SWTransportConfiguration *transport in self.endpointConfiguration.transportConfigurations) {
-
+        
         pjsua_transport_config transportConfig;
         
         pjsua_transport_config_default(&transportConfig);
@@ -199,7 +203,7 @@ static bool isFirstAccess = YES;
             return;
         }
     }
-
+    
     [self start:handler];
 }
 
@@ -227,7 +231,7 @@ static bool isFirstAccess = YES;
 }
 
 -(void)start:(void(^)(NSError *error))handler {
-
+    
     pj_status_t status = pjsua_start();
     
     if (status != PJ_SUCCESS) {
@@ -301,49 +305,103 @@ static bool isFirstAccess = YES;
 
 #pragma Block Parameters
 
+-(void)setAccountStateChangeBlock:(void(^)(SWAccount *account))accountStateChangeBlock {
+    
+    _accountStateChangeBlock = accountStateChangeBlock;
+}
+
 -(void)setIncomingCallBlock:(void(^)(SWAccount *account, SWCall *call))incomingCallBlock {
     
     _incomingCallBlock = incomingCallBlock;
 }
 
--(void)setAccountStateChangeBlock:(void(^)(SWAccount *account, SWAccountState state))accountStateChangeBlock {
+-(void)setCallStateChangeBlock:(void(^)(SWAccount *account, SWCall *call))callStateChangeBlock {
     
-    _accountStateChangeBlock = accountStateChangeBlock;
+    _callStateChangeBlock = callStateChangeBlock;
 }
 
-#pragma PJSUA Callbacks 
+-(void)setCallMediaStateChangeBlock:(void(^)(SWAccount *account, SWCall *call))callMediaStateChangeBlock {
+    
+    _callMediaStateChangeBlock = callMediaStateChangeBlock;
+}
+
+#pragma PJSUA Callbacks
 
 static void SWOnRegState(pjsua_acc_id acc_id) {
     
     SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:acc_id];
     
-    [account registrationChange];
-
-    if ([SWEndpoint sharedInstance].accountStateChangeBlock) {
-        [SWEndpoint sharedInstance].accountStateChangeBlock(account, account.accountState);
+    if (account) {
+        
+        [account accountStateChanged];
+        
+        if ([SWEndpoint sharedInstance].accountStateChangeBlock) {
+            [SWEndpoint sharedInstance].accountStateChangeBlock(account);
+        }
     }
 }
 
 static void SWOnIncomingCall(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_rx_data *rdata) {
     
     SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:acc_id];
-    SWCall *call = [SWCall callWithId:call_id accountId:acc_id];
     
-    [account addCall:call];
+    if (account) {
+        
+        SWCall *call = [SWCall callWithId:call_id accountId:acc_id];
+        
+        [account addCall:call];
+        
+        if ([SWEndpoint sharedInstance].incomingCallBlock) {
+            [SWEndpoint sharedInstance].incomingCallBlock(account, call);
+        }
+    }
+}
+
+static void SWOnCallState(pjsua_call_id call_id, pjsip_event *e) {
     
-    if ([SWEndpoint sharedInstance].incomingCallBlock) {
-        [SWEndpoint sharedInstance].incomingCallBlock(account, call);
+    pjsua_call_info callInfo;
+    pjsua_call_get_info(call_id, &callInfo);
+    
+    SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:callInfo.acc_id];
+
+    if (account) {
+        
+        SWCall *call = [account lookupCall:call_id];
+    
+        [call callStateChanged];
+        
+        if (call) {
+            
+            if ([SWEndpoint sharedInstance].callStateChangeBlock) {
+                [SWEndpoint sharedInstance].callStateChangeBlock(account, call);
+            }
+        }
     }
 }
 
 static void SWOnCallMediaState(pjsua_call_id call_id) {
     
-}
-
-static void SWOnCallState(pjsua_call_id call_id, pjsip_event *e) {
+    pjsua_call_info callInfo;
+    pjsua_call_get_info(call_id, &callInfo);
     
+    SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:callInfo.acc_id];
+    
+    if (account) {
+        
+        SWCall *call = [account lookupCall:call_id];
+        
+        [call mediaStateChanged];
+        
+        if (call) {
+            
+            if ([SWEndpoint sharedInstance].callMediaStateChangeBlock) {
+                [SWEndpoint sharedInstance].callMediaStateChangeBlock(account, call);
+            }
+        }
+    }
 }
 
+//TODO: implement these
 static void SWOnCallTransferStatus(pjsua_call_id call_id, int st_code, const pj_str_t *st_text, pj_bool_t final, pj_bool_t *p_cont) {
     
 }
