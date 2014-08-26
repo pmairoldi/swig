@@ -13,11 +13,10 @@
 @class SWAccountConfiguration, SWCall;
 
 typedef NS_ENUM(NSInteger, SWAccountState) {
-    SWAccountStateOffline,
-    SWAccountStateInvalid,
+    SWAccountStateDisconnected,
     SWAccountStateConnecting,
     SWAccountStateConnected,
-    SWAccountStateDisconnecting
+    SWAccountStateOffline
 };
 
 @interface SWAccount : NSObject
@@ -29,6 +28,7 @@ typedef NS_ENUM(NSInteger, SWAccountState) {
 -(void)configure:(SWAccountConfiguration *)configuration completionHandler:(void(^)(NSError *error))handler; //configure and add account
 -(void)connect:(void(^)(NSError *error))handler;
 -(void)disconnect:(void(^)(NSError *error))handler;
+-(void)registrationChange;
 
 -(void)addCall:(SWCall *)call;
 -(void)removeCall:(NSUInteger)callId;

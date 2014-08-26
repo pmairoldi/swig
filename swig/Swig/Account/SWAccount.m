@@ -196,6 +196,37 @@
     }
 }
 
+-(void)registrationChange {
+    
+    pjsua_acc_info accountInfo;
+    pjsua_acc_get_info(self.accountId, &accountInfo);
+ 
+    pjsip_status_code code = accountInfo.status;
+ 
+    //TODO make status offline/online instead of offline/connect
+    //status would be disconnected, online, and offline, isConnected could return true if online/offline
+    
+    if (accountInfo.online_status == PJ_FALSE) {
+        self.accountState = SWAccountStateOffline;
+    }
+    
+    else if (code == 0) {
+        self.accountState = SWAccountStateDisconnected;
+    }
+    
+    else if (PJSIP_IS_STATUS_IN_CLASS(code, 100) || PJSIP_IS_STATUS_IN_CLASS(code, 300)) {
+        self.accountState = SWAccountStateConnecting;
+    }
+    
+    else if (PJSIP_IS_STATUS_IN_CLASS(code, 200)) {
+        self.accountState = SWAccountStateConnected;
+    }
+    
+    else {
+        self.accountState = SWAccountStateDisconnected;
+    }
+}
+
 #pragma Call Management
 
 -(void)addCall:(SWCall *)call {

@@ -313,6 +313,17 @@ static bool isFirstAccess = YES;
 
 #pragma PJSUA Callbacks 
 
+static void SWOnRegState(pjsua_acc_id acc_id) {
+    
+    SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:acc_id];
+    
+    [account registrationChange];
+
+    if ([SWEndpoint sharedInstance].accountStateChangeBlock) {
+        [SWEndpoint sharedInstance].accountStateChangeBlock(account, account.accountState);
+    }
+}
+
 static void SWOnIncomingCall(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_rx_data *rdata) {
     
     SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:acc_id];
@@ -338,10 +349,6 @@ static void SWOnCallTransferStatus(pjsua_call_id call_id, int st_code, const pj_
 }
 
 static void SWOnCallReplaced(pjsua_call_id old_call_id, pjsua_call_id new_call_id) {
-    
-}
-
-static void SWOnRegState(pjsua_acc_id acc_id) {
     
 }
 

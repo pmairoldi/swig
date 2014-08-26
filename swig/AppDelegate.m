@@ -119,6 +119,7 @@
     
     [endpoint setAccountStateChangeBlock:^(SWAccount *account, SWAccountState state) {
         
+        NSLog(@"\n\nAccount State : %d\n\n", state);
     }];
 }
 
