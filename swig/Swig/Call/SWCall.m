@@ -154,54 +154,39 @@ typedef void (^SWStateChangeBlock)(SWCallState state);
 }
 
 -(void)answer:(void(^)(NSError *error))handler {
+
+    pj_status_t status;
+    NSError *error;
     
-//    try {
-//        
-//        pj::CallOpParam param;
-//        param.statusCode = PJSIP_SC_OK;
-//        
-//        self.call->answer(param);
-//        
-//    } catch(pj::Error &err) {
-//        
-//        NSError *error = [NSError errorWithError:&err];
-//        
-//        if (handler) {
-//            handler(error);
-//        }
-//    }
-//    
-//    if (handler) {
-//        handler(nil);
-//    }
+    status = pjsua_call_answer(self.callId, PJSIP_SC_OK, NULL, NULL);
+    
+    if (status != PJ_SUCCESS) {
+        
+        error = [NSError errorWithDomain:@"Error answering up call" code:0 userInfo:nil];
+    }
+    
+    if (handler) {
+        handler(error);
+    }
 }
 
 -(void)hangup:(void(^)(NSError *error))handler {
     
-//    try {
-//        
-//        pj::CallOpParam param;
-//        
-//        if (self.callState == SWCallStateReady || self.callState == SWCallStateCalling) {
-//            param.statusCode = PJSIP_SC_DECLINE; //TODO fix busy
-//        }
-//        
-//        if (self.callState != SWCallStateDisconnected) {
-//            self.call->hangup(param); //FIX error with hangup
-//        }
-//        
-//    } catch(pj::Error &err) {
-//        
-//        NSError *error = [NSError errorWithError:&err];
-//        
-//        if (handler) {
-//            handler(error);
-//        }
-//    }
-//    
-//    if (handler) {
-//        handler(nil);
-//    }
+    //TODO add invalid id check and state disconnected check
+        
+    pj_status_t status;
+    NSError *error;
+    
+    status = pjsua_call_hangup(self.callId, 0, NULL, NULL);
+    
+    if (status != PJ_SUCCESS) {
+        
+        error = [NSError errorWithDomain:@"Error hanging up call" code:0 userInfo:nil];
+    }
+    
+    if (handler) {
+        handler(error);
+    }
 }
 
 #pragma SWCallCallbackProtocol

@@ -81,7 +81,7 @@
     acc_cfg.reg_uri = [[SWUriFormatter sipUri:[self.accountConfiguration.domain stringByAppendingString:tcpSuffix]] pjString];
     acc_cfg.register_on_acc_add = self.accountConfiguration.registerOnAdd ? PJ_TRUE : PJ_FALSE;;
     acc_cfg.publish_enabled = self.accountConfiguration.publishEnabled ? PJ_TRUE : PJ_FALSE;
-    acc_cfg.reg_timeout = 600; //TODO test if bg stays alive
+    acc_cfg.reg_timeout = 3600; //TODO test if bg stays alive max value is 3600
     
     acc_cfg.cred_count = 1;
     acc_cfg.cred_info[0].scheme = [self.accountConfiguration.authScheme pjString];
@@ -218,53 +218,75 @@
 
 -(SWCall *)lookupCall:(NSInteger)callId {
     
-    NSArray *array = [self.calls filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SWCall *call, NSDictionary *bindings) {
+    NSUInteger callIndex = [self.calls indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         
-        if (call.callId == PJSUA_INVALID_ID) {
-            return NO;
-        }
+        SWCall *call = (SWCall *)obj;
         
-        else if (call.callId == callId) {
+        if (call.callId == callId && call.callId != PJSUA_INVALID_ID) {
             return YES;
         }
         
-        else {
-            return NO;
-        }
-    }]];
+        return NO;
+    }];
     
-    SWCall *call = [array firstObject]; //TODO add more management
-    
-    return call;
-}
-
-#pragma SWAccountCallbackProtocol Methods
-
--(void)onIncomingCall:(NSInteger)callId {
-    
-    SWCall *call = [[SWCall alloc] initWithCallId:callId accountId:_accountId];
-    
-    [self addCall:call];
-}
-
--(void)onRegStarted:(BOOL)renew {
-    
-    SWAccountState accountState;
-    
-    if (renew) {
-        accountState = SWAccountStateConnecting;
+    if (callIndex != NSNotFound) {
+        return [self.calls objectAtIndex:callIndex]; //TODO add more management
     }
     
     else {
-        accountState = SWAccountStateDisconnecting;
+        return nil;
     }
-    
-    self.accountState = accountState;
 }
 
--(void)onRegState:(SWAccountState)accountState {
+-(void)makeCall:(NSString *)URI completionHandler:(void(^)(NSError *error))handler {
     
-    self.accountState = accountState;
+    SWCall *call = [SWCall callFromAccountId:self.accountId];
+    
+    [self addCall:call];
+    
+    [call makeCall:URI completionHandler:handler];
+}
+
+-(void)answerCall:(NSUInteger)callId completionHandler:(void(^)(NSError *error))handler {
+    
+    SWCall *call = [self lookupCall:callId];
+    
+    if (call) {
+        [call answer:handler];
+    }
+    
+    else {
+        
+        if (handler) {
+            NSError *error = [NSError errorWithDomain:@"SWIG" code:0 userInfo:@{@"reason":[NSString stringWithFormat:@"no call with id %d", callId]}];
+            handler(error);
+        }
+    }
+}
+
+-(void)endCall:(NSInteger)callId completionHandler:(void(^)(NSError *error))handler {
+    
+    SWCall *call = [self lookupCall:callId];
+    
+    if (call) {
+        
+        [call hangup:^(NSError *error) {
+            
+            [self removeCall:callId];
+            
+            if (handler) {
+                handler(error);
+            }
+        }];
+    }
+    
+    else {
+        
+        if (handler) {
+            NSError *error = [NSError errorWithDomain:@"SWIG" code:0 userInfo:@{@"reason":[NSString stringWithFormat:@"no call with id %d", callId]}];
+            handler(error);
+        }
+    }
 }
 
 @end

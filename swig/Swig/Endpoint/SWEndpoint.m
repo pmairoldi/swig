@@ -36,7 +36,7 @@ static void SWOnNatDetect(const pj_stun_nat_detect_result *res);
 
 @interface SWEndpoint ()
 
-@property (nonatomic, strong) NSMutableDictionary *accounts; //TODO change to array?
+@property (nonatomic, strong) NSMutableArray *accounts; //TODO change to array?
 @property (nonatomic, copy) SWIncomingCallBlock incomingCallBlock;
 @property (nonatomic, copy) SWAccountStateChangeBlock accountStateChangeBlock;
 
@@ -98,7 +98,7 @@ static bool isFirstAccess = YES;
         return nil;
     }
     
-    _accounts = [NSMutableDictionary dictionary];
+    _accounts = [[NSMutableArray alloc] init];
     
     return self;
 }
@@ -273,13 +273,25 @@ static bool isFirstAccess = YES;
 
 -(void)addAccount:(SWAccount *)account {
     
-    [self.accounts setObject:account forKey:@(account.accountId)];
+    [self.accounts addObject:account];
+    
 }
 
 -(SWAccount *)lookupAccount:(NSInteger)accountId {
     
-    if ([[self.accounts allKeys] containsObject:@(accountId)]) {
-        return [self.accounts objectForKey:@(accountId)];
+    NSUInteger accountIndex = [self.accounts indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        
+        SWAccount *account = (SWAccount *)obj;
+        
+        if (account.accountId == accountId && account.accountId != PJSUA_INVALID_ID) {
+            return YES;
+        }
+        
+        return NO;
+    }];
+    
+    if (accountIndex != NSNotFound) {
+        return [self.accounts objectAtIndex:accountIndex]; //TODO add more management
     }
     
     else {

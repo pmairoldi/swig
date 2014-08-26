@@ -111,13 +111,14 @@
     
     [endpoint setIncomingCallBlock:^(SWAccount *account, SWCall *call) {
         
-        account = nil;
-        call = nil;
+        [account endCall:call.callId completionHandler:^(NSError *error) {
+           
+            NSLog([error description]);
+        }];
     }];
     
     [endpoint setAccountStateChangeBlock:^(SWAccount *account, SWAccountState state) {
         
-        account = nil;
     }];
 }
 
@@ -140,6 +141,8 @@
             
             [account connect:^(NSError *error) {
                 NSLog(@"%@", [error description]);
+                                
+                [[SWEndpoint sharedInstance] addAccount:account];
             }];
         }
     }];
