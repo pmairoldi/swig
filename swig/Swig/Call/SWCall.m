@@ -13,13 +13,11 @@
 #import "SWUriFormatter.h"
 #import "NSString+PJString.h"
 #import "pjsua.h"
-
-typedef void (^SWStateChangeBlock)(SWCallState state);
+#import <AVFoundation/AVAudioSession.h>
 
 @interface SWCall ()
 
 @property (nonatomic, strong) UILocalNotification *notification;
-@property (nonatomic, copy) SWStateChangeBlock stateChangeBlock;
 
 @end
 
@@ -113,18 +111,67 @@ typedef void (^SWStateChangeBlock)(SWCallState state);
     [self willChangeValueForKey:@"callState"];
     _callState = callState;
     [self didChangeValueForKey:@"callState"];
+}
+
+-(void)setMediaState:(SWMediaState)mediaState {
     
-    if (self.stateChangeBlock) {
-        self.stateChangeBlock(self.callState);
-    }
+    [self willChangeValueForKey:@"mediaState"];
+    _mediaState = mediaState;
+    [self didChangeValueForKey:@"mediaState"];
 }
 
 -(void)callStateChanged {
     
+    pjsua_call_info callInfo;
+    pjsua_call_get_info(self.callId, &callInfo);
+    
+    switch (callInfo.state) {
+        case PJSIP_INV_STATE_NULL: {
+            self.callState = SWCallStateReady;
+        } break;
+            
+        case PJSIP_INV_STATE_CALLING:
+        case PJSIP_INV_STATE_INCOMING: {
+            self.callState = SWCallStateCalling;
+        } break;
+            
+        case PJSIP_INV_STATE_EARLY:
+        case PJSIP_INV_STATE_CONNECTING: {
+//            [self startRingback];
+            self.callState = SWCallStateConnecting;
+        } break;
+            
+        case PJSIP_INV_STATE_CONFIRMED: {
+//            [self stopRingback];
+            self.callState = SWCallStateConnected;
+        } break;
+            
+        case PJSIP_INV_STATE_DISCONNECTED: {
+//            [self stopRingback];
+            self.callState = SWCallStateDisconnected;
+        } break;
+    }
 }
 
 -(void)mediaStateChanged {
     
+    pjsua_call_info callInfo;
+    pjsua_call_get_info(self.callId, &callInfo);
+    
+    if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE || callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
+        pjsua_conf_connect(callInfo.conf_slot, 0);
+        pjsua_conf_connect(0, callInfo.conf_slot);
+
+        //FIX: add if the error shows up all the time
+//        NSArray *availableInputs = [[AVAudioSession sharedInstance] availableInputs];
+//        AVAudioSessionPortDescription *port = [availableInputs objectAtIndex:0];
+//        NSError *portErr = nil;
+//        [[AVAudioSession sharedInstance] setPreferredInput:port error:&portErr];
+    }
+    
+    pjsua_call_media_status mediaStatus = callInfo.media_status;
+    
+    self.mediaState = (SWMediaState)mediaStatus;
 }
 
 -(SWAccount *)getAccount {
@@ -195,45 +242,6 @@ typedef void (^SWStateChangeBlock)(SWCallState state);
     if (handler) {
         handler(error);
     }
-}
-
-#pragma SWCallCallbackProtocol
-
--(void)onCallState:(SWCallState)callState {
-    
-    //TODO handle ringing
-    
-    self.callState = callState;
-    
-    switch (self.callState) {
-      
-        case SWCallStateReady:
-            
-            break;
-        case SWCallStateCalling:
-            
-            break;
-        case SWCallStateConnecting:
-            
-            break;
-            
-        case SWCallStateConnected:
-            
-            break;
-            
-        case SWCallStateDisconnected:
-
-            [[self getAccount] removeCall:self.callId];
-            
-            break;
-    }
-}
-
-#pragma Block Parameters
-
--(void)setStateChangeBlock:(void(^)(SWCallState state))stateChangeBlock {
-    
-    _stateChangeBlock = stateChangeBlock;
 }
 
 @end

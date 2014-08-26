@@ -115,7 +115,7 @@
         
         NSLog(@"\n\nIncoming Call : %d\n\n", call.callId);
 
-        [account endCall:call.callId completionHandler:^(NSError *error) {
+        [account answerCall:call.callId completionHandler:^(NSError *error) {
            
             NSLog([error description]);
         }];

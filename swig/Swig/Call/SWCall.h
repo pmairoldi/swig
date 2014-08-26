@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "pjsua.h"
 //TODO: remove call from calls when disconnected
 //TODO: move to 2 sublclasses (incoming/outgoing)
 
@@ -21,13 +21,20 @@ typedef NS_ENUM(NSInteger, SWCallState) {
     SWCallStateDisconnected
 };
 
-#import "SWCallCallbackProtocol.h"
+typedef NS_ENUM(NSInteger, SWMediaState) {
+    SWMediaStateNone = PJSUA_CALL_MEDIA_NONE,
+    SWMediaStateError = PJSUA_CALL_MEDIA_ERROR,
+    SWMediaStateActive = PJSUA_CALL_MEDIA_ACTIVE,
+    SWMediaStateLocalHold = PJSUA_CALL_MEDIA_LOCAL_HOLD,
+    SWMediaStateRemoteHole = PJSUA_CALL_MEDIA_REMOTE_HOLD
+};
 
-@interface SWCall : NSObject <SWCallCallbackProtocol>
+@interface SWCall : NSObject
 
 @property (nonatomic, readonly) NSInteger callId;
 @property (nonatomic, readonly) NSInteger accountId;
 @property (nonatomic, readonly) SWCallState callState;
+@property (nonatomic, readonly) SWMediaState mediaState;
 
 -(instancetype)initWithCallId:(NSUInteger)callId accountId:(NSInteger)accountId;
 +(instancetype)callWithId:(NSInteger)callId accountId:(NSInteger)accountId;
@@ -37,8 +44,6 @@ typedef NS_ENUM(NSInteger, SWCallState) {
 -(void)mediaStateChanged;
 
 -(SWAccount *)getAccount;
-
--(void)setStateChangeBlock:(void(^)(SWCallState state))stateChangeBlock;
 
 -(void)makeCall:(NSString *)destination completionHandler:(void(^)(NSError *error))handler;
 -(void)answer:(void(^)(NSError *error))handler;

@@ -70,7 +70,6 @@
 		2B4BA25E19A652610089478D /* SWUriFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUriFormatter.m; sourceTree = "<group>"; };
 		2B4BA26419A672D10089478D /* SWCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCall.h; sourceTree = "<group>"; };
 		2B4BA26519A672D10089478D /* SWCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWCall.m; sourceTree = "<group>"; };
-		2B4BA26719A6832C0089478D /* SWCallCallbackProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCallCallbackProtocol.h; sourceTree = "<group>"; };
 		2B87876F19A7D19C00920A05 /* NSString+PJString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PJString.h"; sourceTree = "<group>"; };
 		2B87877019A7D19C00920A05 /* NSString+PJString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PJString.m"; sourceTree = "<group>"; };
 		2BD641C1199CE50C00589024 /* swig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swig.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,7 +176,6 @@
 		2B414A0B19A53CAB0012891F /* Call */ = {
 			isa = PBXGroup;
 			children = (
-				2B4BA26719A6832C0089478D /* SWCallCallbackProtocol.h */,
 				2B4BA26419A672D10089478D /* SWCall.h */,
 				2B4BA26519A672D10089478D /* SWCall.m */,
 			);
