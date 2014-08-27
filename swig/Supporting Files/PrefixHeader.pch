@@ -1,0 +1,26 @@
+//
+//  PrefixHeader.pch
+//  swig
+//
+//  Created by Pierre-Marc Airoldi on 2014-08-27.
+//  Copyright (c) 2014 PeteAppDesigns. All rights reserved.
+//
+
+#ifndef swig_PrefixHeader_pch
+#define swig_PrefixHeader_pch
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
+#ifdef DEBUG
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#else
+static const int ddLogLevel = LOG_LEVEL_VERBOSE; //TODO change to warn
+#endif
+
+#endif
+
+#endif

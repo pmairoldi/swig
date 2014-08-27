@@ -48,16 +48,16 @@
 +(instancetype)callWithId:(NSInteger)callId accountId:(NSInteger)accountId {
     
     SWCall *call = [[SWCall alloc] initWithCallId:callId accountId:accountId];
-        
+    
     [call createLocalNotification];
     
     return call;
 }
 
 +(instancetype)callFromAccountId:(NSInteger)accountId {
-
+    
     SWCall *call = [SWCall callWithId:PJSUA_INVALID_ID accountId:accountId];
-
+    
     return call;
 }
 
@@ -137,17 +137,17 @@
             
         case PJSIP_INV_STATE_EARLY:
         case PJSIP_INV_STATE_CONNECTING: {
-//            [self startRingback];
+            //            [self startRingback];
             self.callState = SWCallStateConnecting;
         } break;
             
         case PJSIP_INV_STATE_CONFIRMED: {
-//            [self stopRingback];
+            //            [self stopRingback];
             self.callState = SWCallStateConnected;
         } break;
             
         case PJSIP_INV_STATE_DISCONNECTED: {
-//            [self stopRingback];
+            //            [self stopRingback];
             self.callState = SWCallStateDisconnected;
         } break;
     }
@@ -161,12 +161,12 @@
     if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE || callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
         pjsua_conf_connect(callInfo.conf_slot, 0);
         pjsua_conf_connect(0, callInfo.conf_slot);
-
+        
         //FIX: add if the error shows up all the time
-//        NSArray *availableInputs = [[AVAudioSession sharedInstance] availableInputs];
-//        AVAudioSessionPortDescription *port = [availableInputs objectAtIndex:0];
-//        NSError *portErr = nil;
-//        [[AVAudioSession sharedInstance] setPreferredInput:port error:&portErr];
+        //        NSArray *availableInputs = [[AVAudioSession sharedInstance] availableInputs];
+        //        AVAudioSessionPortDescription *port = [availableInputs objectAtIndex:0];
+        //        NSError *portErr = nil;
+        //        [[AVAudioSession sharedInstance] setPreferredInput:port error:&portErr];
     }
     
     pjsua_call_media_status mediaStatus = callInfo.media_status;
@@ -179,37 +179,37 @@
     pjsua_call_info info;
     pjsua_call_get_info((int)self.callId, &info);
     
-   return [[SWEndpoint sharedEndpoint] lookupAccount:info.acc_id];
+    return [[SWEndpoint sharedEndpoint] lookupAccount:info.acc_id];
 }
 
 #pragma Call Management
 
 -(void)makeCall:(NSString *)destination completionHandler:(void(^)(NSError *error))handler {
     
-//    try {
-//        
-//        pj::CallOpParam param(true);
-//        param.statusCode = PJSIP_SC_OK;
-//        
-//        self.call->makeCall(*[[SWUriFormatter sipUri:destination fromAccount:[self getAccount]] CPPString], param);
-//        self.callState = SWCallStateCalling;
-//        
-//    } catch(pj::Error &err) {
-//        
-//        NSError *error = [NSError errorWithError:&err];
-//        
-//        if (handler) {
-//            handler(error);
-//        }
-//    }
-//    
-//    if (handler) {
-//        handler(nil);
-//    }
+    //    try {
+    //
+    //        pj::CallOpParam param(true);
+    //        param.statusCode = PJSIP_SC_OK;
+    //
+    //        self.call->makeCall(*[[SWUriFormatter sipUri:destination fromAccount:[self getAccount]] CPPString], param);
+    //        self.callState = SWCallStateCalling;
+    //
+    //    } catch(pj::Error &err) {
+    //
+    //        NSError *error = [NSError errorWithError:&err];
+    //
+    //        if (handler) {
+    //            handler(error);
+    //        }
+    //    }
+    //
+    //    if (handler) {
+    //        handler(nil);
+    //    }
 }
 
 -(void)answer:(void(^)(NSError *error))handler {
-
+    
     pj_status_t status;
     NSError *error;
     
@@ -227,17 +227,21 @@
 
 -(void)hangup:(void(^)(NSError *error))handler {
     
-    //TODO add invalid id check and state disconnected check
-        
     pj_status_t status;
     NSError *error;
     
-    status = pjsua_call_hangup((int)self.callId, 0, NULL, NULL);
-    
-    if (status != PJ_SUCCESS) {
+    if (self.callId != PJSUA_INVALID_ID && self.callState != SWCallStateDisconnected) {
         
-        error = [NSError errorWithDomain:@"Error hanging up call" code:0 userInfo:nil];
+        status = pjsua_call_hangup((int)self.callId, 0, NULL, NULL);
+        
+        if (status != PJ_SUCCESS) {
+            
+            error = [NSError errorWithDomain:@"Error hanging up call" code:0 userInfo:nil];
+        }
     }
+    
+    SWAccount *account = [self getAccount];
+    [account removeCall:self.callId];
     
     if (handler) {
         handler(error);

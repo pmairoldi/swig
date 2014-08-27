@@ -6,14 +6,18 @@
 //  Copyright (c) 2014 PeteAppDesigns. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+
 #import "SWEndpoint.h"
 #import "SWTransportConfiguration.h"
 #import "SWEndpointConfiguration.h"
 #import "SWAccount.h"
 #import "SWCall.h"
 #import "pjsua.h"
-
 #import "NSString+PJString.h"
+#import <AFNetworkReachabilityManager.h>
+
+#define KEEP_ALIVE_INTERVAL 600
 
 typedef void (^SWAccountStateChangeBlock)(SWAccount *account);
 typedef void (^SWIncomingCallBlock)(SWAccount *account, SWCall *call);
@@ -74,12 +78,74 @@ static SWEndpoint *_sharedEndpoint = nil;
     }
     
     _accounts = [[NSMutableArray alloc] init];
+
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(handleEnteredBackground:) name: UIApplicationDidEnterBackgroundNotification object:nil];
+    
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    
+    DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
+    fileLogger.rollingFrequency = 0;
+    fileLogger.maximumFileSize = 0;
+    
+    [DDLog addLogger:fileLogger];
+
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        
+        [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
+    }];
+    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     return self;
 }
 
 -(void)dealloc {
+ 
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+}
+
+-(void)handleEnteredBackground:(NSNotification *)notification {
     
+    UIApplication *application = (UIApplication *)notification.object;
+    
+    [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
+    
+    [application setKeepAliveTimeout:KEEP_ALIVE_INTERVAL handler: ^{
+        [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
+    }];
+}
+
+-(void)keepAlive {
+    
+    //TODO check if endpoint configured
+    
+    if (!pj_thread_is_registered()) {
+        static pj_thread_desc thread_desc;
+        static pj_thread_t *thread;
+        pj_thread_register("swig", thread_desc, &thread);
+    }
+    
+    for (SWAccount *account in self.accounts) {
+    
+        if (account.isValid) {
+            
+            [account connect:^(NSError *error) {
+               
+                if (error) DDLogDebug(@"%@",[error description]);
+            }];
+        }
+    
+        else {
+            
+            [account disconnect:^(NSError *error) {
+               
+                if (error) DDLogDebug(@"%@",[error description]);
+            }];
+        }
+    }
 }
 
 -(void)setEndpointConfiguration:(SWEndpointConfiguration *)endpointConfiguration {
@@ -346,6 +412,13 @@ static void SWOnCallState(pjsua_call_id call_id, pjsip_event *e) {
             if ([SWEndpoint sharedEndpoint].callStateChangeBlock) {
                 [SWEndpoint sharedEndpoint].callStateChangeBlock(account, call);
             }
+        }
+        
+        if (call.callState == SWCallStateDisconnected) {
+            
+            [call hangup:^(NSError *error) {
+                if (error) DDLogDebug(@"%@", [error description]);
+            }];
         }
     }
 }

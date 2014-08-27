@@ -11,7 +11,6 @@
 
 #import "pjsua.h"
 
-#define KEEP_ALIVE_INTERVAL 600
 
 @interface AppDelegate ()
 
@@ -41,11 +40,6 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    
-    [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
-    [application setKeepAliveTimeout:KEEP_ALIVE_INTERVAL handler: ^{
-        [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
-    }];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -62,28 +56,6 @@
 
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     
-}
-
--(void)keepAlive {
-    
-    int i;
-    
-    if (!pj_thread_is_registered()) {
-        static pj_thread_desc   thread_desc;
-        static pj_thread_t     *thread;
-        pj_thread_register("ipjsua", thread_desc, &thread);
-    }
-    
-    /* Since iOS requires that the minimum keep alive interval is 600s,
-     * application needs to make sure that the account's registration
-     * timeout is long enough.
-     */
-    for (i = 0; i < (int)pjsua_acc_get_count(); ++i) {
-        if (pjsua_acc_is_valid(i)) {
-            pjsua_acc_set_registration(i, PJ_TRUE);
-            pjsua_acc_set_online_status(i, PJ_TRUE);
-        }
-    }
 }
 
 #pragma SWIG
@@ -103,37 +75,37 @@
         
         if (error) {
             
-            NSLog(@"%@", [error description]);
+            DDLogDebug(@"%@", [error description]);
             
             [endpoint reset:^(NSError *error) {
-                if(error) NSLog(@"%@", [error description]);
+                if(error) DDLogDebug(@"%@", [error description]);
             }];
         }
     }];
     
     [endpoint setIncomingCallBlock:^(SWAccount *account, SWCall *call) {
         
-        NSLog(@"\n\nIncoming Call : %d\n\n", (int)call.callId);
+        DDLogDebug(@"\n\nIncoming Call : %d\n\n", (int)call.callId);
 
-        [account answerCall:call.callId completionHandler:^(NSError *error) {
+        [call answer:^(NSError *error) {
            
-            NSLog(@"%@",[error description]);
+            DDLogDebug(@"%@",[error description]);
         }];
     }];
     
     [endpoint setAccountStateChangeBlock:^(SWAccount *account) {
         
-        NSLog(@"\n\nAccount State : %ld\n\n", (long)account.accountState);
+        DDLogDebug(@"\n\nAccount State : %ld\n\n", (long)account.accountState);
     }];
     
     [endpoint setCallStateChangeBlock:^(SWAccount *account, SWCall *call) {
         
-        NSLog(@"\n\nCall State : %ld\n\n", (long)call.callState);
+        DDLogDebug(@"\n\nCall State : %ld\n\n", (long)call.callState);
     }];
     
     [endpoint setCallMediaStateChangeBlock:^(SWAccount *account, SWCall *call) {
         
-        NSLog(@"\n\nMedia State Changed\n\n");
+        DDLogDebug(@"\n\nMedia State Changed\n\n");
     }];
 }
 
@@ -149,13 +121,13 @@
     [account configure:configuration completionHandler:^(NSError *error) {
        
         if (error) {
-            NSLog(@"%@", [error description]);
+            DDLogDebug(@"%@", [error description]);
         }
         
         else {
             
             [account connect:^(NSError *error) {
-                NSLog(@"%@", [error description]);
+                DDLogDebug(@"%@", [error description]);
                                 
                 [[SWEndpoint sharedEndpoint] addAccount:account];
             }];
@@ -177,13 +149,13 @@
     [account configure:configuration completionHandler:^(NSError *error) {
         
         if (error) {
-            NSLog(@"%@", [error description]);
+            DDLogDebug(@"%@", [error description]);
         }
         
         else {
             
             [account connect:^(NSError *error) {
-                if (error) NSLog(@"%@", [error description]);
+                if (error) DDLogDebug(@"%@", [error description]);
             }];
         }
     }];

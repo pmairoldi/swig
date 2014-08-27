@@ -50,7 +50,7 @@
     
     if (!transportConfigurations || transportConfigurations.count == 0) {
     
-        NSLog(@"A transport configuration needs to be specified. Created a basic UDP configuration for you.");
+        DDLogDebug(@"A transport configuration needs to be specified. Created a basic UDP configuration for you.");
         SWTransportConfiguration *configuration = [SWTransportConfiguration configurationWithTransportType:SWTransportTypeUDP];
         
         transportConfigurations = @[configuration];

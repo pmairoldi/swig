@@ -228,6 +228,11 @@
     }
 }
 
+-(BOOL)isValid {
+    
+    return pjsua_acc_is_valid(self.accountId);
+}
+
 #pragma Call Management
 
 -(void)addCall:(SWCall *)call {
@@ -279,46 +284,46 @@
     [call makeCall:URI completionHandler:handler];
 }
 
--(void)answerCall:(NSUInteger)callId completionHandler:(void(^)(NSError *error))handler {
-    
-    SWCall *call = [self lookupCall:callId];
-    
-    if (call) {
-        [call answer:handler];
-    }
-    
-    else {
-        
-        if (handler) {
-            NSError *error = [NSError errorWithDomain:@"SWIG" code:0 userInfo:@{@"reason":[NSString stringWithFormat:@"no call with id %d", (int)callId]}];
-            handler(error);
-        }
-    }
-}
-
--(void)endCall:(NSInteger)callId completionHandler:(void(^)(NSError *error))handler {
-    
-    SWCall *call = [self lookupCall:callId];
-    
-    if (call) {
-        
-        [call hangup:^(NSError *error) {
-            
-            [self removeCall:callId];
-            
-            if (handler) {
-                handler(error);
-            }
-        }];
-    }
-    
-    else {
-        
-        if (handler) {
-            NSError *error = [NSError errorWithDomain:@"SWIG" code:0 userInfo:@{@"reason":[NSString stringWithFormat:@"no call with id %d", (int)callId]}];
-            handler(error);
-        }
-    }
-}
+//-(void)answerCall:(NSUInteger)callId completionHandler:(void(^)(NSError *error))handler {
+//    
+//    SWCall *call = [self lookupCall:callId];
+//    
+//    if (call) {
+//        [call answer:handler];
+//    }
+//    
+//    else {
+//        
+//        if (handler) {
+//            NSError *error = [NSError errorWithDomain:@"SWIG" code:0 userInfo:@{@"reason":[NSString stringWithFormat:@"no call with id %d", (int)callId]}];
+//            handler(error);
+//        }
+//    }
+//}
+//
+//-(void)endCall:(NSInteger)callId completionHandler:(void(^)(NSError *error))handler {
+//    
+//    SWCall *call = [self lookupCall:callId];
+//    
+//    if (call) {
+//        
+//        [call hangup:^(NSError *error) {
+//            
+//            [self removeCall:callId];
+//            
+//            if (handler) {
+//                handler(error);
+//            }
+//        }];
+//    }
+//    
+//    else {
+//        
+//        if (handler) {
+//            NSError *error = [NSError errorWithDomain:@"SWIG" code:0 userInfo:@{@"reason":[NSString stringWithFormat:@"no call with id %d", (int)callId]}];
+//            handler(error);
+//        }
+//    }
+//}
 
 @end

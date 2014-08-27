@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B2EB6DD19AE69AA000D3767 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2EB6DB19AE69AA000D3767 /* main.m */; };
 		2B414A2C19A53CC80012891F /* SWEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B414A2B19A53CC80012891F /* SWEndpoint.m */; };
 		2B414A4219A53FDC0012891F /* SWAccountConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B414A4119A53FDC0012891F /* SWAccountConfiguration.m */; };
 		2B414A4519A541050012891F /* SWTransportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B414A4419A541050012891F /* SWTransportConfiguration.m */; };
@@ -15,33 +16,12 @@
 		2B4BA25F19A652610089478D /* SWUriFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4BA25E19A652610089478D /* SWUriFormatter.m */; };
 		2B4BA26619A672D10089478D /* SWCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4BA26519A672D10089478D /* SWCall.m */; };
 		2B87877119A7D19C00920A05 /* NSString+PJString.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B87877019A7D19C00920A05 /* NSString+PJString.m */; };
-		2BD641C7199CE50C00589024 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641C6199CE50C00589024 /* main.m */; };
 		2BD641CA199CE50C00589024 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641C9199CE50C00589024 /* AppDelegate.m */; };
 		2BD641CD199CE50C00589024 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641CC199CE50C00589024 /* ViewController.m */; };
 		2BD641D0199CE50C00589024 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BD641CE199CE50C00589024 /* Main.storyboard */; };
 		2BD641D2199CE50C00589024 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BD641D1199CE50C00589024 /* Images.xcassets */; };
 		2BD641DE199CE50C00589024 /* swigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD641DD199CE50C00589024 /* swigTests.m */; };
-		2BD641E8199CE54200589024 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641E7199CE54200589024 /* CFNetwork.framework */; };
-		2BD641EA199CE54A00589024 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641E9199CE54A00589024 /* AudioToolbox.framework */; };
-		2BD641EE199CE58D00589024 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641ED199CE58D00589024 /* AVFoundation.framework */; };
-		2BD64202199CE5AE00589024 /* libg7221codec-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F0199CE5AE00589024 /* libg7221codec-arm-apple-darwin9.a */; };
-		2BD64203199CE5AE00589024 /* libgsmcodec-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F1199CE5AE00589024 /* libgsmcodec-arm-apple-darwin9.a */; };
-		2BD64204199CE5AE00589024 /* libilbccodec-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F2199CE5AE00589024 /* libilbccodec-arm-apple-darwin9.a */; };
-		2BD64205199CE5AE00589024 /* libpj-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F3199CE5AE00589024 /* libpj-arm-apple-darwin9.a */; };
-		2BD64206199CE5AE00589024 /* libpjlib-util-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F4199CE5AE00589024 /* libpjlib-util-arm-apple-darwin9.a */; };
-		2BD64207199CE5AE00589024 /* libpjmedia-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F5199CE5AE00589024 /* libpjmedia-arm-apple-darwin9.a */; };
-		2BD64208199CE5AE00589024 /* libpjmedia-audiodev-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F6199CE5AE00589024 /* libpjmedia-audiodev-arm-apple-darwin9.a */; };
-		2BD64209199CE5AE00589024 /* libpjmedia-codec-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F7199CE5AE00589024 /* libpjmedia-codec-arm-apple-darwin9.a */; };
-		2BD6420A199CE5AE00589024 /* libpjmedia-videodev-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F8199CE5AE00589024 /* libpjmedia-videodev-arm-apple-darwin9.a */; };
-		2BD6420B199CE5AE00589024 /* libpjnath-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641F9199CE5AE00589024 /* libpjnath-arm-apple-darwin9.a */; };
-		2BD6420C199CE5AE00589024 /* libpjsip-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641FA199CE5AE00589024 /* libpjsip-arm-apple-darwin9.a */; };
-		2BD6420D199CE5AE00589024 /* libpjsip-simple-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641FB199CE5AE00589024 /* libpjsip-simple-arm-apple-darwin9.a */; };
-		2BD6420E199CE5AE00589024 /* libpjsip-ua-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641FC199CE5AE00589024 /* libpjsip-ua-arm-apple-darwin9.a */; };
-		2BD6420F199CE5AE00589024 /* libpjsua-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641FD199CE5AE00589024 /* libpjsua-arm-apple-darwin9.a */; };
-		2BD64210199CE5AE00589024 /* libpjsua2-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641FE199CE5AE00589024 /* libpjsua2-arm-apple-darwin9.a */; };
-		2BD64211199CE5AE00589024 /* libresample-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD641FF199CE5AE00589024 /* libresample-arm-apple-darwin9.a */; };
-		2BD64212199CE5AE00589024 /* libspeex-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD64200199CE5AE00589024 /* libspeex-arm-apple-darwin9.a */; };
-		2BD64213199CE5AE00589024 /* libsrtp-arm-apple-darwin9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD64201199CE5AE00589024 /* libsrtp-arm-apple-darwin9.a */; };
+		F00DCE0DE3794D569ECA384E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EECE01F87D604B298F68AD38 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +35,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B2EB6DA19AE69AA000D3767 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2B2EB6DB19AE69AA000D3767 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2B2EB6DE19AE69E1000D3767 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		2B414A2019A53CAB0012891F /* Swig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Swig.h; sourceTree = "<group>"; };
 		2B414A2A19A53CC80012891F /* SWEndpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWEndpoint.h; sourceTree = "<group>"; };
 		2B414A2B19A53CC80012891F /* SWEndpoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWEndpoint.m; sourceTree = "<group>"; };
@@ -73,8 +56,6 @@
 		2B87876F19A7D19C00920A05 /* NSString+PJString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PJString.h"; sourceTree = "<group>"; };
 		2B87877019A7D19C00920A05 /* NSString+PJString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PJString.m"; sourceTree = "<group>"; };
 		2BD641C1199CE50C00589024 /* swig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swig.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2BD641C5199CE50C00589024 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2BD641C6199CE50C00589024 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2BD641C8199CE50C00589024 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2BD641C9199CE50C00589024 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2BD641CB199CE50C00589024 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -106,6 +87,8 @@
 		2BD641FF199CE5AE00589024 /* libresample-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libresample-arm-apple-darwin9.a"; path = "pjsip-lib/libresample-arm-apple-darwin9.a"; sourceTree = "<group>"; };
 		2BD64200199CE5AE00589024 /* libspeex-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libspeex-arm-apple-darwin9.a"; path = "pjsip-lib/libspeex-arm-apple-darwin9.a"; sourceTree = "<group>"; };
 		2BD64201199CE5AE00589024 /* libsrtp-arm-apple-darwin9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libsrtp-arm-apple-darwin9.a"; path = "pjsip-lib/libsrtp-arm-apple-darwin9.a"; sourceTree = "<group>"; };
+		5B038208D76F4F9493DED839 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		EECE01F87D604B298F68AD38 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,27 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BD64203199CE5AE00589024 /* libgsmcodec-arm-apple-darwin9.a in Frameworks */,
-				2BD641EE199CE58D00589024 /* AVFoundation.framework in Frameworks */,
-				2BD64207199CE5AE00589024 /* libpjmedia-arm-apple-darwin9.a in Frameworks */,
-				2BD64202199CE5AE00589024 /* libg7221codec-arm-apple-darwin9.a in Frameworks */,
-				2BD6420B199CE5AE00589024 /* libpjnath-arm-apple-darwin9.a in Frameworks */,
-				2BD6420E199CE5AE00589024 /* libpjsip-ua-arm-apple-darwin9.a in Frameworks */,
-				2BD64213199CE5AE00589024 /* libsrtp-arm-apple-darwin9.a in Frameworks */,
-				2BD6420F199CE5AE00589024 /* libpjsua-arm-apple-darwin9.a in Frameworks */,
-				2BD64209199CE5AE00589024 /* libpjmedia-codec-arm-apple-darwin9.a in Frameworks */,
-				2BD641EA199CE54A00589024 /* AudioToolbox.framework in Frameworks */,
-				2BD6420C199CE5AE00589024 /* libpjsip-arm-apple-darwin9.a in Frameworks */,
-				2BD64204199CE5AE00589024 /* libilbccodec-arm-apple-darwin9.a in Frameworks */,
-				2BD6420D199CE5AE00589024 /* libpjsip-simple-arm-apple-darwin9.a in Frameworks */,
-				2BD64205199CE5AE00589024 /* libpj-arm-apple-darwin9.a in Frameworks */,
-				2BD64206199CE5AE00589024 /* libpjlib-util-arm-apple-darwin9.a in Frameworks */,
-				2BD6420A199CE5AE00589024 /* libpjmedia-videodev-arm-apple-darwin9.a in Frameworks */,
-				2BD64208199CE5AE00589024 /* libpjmedia-audiodev-arm-apple-darwin9.a in Frameworks */,
-				2BD641E8199CE54200589024 /* CFNetwork.framework in Frameworks */,
-				2BD64211199CE5AE00589024 /* libresample-arm-apple-darwin9.a in Frameworks */,
-				2BD64212199CE5AE00589024 /* libspeex-arm-apple-darwin9.a in Frameworks */,
-				2BD64210199CE5AE00589024 /* libpjsua2-arm-apple-darwin9.a in Frameworks */,
+				F00DCE0DE3794D569ECA384E /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +110,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B2EB6D919AE69AA000D3767 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2B2EB6DA19AE69AA000D3767 /* Info.plist */,
+				2B2EB6DB19AE69AA000D3767 /* main.m */,
+				2B2EB6DE19AE69E1000D3767 /* PrefixHeader.pch */,
+			);
+			name = "Supporting Files";
+			path = "swig/Supporting Files";
+			sourceTree = "<group>";
+		};
 		2B414A0719A53CAB0012891F /* Swig */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,9 +205,11 @@
 			isa = PBXGroup;
 			children = (
 				2BD641C3199CE50C00589024 /* swig */,
+				2B2EB6D919AE69AA000D3767 /* Supporting Files */,
 				2BD641DA199CE50C00589024 /* swigTests */,
 				2BD641EF199CE59500589024 /* Frameworks */,
 				2BD641C2199CE50C00589024 /* Products */,
+				5B038208D76F4F9493DED839 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -256,18 +232,8 @@
 				2BD641CE199CE50C00589024 /* Main.storyboard */,
 				2BD641D1199CE50C00589024 /* Images.xcassets */,
 				2B414A0719A53CAB0012891F /* Swig */,
-				2BD641C4199CE50C00589024 /* Supporting Files */,
 			);
 			path = swig;
-			sourceTree = "<group>";
-		};
-		2BD641C4199CE50C00589024 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				2BD641C5199CE50C00589024 /* Info.plist */,
-				2BD641C6199CE50C00589024 /* main.m */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		2BD641DA199CE50C00589024 /* swigTests */ = {
@@ -312,6 +278,7 @@
 				2BD641EB199CE55200589024 /* CoreAudio.framework */,
 				2BD641E9199CE54A00589024 /* AudioToolbox.framework */,
 				2BD641E7199CE54200589024 /* CFNetwork.framework */,
+				EECE01F87D604B298F68AD38 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -323,9 +290,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2BD641E1199CE50C00589024 /* Build configuration list for PBXNativeTarget "swig" */;
 			buildPhases = (
+				AE5F42BC7F1E4A9693A6FBD0 /* Check Pods Manifest.lock */,
 				2BD641BD199CE50C00589024 /* Sources */,
 				2BD641BE199CE50C00589024 /* Frameworks */,
 				2BD641BF199CE50C00589024 /* Resources */,
+				7E40AA0525E7488C92A86752 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -410,6 +379,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7E40AA0525E7488C92A86752 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AE5F42BC7F1E4A9693A6FBD0 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2BD641BD199CE50C00589024 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -424,8 +426,8 @@
 				2B414A4519A541050012891F /* SWTransportConfiguration.m in Sources */,
 				2B4BA26619A672D10089478D /* SWCall.m in Sources */,
 				2B414A4219A53FDC0012891F /* SWAccountConfiguration.m in Sources */,
+				2B2EB6DD19AE69AA000D3767 /* main.m in Sources */,
 				2BD641CA199CE50C00589024 /* AppDelegate.m in Sources */,
-				2BD641C7199CE50C00589024 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,44 +539,39 @@
 		};
 		2BD641E2199CE50C00589024 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B038208D76F4F9493DED839 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_INPUT_FILETYPE = automatic;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					PJ_AUTOCONF,
-				);
-				INFOPLIST_FILE = swig/Info.plist;
+				GCC_PREFIX_HEADER = "swig/Supporting Files/PrefixHeader.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = "$(SRCROOT)/swig/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/pjsip-lib",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/pjsip-include";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		2BD641E3199CE50C00589024 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B038208D76F4F9493DED839 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_INPUT_FILETYPE = automatic;
-				GCC_PREPROCESSOR_DEFINITIONS = PJ_AUTOCONF;
-				INFOPLIST_FILE = swig/Info.plist;
+				GCC_PREFIX_HEADER = "swig/Supporting Files/PrefixHeader.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				INFOPLIST_FILE = "$(SRCROOT)/swig/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/pjsip-lib",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/pjsip-include";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
