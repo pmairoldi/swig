@@ -179,7 +179,7 @@
     pjsua_call_info info;
     pjsua_call_get_info((int)self.callId, &info);
     
-   return [[SWEndpoint sharedInstance] lookupAccount:info.acc_id];
+   return [[SWEndpoint sharedEndpoint] lookupAccount:info.acc_id];
 }
 
 #pragma Call Management

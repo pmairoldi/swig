@@ -97,7 +97,7 @@
     endpointConfiguration.logConsoleLevel = 0;
     endpointConfiguration.logLevel = 0;
     
-    SWEndpoint *endpoint = [SWEndpoint sharedInstance];
+    SWEndpoint *endpoint = [SWEndpoint sharedEndpoint];
     
     [endpoint configure:endpointConfiguration completionHandler:^(NSError *error) {
         
@@ -157,7 +157,7 @@
             [account connect:^(NSError *error) {
                 NSLog(@"%@", [error description]);
                                 
-                [[SWEndpoint sharedInstance] addAccount:account];
+                [[SWEndpoint sharedEndpoint] addAccount:account];
             }];
         }
     }];

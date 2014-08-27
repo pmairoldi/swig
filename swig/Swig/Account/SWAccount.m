@@ -70,7 +70,7 @@
     
     NSString *tcpSuffix = @"";
     
-    if ([[SWEndpoint sharedInstance] hasTCPConfiguration]) {
+    if ([[SWEndpoint sharedEndpoint] hasTCPConfiguration]) {
         tcpSuffix = @";transport=TCP";
     }
     

@@ -15,11 +15,8 @@
 
 @property (nonatomic, strong, readonly) SWEndpointConfiguration *endpointConfiguration;
 
-/**
- * gets singleton object.
- * @return singleton
- */
-+(SWEndpoint*)sharedInstance;
++(instancetype)sharedEndpoint;
+
 -(void)configure:(SWEndpointConfiguration *)configuration completionHandler:(void(^)(NSError *error))handler; //configure and start endpoint
 -(BOOL)hasTCPConfiguration;
 -(void)start:(void(^)(NSError *error))handler;

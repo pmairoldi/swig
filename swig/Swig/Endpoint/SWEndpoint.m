@@ -48,52 +48,23 @@ static void SWOnNatDetect(const pj_stun_nat_detect_result *res);
 
 @implementation SWEndpoint
 
-static SWEndpoint *SINGLETON = nil;
+static SWEndpoint *_sharedEndpoint = nil;
 
-static bool isFirstAccess = YES;
-
-#pragma mark - Public Method
-
-+(id)sharedInstance {
++(id)sharedEndpoint {
     
     static dispatch_once_t onceToken;
+    
     dispatch_once(&onceToken, ^{
-        isFirstAccess = NO;
-        SINGLETON = [[super allocWithZone:NULL] init];
+        _sharedEndpoint = [self new];
     });
     
-    return SINGLETON;
+    return _sharedEndpoint;
 }
 
-#pragma mark - Life Cycle
+-(instancetype)init {
 
-+(id) allocWithZone:(NSZone *)zone {
-    return [self sharedInstance];
-}
-
-+(id)copyWithZone:(struct _NSZone *)zone {
-    return [self sharedInstance];
-}
-
-+(id)mutableCopyWithZone:(struct _NSZone *)zone {
-    return [self sharedInstance];
-}
-
--(id)copy {
-    return [[SWEndpoint alloc] init];
-}
-
--(id)mutableCopy {
-    return [[SWEndpoint alloc] init];
-}
-
--(id)init {
-    
-    if(SINGLETON){
-        return SINGLETON;
-    }
-    if (isFirstAccess) {
-        [self doesNotRecognizeSelector:_cmd];
+    if (_sharedEndpoint) {
+        return _sharedEndpoint;
     }
     
     self = [super init];
@@ -329,21 +300,21 @@ static bool isFirstAccess = YES;
 
 static void SWOnRegState(pjsua_acc_id acc_id) {
     
-    SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:acc_id];
+    SWAccount *account = [[SWEndpoint sharedEndpoint] lookupAccount:acc_id];
     
     if (account) {
         
         [account accountStateChanged];
         
-        if ([SWEndpoint sharedInstance].accountStateChangeBlock) {
-            [SWEndpoint sharedInstance].accountStateChangeBlock(account);
+        if ([SWEndpoint sharedEndpoint].accountStateChangeBlock) {
+            [SWEndpoint sharedEndpoint].accountStateChangeBlock(account);
         }
     }
 }
 
 static void SWOnIncomingCall(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_rx_data *rdata) {
     
-    SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:acc_id];
+    SWAccount *account = [[SWEndpoint sharedEndpoint] lookupAccount:acc_id];
     
     if (account) {
         
@@ -351,8 +322,8 @@ static void SWOnIncomingCall(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_r
         
         [account addCall:call];
         
-        if ([SWEndpoint sharedInstance].incomingCallBlock) {
-            [SWEndpoint sharedInstance].incomingCallBlock(account, call);
+        if ([SWEndpoint sharedEndpoint].incomingCallBlock) {
+            [SWEndpoint sharedEndpoint].incomingCallBlock(account, call);
         }
     }
 }
@@ -362,7 +333,7 @@ static void SWOnCallState(pjsua_call_id call_id, pjsip_event *e) {
     pjsua_call_info callInfo;
     pjsua_call_get_info(call_id, &callInfo);
     
-    SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:callInfo.acc_id];
+    SWAccount *account = [[SWEndpoint sharedEndpoint] lookupAccount:callInfo.acc_id];
 
     if (account) {
         
@@ -372,8 +343,8 @@ static void SWOnCallState(pjsua_call_id call_id, pjsip_event *e) {
         
         if (call) {
             
-            if ([SWEndpoint sharedInstance].callStateChangeBlock) {
-                [SWEndpoint sharedInstance].callStateChangeBlock(account, call);
+            if ([SWEndpoint sharedEndpoint].callStateChangeBlock) {
+                [SWEndpoint sharedEndpoint].callStateChangeBlock(account, call);
             }
         }
     }
@@ -384,7 +355,7 @@ static void SWOnCallMediaState(pjsua_call_id call_id) {
     pjsua_call_info callInfo;
     pjsua_call_get_info(call_id, &callInfo);
     
-    SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:callInfo.acc_id];
+    SWAccount *account = [[SWEndpoint sharedEndpoint] lookupAccount:callInfo.acc_id];
     
     if (account) {
         
@@ -394,8 +365,8 @@ static void SWOnCallMediaState(pjsua_call_id call_id) {
         
         if (call) {
             
-            if ([SWEndpoint sharedInstance].callMediaStateChangeBlock) {
-                [SWEndpoint sharedInstance].callMediaStateChangeBlock(account, call);
+            if ([SWEndpoint sharedEndpoint].callMediaStateChangeBlock) {
+                [SWEndpoint sharedEndpoint].callMediaStateChangeBlock(account, call);
             }
         }
     }
