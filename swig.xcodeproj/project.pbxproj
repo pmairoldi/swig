@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B2EB6DD19AE69AA000D3767 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2EB6DB19AE69AA000D3767 /* main.m */; };
+		2B2EB6E119AE7C86000D3767 /* SWRingback.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2EB6E019AE7C86000D3767 /* SWRingback.m */; };
 		2B414A2C19A53CC80012891F /* SWEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B414A2B19A53CC80012891F /* SWEndpoint.m */; };
 		2B414A4219A53FDC0012891F /* SWAccountConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B414A4119A53FDC0012891F /* SWAccountConfiguration.m */; };
 		2B414A4519A541050012891F /* SWTransportConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B414A4419A541050012891F /* SWTransportConfiguration.m */; };
@@ -38,6 +39,8 @@
 		2B2EB6DA19AE69AA000D3767 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B2EB6DB19AE69AA000D3767 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2B2EB6DE19AE69E1000D3767 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		2B2EB6DF19AE7C86000D3767 /* SWRingback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRingback.h; sourceTree = "<group>"; };
+		2B2EB6E019AE7C86000D3767 /* SWRingback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRingback.m; sourceTree = "<group>"; };
 		2B414A2019A53CAB0012891F /* Swig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Swig.h; sourceTree = "<group>"; };
 		2B414A2A19A53CC80012891F /* SWEndpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWEndpoint.h; sourceTree = "<group>"; };
 		2B414A2B19A53CC80012891F /* SWEndpoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWEndpoint.m; sourceTree = "<group>"; };
@@ -174,6 +177,8 @@
 				2B414A4719A541D90012891F /* SWEndpointConfiguration.m */,
 				2B414A4319A541050012891F /* SWTransportConfiguration.h */,
 				2B414A4419A541050012891F /* SWTransportConfiguration.m */,
+				2B2EB6DF19AE7C86000D3767 /* SWRingback.h */,
+				2B2EB6E019AE7C86000D3767 /* SWRingback.m */,
 			);
 			path = Endpoint;
 			sourceTree = "<group>";
@@ -419,6 +424,7 @@
 			files = (
 				2B4BA25819A64C790089478D /* SWAccount.m in Sources */,
 				2B414A4819A541D90012891F /* SWEndpointConfiguration.m in Sources */,
+				2B2EB6E119AE7C86000D3767 /* SWRingback.m in Sources */,
 				2B87877119A7D19C00920A05 /* NSString+PJString.m in Sources */,
 				2B414A2C19A53CC80012891F /* SWEndpoint.m in Sources */,
 				2BD641CD199CE50C00589024 /* ViewController.m in Sources */,
