@@ -101,7 +101,8 @@
     
     pj_status_t status;
     
-    status = pjsua_acc_add(&acc_cfg, PJ_TRUE, &_accountId);
+    int accountId = (int)self.accountId;
+    status = pjsua_acc_add(&acc_cfg, PJ_TRUE, &accountId);
     
     if (status != PJ_SUCCESS) {
 
@@ -130,7 +131,7 @@
     
     pj_status_t status;
 
-    status = pjsua_acc_set_registration(self.accountId, PJ_TRUE);
+    status = pjsua_acc_set_registration((int)self.accountId, PJ_TRUE);
     
     if (status != PJ_SUCCESS) {
         
@@ -143,7 +144,7 @@
         return;
     }
 
-    status = pjsua_acc_set_online_status(self.accountId, PJ_TRUE);
+    status = pjsua_acc_set_online_status((int)self.accountId, PJ_TRUE);
     
     if (status != PJ_SUCCESS) {
         
@@ -165,7 +166,7 @@
     
     pj_status_t status;
     
-    status = pjsua_acc_set_online_status(self.accountId, PJ_FALSE);
+    status = pjsua_acc_set_online_status((int)self.accountId, PJ_FALSE);
     
     if (status != PJ_SUCCESS) {
         
@@ -178,7 +179,7 @@
         return;
     }
 
-    status = pjsua_acc_set_registration(self.accountId, PJ_FALSE);
+    status = pjsua_acc_set_registration((int)self.accountId, PJ_FALSE);
     
     if (status != PJ_SUCCESS) {
         
@@ -199,7 +200,7 @@
 -(void)accountStateChanged {
     
     pjsua_acc_info accountInfo;
-    pjsua_acc_get_info(self.accountId, &accountInfo);
+    pjsua_acc_get_info((int)self.accountId, &accountInfo);
  
     pjsip_status_code code = accountInfo.status;
  
@@ -289,7 +290,7 @@
     else {
         
         if (handler) {
-            NSError *error = [NSError errorWithDomain:@"SWIG" code:0 userInfo:@{@"reason":[NSString stringWithFormat:@"no call with id %d", callId]}];
+            NSError *error = [NSError errorWithDomain:@"SWIG" code:0 userInfo:@{@"reason":[NSString stringWithFormat:@"no call with id %d", (int)callId]}];
             handler(error);
         }
     }
@@ -314,7 +315,7 @@
     else {
         
         if (handler) {
-            NSError *error = [NSError errorWithDomain:@"SWIG" code:0 userInfo:@{@"reason":[NSString stringWithFormat:@"no call with id %d", callId]}];
+            NSError *error = [NSError errorWithDomain:@"SWIG" code:0 userInfo:@{@"reason":[NSString stringWithFormat:@"no call with id %d", (int)callId]}];
             handler(error);
         }
     }

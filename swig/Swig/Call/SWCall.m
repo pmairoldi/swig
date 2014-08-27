@@ -70,7 +70,7 @@
     
     pjsua_call_info info;
     
-    status = pjsua_call_get_info(self.callId, &info);
+    status = pjsua_call_get_info((int)self.callId, &info);
     
     if (status == PJ_TRUE) {
         _notification.alertBody = [NSString stringWithFormat:@"Incoming call from %@", [NSString stringWithPJString:info.remote_contact]];
@@ -123,7 +123,7 @@
 -(void)callStateChanged {
     
     pjsua_call_info callInfo;
-    pjsua_call_get_info(self.callId, &callInfo);
+    pjsua_call_get_info((int)self.callId, &callInfo);
     
     switch (callInfo.state) {
         case PJSIP_INV_STATE_NULL: {
@@ -156,7 +156,7 @@
 -(void)mediaStateChanged {
     
     pjsua_call_info callInfo;
-    pjsua_call_get_info(self.callId, &callInfo);
+    pjsua_call_get_info((int)self.callId, &callInfo);
     
     if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE || callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
         pjsua_conf_connect(callInfo.conf_slot, 0);
@@ -177,7 +177,7 @@
 -(SWAccount *)getAccount {
     
     pjsua_call_info info;
-    pjsua_call_get_info(self.callId, &info);
+    pjsua_call_get_info((int)self.callId, &info);
     
    return [[SWEndpoint sharedInstance] lookupAccount:info.acc_id];
 }
@@ -213,7 +213,7 @@
     pj_status_t status;
     NSError *error;
     
-    status = pjsua_call_answer(self.callId, PJSIP_SC_OK, NULL, NULL);
+    status = pjsua_call_answer((int)self.callId, PJSIP_SC_OK, NULL, NULL);
     
     if (status != PJ_SUCCESS) {
         
@@ -232,7 +232,7 @@
     pj_status_t status;
     NSError *error;
     
-    status = pjsua_call_hangup(self.callId, 0, NULL, NULL);
+    status = pjsua_call_hangup((int)self.callId, 0, NULL, NULL);
     
     if (status != PJ_SUCCESS) {
         

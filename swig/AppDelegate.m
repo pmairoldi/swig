@@ -113,22 +113,22 @@
     
     [endpoint setIncomingCallBlock:^(SWAccount *account, SWCall *call) {
         
-        NSLog(@"\n\nIncoming Call : %d\n\n", call.callId);
+        NSLog(@"\n\nIncoming Call : %d\n\n", (int)call.callId);
 
         [account answerCall:call.callId completionHandler:^(NSError *error) {
            
-            NSLog([error description]);
+            NSLog(@"%@",[error description]);
         }];
     }];
     
     [endpoint setAccountStateChangeBlock:^(SWAccount *account) {
         
-        NSLog(@"\n\nAccount State : %d\n\n", account.accountState);
+        NSLog(@"\n\nAccount State : %ld\n\n", (long)account.accountState);
     }];
     
     [endpoint setCallStateChangeBlock:^(SWAccount *account, SWCall *call) {
         
-        NSLog(@"\n\nCall State : %d\n\n", call.callState);
+        NSLog(@"\n\nCall State : %ld\n\n", (long)call.callState);
     }];
     
     [endpoint setCallMediaStateChangeBlock:^(SWAccount *account, SWCall *call) {

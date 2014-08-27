@@ -154,15 +154,15 @@ static bool isFirstAccess = YES;
     ua_cfg.cb.on_call_replaced = &SWOnCallReplaced;
     ua_cfg.cb.on_reg_state = &SWOnRegState;
     ua_cfg.cb.on_nat_detect = &SWOnNatDetect;
-    ua_cfg.max_calls = self.endpointConfiguration.maxCalls;
+    ua_cfg.max_calls = (unsigned int)self.endpointConfiguration.maxCalls;
     
-    log_cfg.level = self.endpointConfiguration.logLevel;
-    log_cfg.console_level = self.endpointConfiguration.logConsoleLevel;
+    log_cfg.level = (unsigned int)self.endpointConfiguration.logLevel;
+    log_cfg.console_level = (unsigned int)self.endpointConfiguration.logConsoleLevel;
     log_cfg.log_filename = [self.endpointConfiguration.logFilename pjString];
-    log_cfg.log_file_flags = self.endpointConfiguration.logFileFlags;
+    log_cfg.log_file_flags = (unsigned int)self.endpointConfiguration.logFileFlags;
     
-    media_cfg.clock_rate = self.endpointConfiguration.clockRate;
-    media_cfg.snd_clock_rate = self.endpointConfiguration.sndClockRate;
+    media_cfg.clock_rate = (unsigned int)self.endpointConfiguration.clockRate;
+    media_cfg.snd_clock_rate = (unsigned int)self.endpointConfiguration.sndClockRate;
     
     status = pjsua_init(&ua_cfg, &log_cfg, &media_cfg);
     
@@ -185,8 +185,8 @@ static bool isFirstAccess = YES;
         
         pjsua_transport_config_default(&transportConfig);
         
-        transportConfig.port = transport.port;
-        transportConfig.port_range = transport.portRange;
+        transportConfig.port = (unsigned int)transport.port;
+        transportConfig.port_range = (unsigned int)transport.portRange;
         
         pjsip_transport_type_e transportType = (pjsip_transport_type_e)transport.transportType;
         
