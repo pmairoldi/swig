@@ -13,7 +13,6 @@
 #import "SWUriFormatter.h"
 #import "NSString+PJString.h"
 #import "pjsua.h"
-#import <AVFoundation/AVAudioSession.h>
 
 @interface SWCall ()
 
@@ -183,30 +182,6 @@
 }
 
 #pragma Call Management
-
--(void)makeCall:(NSString *)destination completionHandler:(void(^)(NSError *error))handler {
-    
-    //    try {
-    //
-    //        pj::CallOpParam param(true);
-    //        param.statusCode = PJSIP_SC_OK;
-    //
-    //        self.call->makeCall(*[[SWUriFormatter sipUri:destination fromAccount:[self getAccount]] CPPString], param);
-    //        self.callState = SWCallStateCalling;
-    //
-    //    } catch(pj::Error &err) {
-    //
-    //        NSError *error = [NSError errorWithError:&err];
-    //
-    //        if (handler) {
-    //            handler(error);
-    //        }
-    //    }
-    //
-    //    if (handler) {
-    //        handler(nil);
-    //    }
-}
 
 -(void)answer:(void(^)(NSError *error))handler {
     

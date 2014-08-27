@@ -277,53 +277,29 @@
 
 -(void)makeCall:(NSString *)URI completionHandler:(void(^)(NSError *error))handler {
     
-    SWCall *call = [SWCall callFromAccountId:self.accountId];
+    pj_status_t status;
+    NSError *error;
     
-    [self addCall:call];
+    pjsua_call_id callIdentifier;
+    pj_str_t uri = [[SWUriFormatter sipUri:URI fromAccount:self] pjString];
     
-    [call makeCall:URI completionHandler:handler];
+    status = pjsua_call_make_call(self.accountId, &uri, 0, NULL, NULL, &callIdentifier);
+    
+    if (status != PJ_SUCCESS) {
+        
+        error = [NSError errorWithDomain:@"Error hanging up call" code:0 userInfo:nil];
+    }
+    
+    else {
+        
+        SWCall *call = [SWCall callWithId:callIdentifier accountId:self.accountId];
+        
+        [self addCall:call];
+    }
+    
+    if (handler) {
+        handler(error);
+    }
 }
-
-//-(void)answerCall:(NSUInteger)callId completionHandler:(void(^)(NSError *error))handler {
-//    
-//    SWCall *call = [self lookupCall:callId];
-//    
-//    if (call) {
-//        [call answer:handler];
-//    }
-//    
-//    else {
-//        
-//        if (handler) {
-//            NSError *error = [NSError errorWithDomain:@"SWIG" code:0 userInfo:@{@"reason":[NSString stringWithFormat:@"no call with id %d", (int)callId]}];
-//            handler(error);
-//        }
-//    }
-//}
-//
-//-(void)endCall:(NSInteger)callId completionHandler:(void(^)(NSError *error))handler {
-//    
-//    SWCall *call = [self lookupCall:callId];
-//    
-//    if (call) {
-//        
-//        [call hangup:^(NSError *error) {
-//            
-//            [self removeCall:callId];
-//            
-//            if (handler) {
-//                handler(error);
-//            }
-//        }];
-//    }
-//    
-//    else {
-//        
-//        if (handler) {
-//            NSError *error = [NSError errorWithDomain:@"SWIG" code:0 userInfo:@{@"reason":[NSString stringWithFormat:@"no call with id %d", (int)callId]}];
-//            handler(error);
-//        }
-//    }
-//}
 
 @end

@@ -45,7 +45,6 @@ typedef NS_ENUM(NSInteger, SWMediaState) {
 
 -(SWAccount *)getAccount;
 
--(void)makeCall:(NSString *)destination completionHandler:(void(^)(NSError *error))handler;
 -(void)answer:(void(^)(NSError *error))handler;
 -(void)hangup:(void(^)(NSError *error))handler;
 

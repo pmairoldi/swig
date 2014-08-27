@@ -87,10 +87,10 @@
         
         DDLogDebug(@"\n\nIncoming Call : %d\n\n", (int)call.callId);
 
-        [call answer:^(NSError *error) {
-           
-            DDLogDebug(@"%@",[error description]);
-        }];
+//        [call answer:^(NSError *error) {
+//           
+//            DDLogDebug(@"%@",[error description]);
+//        }];
     }];
     
     [endpoint setAccountStateChangeBlock:^(SWAccount *account) {
@@ -130,6 +130,10 @@
                 DDLogDebug(@"%@", [error description]);
                                 
                 [[SWEndpoint sharedEndpoint] addAccount:account];
+                
+//                [account makeCall:@"6474785132" completionHandler:^(NSError *error) {
+//                    
+//                }];
             }];
         }
     }];
