@@ -130,10 +130,6 @@
                 DDLogDebug(@"%@", [error description]);
                                 
                 [[SWEndpoint sharedEndpoint] addAccount:account];
-                
-//                [account makeCall:@"6474785132" completionHandler:^(NSError *error) {
-//                    
-//                }];
             }];
         }
     }];

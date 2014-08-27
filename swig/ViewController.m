@@ -20,30 +20,6 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-//    SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:0];
-//    
-//    
-//    [account setStateChangeBlock:^(SWAccountState state) {
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            self.statusLabel.text = [NSString stringWithFormat:@"%d", state];
-//        });
-//    }];
-//
-//    [account setIncomingCallBlock:^(SWCall *call) {
-//        
-//        if (self.currentCall) {
-//            
-//            [self.currentCall hangup:^(NSError *error) {
-//                self.currentCall = call;
-//            }];
-//        }
-//        
-//        else {
-//            self.currentCall = call;
-//        }
-//    }];
 }
 
 -(void)didReceiveMemoryWarning {
@@ -53,28 +29,12 @@
 
 -(IBAction)makeCall:(id)sender {
     
-//    __weak SWAccount *account = [[SWEndpoint sharedInstance] lookupAccount:0];
-//    
-//    if (self.currentCall) {
-//        
-//        [self.currentCall hangup:^(NSError *error) {
-//            
-//            self.currentCall = [SWCall callFromAccountId:account.accountId];
-//            
-//            [self.currentCall makeCall:@"6474785132" completionHandler:^(NSError *error) {
-//                
-//            }];
-//        }];
-//    }
-//    
-//    else {
-//        
-//        self.currentCall = [SWCall callFromAccountId:account.accountId];
-//        
-//        [self.currentCall makeCall:@"6474785132" completionHandler:^(NSError *error) {
-//            
-//        }];
-//    }
+    SWAccount *account = [[SWEndpoint sharedEndpoint] lookupAccount:0];
+    
+    [account makeCall:@"6474785132" completionHandler:^(NSError *error) {
+       
+        DDLogDebug(@"%@", [error description]);
+    }];
 }
 
 -(IBAction)answer:(id)sender {
