@@ -1,0 +1,26 @@
+PODS:
+  - AFNetworking/Reachability (2.3.1)
+  - Expecta (0.3.1)
+  - pjsip-ios (0.1.0)
+  - Specta (0.2.1)
+  - Swig (0.1.0):
+    - AFNetworking/Reachability (~> 2.3)
+    - pjsip-ios
+
+DEPENDENCIES:
+  - Expecta
+  - Specta (~> 0.2.1)
+  - Swig (from `../`)
+
+EXTERNAL SOURCES:
+  Swig:
+    :path: ../
+
+SPEC CHECKSUMS:
+  AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
+  Expecta: 03aabd0a89d8dea843baecb19a7fd7466a69a31d
+  pjsip-ios: 25f88f7dd68b4c760497e33794b0d47783195136
+  Specta: 9141310f46b1f68b676650ff2854e1ed0b74163a
+  Swig: 904ae4c4873ddba8a65133d26b47cb3223dfebdf
+
+COCOAPODS: 0.33.1
