@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
                        Simplifing the use of pjsip on ios
                        DESC
   s.homepage         = "https://github.com/petester42/swig"
-  s.license          = 'GPLv2'
+  s.license          = 'MIT'
   s.author           = { "Pierre-Marc Airoldi" => "pierremarcairoldi@gmail.com" }
   s.source           = { :git => "https://github.com/petester42/swig.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/petester42'
