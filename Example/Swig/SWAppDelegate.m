@@ -52,9 +52,12 @@
 -(void)configureEndpoint {
     
     SWTransportConfiguration *tcp = [SWTransportConfiguration configurationWithTransportType:SWTransportTypeTCP];
+    tcp.port = 5060;
     SWTransportConfiguration *udp = [SWTransportConfiguration configurationWithTransportType:SWTransportTypeUDP];
+    udp.port = 5060;
     
     SWEndpointConfiguration *endpointConfiguration = [SWEndpointConfiguration configurationWithTransportConfigurations:@[udp,tcp]];
+    endpointConfiguration.logLevel = 0;
     
     SWEndpoint *endpoint = [SWEndpoint sharedEndpoint];
     

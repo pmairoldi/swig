@@ -219,7 +219,7 @@ static SWEndpoint *_sharedEndpoint = nil;
         return;
     }
     
-    //TODO autodetect port by checking transportId
+    //TODO autodetect port by checking transportId!!!!
     
     for (SWTransportConfiguration *transport in self.endpointConfiguration.transportConfigurations) {
         

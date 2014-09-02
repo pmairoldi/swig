@@ -64,15 +64,26 @@
 
 -(void)setLogLevel:(NSUInteger)logLevel {
     
-    NSAssert(logLevel <= 0, @"log level has to be greater than 0");
-
-    _logLevel = logLevel;
+    if (logLevel <= 0) {
+        NSLog(@"log level has to be greater than 0. Setting it to the default.");
+        _logLevel = kSWLogLevel;
+    }
+    
+    else {
+        _logLevel = logLevel;
+    }
 }
 
 -(void)setLogConsoleLevel:(NSUInteger)logConsoleLevel {
     
-    NSAssert(logConsoleLevel <= 0, @" console log level has to be greater than 0");
+    if (logConsoleLevel <= 0) {
+        NSLog(@"log console level has to be greater than 0. Setting it to the default.");
+        _logConsoleLevel = kSWLogConsoleLevel;
+    }
     
-    _logConsoleLevel = logConsoleLevel;
+    else {
+        _logConsoleLevel = logConsoleLevel;
+    }
 }
+
 @end
