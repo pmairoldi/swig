@@ -47,6 +47,9 @@ static void SWOnNatDetect(const pj_stun_nat_detect_result *res);
 @property (nonatomic, copy) SWAccountStateChangeBlock accountStateChangeBlock;
 @property (nonatomic, copy) SWCallStateChangeBlock callStateChangeBlock;
 @property (nonatomic, copy) SWCallMediaStateChangeBlock callMediaStateChangeBlock;
+@property (nonatomic) NSInteger ringbackSlot;
+@property (nonatomic) pjmedia_port *ringbackPort;
+@property (nonatomic) NSInteger ringbackCount;
 
 @end
 
@@ -202,7 +205,7 @@ static SWEndpoint *_sharedEndpoint = nil;
     
     media_cfg.clock_rate = (unsigned int)self.endpointConfiguration.clockRate;
     media_cfg.snd_clock_rate = (unsigned int)self.endpointConfiguration.sndClockRate;
-    
+
     status = pjsua_init(&ua_cfg, &log_cfg, &media_cfg);
     
     if (status != PJ_SUCCESS) {

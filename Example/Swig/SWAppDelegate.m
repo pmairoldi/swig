@@ -16,6 +16,8 @@
     // Override point for customization after application launch.
     
     [self configureEndpoint];
+//    [self addSIPAccount];
+    [self addDIDAccount];
     
     return YES;
 }
@@ -53,8 +55,6 @@
     SWTransportConfiguration *udp = [SWTransportConfiguration configurationWithTransportType:SWTransportTypeUDP];
     
     SWEndpointConfiguration *endpointConfiguration = [SWEndpointConfiguration configurationWithTransportConfigurations:@[udp,tcp]];
-    endpointConfiguration.logConsoleLevel = 0;
-    endpointConfiguration.logLevel = 0;
     
     SWEndpoint *endpoint = [SWEndpoint sharedEndpoint];
     
@@ -93,6 +93,58 @@
     [endpoint setCallMediaStateChangeBlock:^(SWAccount *account, SWCall *call) {
         
         NSLog(@"\n\nMedia State Changed\n\n");
+    }];
+}
+
+-(void)addDIDAccount {
+    
+    SWAccount *account = [SWAccount new];
+    
+    SWAccountConfiguration *configuration = [SWAccountConfiguration new];
+    configuration.username = @"161672_6001";
+    configuration.password = @"Asdf6001";
+    configuration.domain = @"toronto3.voip.ms";
+    
+    [account configure:configuration completionHandler:^(NSError *error) {
+        
+        if (error) {
+            NSLog(@"%@", [error description]);
+        }
+        
+        else {
+            
+            [account connect:^(NSError *error) {
+                NSLog(@"%@", [error description]);
+                
+                [[SWEndpoint sharedEndpoint] addAccount:account];
+            }];
+        }
+    }];
+}
+
+-(void)addSIPAccount {
+    
+    SWAccount *account = [SWAccount new];
+    
+    SWAccountConfiguration *configuration = [SWAccountConfiguration new];
+    configuration.username = @"getonsip_mobila";
+    configuration.password = @"NQFxmwxw4wQMEfp3";
+    configuration.domain = @"getonsip.com;transport=tcp";
+    configuration.address = [SWAccountConfiguration addressFromUsername:@"mobila" domain:configuration.domain];
+    configuration.proxy = @"sip.onsip.com";
+    
+    [account configure:configuration completionHandler:^(NSError *error) {
+        
+        if (error) {
+            NSLog(@"%@", [error description]);
+        }
+        
+        else {
+            
+            [account connect:^(NSError *error) {
+                if (error) NSLog(@"%@", [error description]);
+            }];
+        }
     }];
 }
 

@@ -223,4 +223,26 @@
     }
 }
 
+//-(void)setHold:(void(^)(NSError *error))handler;
+//-(void)reinvite:(void(^)(NSError *error))handler;
+//-(void)transferCall:(NSString *)destination completionHandler:(void(^)(NSError *error))handler;
+//-(void)replaceCall:(SWCall *)call completionHandler:(void (^)(NSError *))handler;
+
+-(void)sendDTMF:(NSString *)dtmf handler:(void(^)(NSError *error))handler {
+    
+    pj_status_t status;
+    NSError *error;
+    pj_str_t digits = [dtmf pjString];
+    
+    status = pjsua_call_dial_dtmf((int)self.callId, &digits);
+
+    if (status != PJ_SUCCESS) {
+        error = [NSError errorWithDomain:@"Error sending DTMF" code:0 userInfo:nil];
+    }
+    
+    if (handler) {
+        handler(error);
+    }
+}
+
 @end

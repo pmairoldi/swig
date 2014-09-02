@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SWCallProtocol.h"
 #import "pjsua.h"
 //TODO: remove call from calls when disconnected
 //TODO: move to 2 sublclasses (incoming/outgoing)
@@ -29,7 +30,7 @@ typedef NS_ENUM(NSInteger, SWMediaState) {
     SWMediaStateRemoteHole = PJSUA_CALL_MEDIA_REMOTE_HOLD
 };
 
-@interface SWCall : NSObject
+@interface SWCall : NSObject <SWCallProtocol>
 
 @property (nonatomic, readonly) NSInteger callId;
 @property (nonatomic, readonly) NSInteger accountId;
@@ -40,9 +41,6 @@ typedef NS_ENUM(NSInteger, SWMediaState) {
 +(instancetype)callWithId:(NSInteger)callId accountId:(NSInteger)accountId;
 +(instancetype)callFromAccountId:(NSInteger)accountId;
 
--(void)callStateChanged;
--(void)mediaStateChanged;
-
 -(SWAccount *)getAccount;
 
 -(void)answer:(void(^)(NSError *error))handler;
@@ -52,5 +50,7 @@ typedef NS_ENUM(NSInteger, SWMediaState) {
 //-(void)reinvite:(void(^)(NSError *error))handler;
 //-(void)transferCall:(NSString *)destination completionHandler:(void(^)(NSError *error))handler;
 //-(void)replaceCall:(SWCall *)call completionHandler:(void (^)(NSError *))handler;
+
+-(void)sendDTMF:(NSString *)dtmf handler:(void(^)(NSError *error))handler;
 
 @end

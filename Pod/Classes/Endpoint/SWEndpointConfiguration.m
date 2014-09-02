@@ -62,4 +62,17 @@
     return endpointConfiguration;
 }
 
+-(void)setLogLevel:(NSUInteger)logLevel {
+    
+    NSAssert(logLevel <= 0, @"log level has to be greater than 0");
+
+    _logLevel = logLevel;
+}
+
+-(void)setLogConsoleLevel:(NSUInteger)logConsoleLevel {
+    
+    NSAssert(logConsoleLevel <= 0, @" console log level has to be greater than 0");
+    
+    _logConsoleLevel = logConsoleLevel;
+}
 @end

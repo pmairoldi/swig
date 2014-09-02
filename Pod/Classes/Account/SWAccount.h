@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SWAccountProtocol.h"
 
 //TODO: remove account from accounts when disconnected
 
@@ -19,7 +20,7 @@ typedef NS_ENUM(NSInteger, SWAccountState) {
     SWAccountStateOffline
 };
 
-@interface SWAccount : NSObject
+@interface SWAccount : NSObject <SWAccountProtocol>
 
 @property (nonatomic, readonly) NSInteger accountId;
 @property (nonatomic, readonly) SWAccountState accountState;
@@ -29,7 +30,6 @@ typedef NS_ENUM(NSInteger, SWAccountState) {
 -(void)configure:(SWAccountConfiguration *)configuration completionHandler:(void(^)(NSError *error))handler; //configure and add account
 -(void)connect:(void(^)(NSError *error))handler;
 -(void)disconnect:(void(^)(NSError *error))handler;
--(void)accountStateChanged;
 
 -(void)addCall:(SWCall *)call;
 -(void)removeCall:(NSUInteger)callId;

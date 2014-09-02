@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
                        Simplifing the use of pjsip on ios
                        DESC
   s.homepage         = "https://github.com/petester42/swig"
-  s.license          = 'GPLv2'
+  s.license          = 'MIT'
   s.author           = { "Pierre-Marc Airoldi" => "pierremarcairoldi@gmail.com" }
   s.source           = { :git => "https://github.com/petester42/swig.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/petester42'
@@ -27,12 +27,12 @@ Pod::Spec.new do |s|
   s.preserve_paths = 'Pod/Classes/**/*{h,m}'
 
   s.dependency 'AFNetworking/Reachability', '~> 2.3'
-  s.dependency 'pjsip-ios'
+  s.dependency 'pjsip-ios', '~> 0.1'
 
   s.header_mappings_dir = 'Pod/Classes'
   
   s.xcconfig = {
-    'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited)',
+    'GCC_PREPROCESSOR_DEFINITIONS' => 'PJ_AUTOCONF=1',
     'HEADER_SEARCH_PATHS'  => '$(PODS_ROOT)/pjsip-ios/Pod/pjsip-include',
     'LIBRARY_SEARCH_PATHS' => '$(PODS_ROOT)/pjsip-ios/Pod/pjsip-lib'
   }
