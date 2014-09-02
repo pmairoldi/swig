@@ -32,7 +32,7 @@ Pod::Spec.new do |s|
   s.header_mappings_dir = 'Pod/Classes'
   
   s.xcconfig = {
-    'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited)',
+    'GCC_PREPROCESSOR_DEFINITIONS' => 'PJ_AUTOCONF=1',
     'HEADER_SEARCH_PATHS'  => '$(PODS_ROOT)/pjsip-ios/Pod/pjsip-include',
     'LIBRARY_SEARCH_PATHS' => '$(PODS_ROOT)/pjsip-ios/Pod/pjsip-lib'
   }
