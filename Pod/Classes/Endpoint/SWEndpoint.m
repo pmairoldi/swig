@@ -120,7 +120,9 @@ static SWEndpoint *_sharedEndpoint = nil;
 
 -(void)keepAlive {
     
-    //TODO check if endpoint configured
+    if (pjsua_get_state() != PJSUA_STATE_RUNNING) {
+        return;
+    }
     
     if (!pj_thread_is_registered()) {
         static pj_thread_desc thread_desc;

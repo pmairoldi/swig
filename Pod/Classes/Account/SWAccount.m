@@ -230,7 +230,7 @@
 
 -(BOOL)isValid {
     
-    return pjsua_acc_is_valid(self.accountId);
+    return pjsua_acc_is_valid((int)self.accountId);
 }
 
 #pragma Call Management
@@ -283,7 +283,7 @@
     pjsua_call_id callIdentifier;
     pj_str_t uri = [[SWUriFormatter sipUri:URI fromAccount:self] pjString];
     
-    status = pjsua_call_make_call(self.accountId, &uri, 0, NULL, NULL, &callIdentifier);
+    status = pjsua_call_make_call((int)self.accountId, &uri, 0, NULL, NULL, &callIdentifier);
     
     if (status != PJ_SUCCESS) {
         
