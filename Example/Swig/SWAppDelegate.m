@@ -16,8 +16,8 @@
     // Override point for customization after application launch.
     
     [self configureEndpoint];
-//    [self addSIPAccount];
-    [self addDIDAccount];
+    [self addSIPAccount];
+//    [self addDIDAccount];
     
     return YES;
 }
@@ -51,13 +51,13 @@
 
 -(void)configureEndpoint {
     
-    SWTransportConfiguration *tcp = [SWTransportConfiguration configurationWithTransportType:SWTransportTypeTCP];
-    tcp.port = 5060;
     SWTransportConfiguration *udp = [SWTransportConfiguration configurationWithTransportType:SWTransportTypeUDP];
-    udp.port = 5060;
+//    udp.port = 0;
     
-    SWEndpointConfiguration *endpointConfiguration = [SWEndpointConfiguration configurationWithTransportConfigurations:@[udp,tcp]];
-    endpointConfiguration.logLevel = 0;
+    SWTransportConfiguration *tcp = [SWTransportConfiguration configurationWithTransportType:SWTransportTypeTCP];
+//    tcp.port = 0;
+    
+    SWEndpointConfiguration *endpointConfiguration = [SWEndpointConfiguration configurationWithTransportConfigurations:@[udp]];
     
     SWEndpoint *endpoint = [SWEndpoint sharedEndpoint];
     
@@ -132,7 +132,7 @@
     SWAccountConfiguration *configuration = [SWAccountConfiguration new];
     configuration.username = @"getonsip_mobila";
     configuration.password = @"NQFxmwxw4wQMEfp3";
-    configuration.domain = @"getonsip.com;transport=tcp";
+    configuration.domain = @"getonsip.com";
     configuration.address = [SWAccountConfiguration addressFromUsername:@"mobila" domain:configuration.domain];
     configuration.proxy = @"sip.onsip.com";
     
@@ -146,6 +146,8 @@
             
             [account connect:^(NSError *error) {
                 if (error) NSLog(@"%@", [error description]);
+                
+                [[SWEndpoint sharedEndpoint] addAccount:account];
             }];
         }
     }];

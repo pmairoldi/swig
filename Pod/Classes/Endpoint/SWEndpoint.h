@@ -8,12 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "SWAccount.h"
+#import <pjsua.h>
 
 @class SWEndpointConfiguration, SWAccount, SWCall;
 
 @interface SWEndpoint : NSObject
 
 @property (nonatomic, strong, readonly) SWEndpointConfiguration *endpointConfiguration;
+@property (nonatomic, readonly) pj_pool_t *pjPool;
+@property (nonatomic, strong, readonly) NSMutableArray *accounts;
 
 +(instancetype)sharedEndpoint;
 

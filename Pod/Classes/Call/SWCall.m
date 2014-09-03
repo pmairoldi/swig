@@ -41,6 +41,10 @@
     _callId = callId;
     _accountId = accountId;
     
+    //configure ringback
+    
+    _ringback = [SWRingback new];
+
     return self;
 }
 
@@ -85,10 +89,12 @@
 }
 
 -(void)dealloc {
-    
-    //TODO hangup before
-    
+        
     [[UIApplication sharedApplication] cancelLocalNotification:_notification];
+    
+    if (_callState != SWCallStateDisconnected && _callId != PJSUA_INVALID_ID) {
+        pjsua_call_hangup((int)_callId, 0, NULL, NULL);
+    }
 }
 
 -(void)setCallId:(NSInteger)callId {
@@ -119,6 +125,11 @@
     [self didChangeValueForKey:@"mediaState"];
 }
 
+-(void)setRingback:(SWRingback *)ringback {
+    
+    _ringback = ringback;
+}
+
 -(void)callStateChanged {
     
     pjsua_call_info callInfo;
@@ -129,24 +140,30 @@
             self.callState = SWCallStateReady;
         } break;
             
-        case PJSIP_INV_STATE_CALLING:
         case PJSIP_INV_STATE_INCOMING: {
+            [self.ringback start];
+            self.callState = SWCallStateIncoming;
+        } break;
+            
+        case PJSIP_INV_STATE_CALLING: {
+//            [self.ringback start];
             self.callState = SWCallStateCalling;
         } break;
             
-        case PJSIP_INV_STATE_EARLY:
+        case PJSIP_INV_STATE_EARLY: {
+            [self.ringback start];
+        } break;
+            
         case PJSIP_INV_STATE_CONNECTING: {
-            //            [self startRingback];
             self.callState = SWCallStateConnecting;
         } break;
             
         case PJSIP_INV_STATE_CONFIRMED: {
-            //            [self stopRingback];
             self.callState = SWCallStateConnected;
         } break;
             
         case PJSIP_INV_STATE_DISCONNECTED: {
-            //            [self stopRingback];
+            [self.ringback stop];
             self.callState = SWCallStateDisconnected;
         } break;
     }
@@ -215,12 +232,11 @@
         }
     }
     
-    SWAccount *account = [self getAccount];
-    [account removeCall:self.callId];
-    
     if (handler) {
         handler(error);
     }
+    
+    self.ringback = nil;
 }
 
 //-(void)setHold:(void(^)(NSError *error))handler;

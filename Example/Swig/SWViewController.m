@@ -7,6 +7,7 @@
 //
 
 #import "SWViewController.h"
+#import <Swig/Swig.h>
 
 @interface SWViewController ()
 
@@ -24,6 +25,18 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(IBAction)makeCall:(id)sender {
+ 
+    SWAccount *account = [[SWEndpoint sharedEndpoint] lookupAccount:0];
+    
+    [account makeCall:@"trac@getonsip.com" completionHandler:^(NSError *error) {
+       
+        if (error) {
+            NSLog(@"%@",[error description]);
+        }
+    }];
 }
 
 @end

@@ -10,4 +10,6 @@
 
 @interface SWViewController : UIViewController
 
+-(IBAction)makeCall:(id)sender;
+
 @end

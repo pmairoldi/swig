@@ -24,6 +24,9 @@ typedef void (^SWIncomingCallBlock)(SWAccount *account, SWCall *call);
 typedef void (^SWCallStateChangeBlock)(SWAccount *account, SWCall *call);
 typedef void (^SWCallMediaStateChangeBlock)(SWAccount *account, SWCall *call);
 
+//thread statics
+static pj_thread_t *thread;
+
 //callback functions
 
 static void SWOnIncomingCall(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_rx_data *rdata);
@@ -47,9 +50,7 @@ static void SWOnNatDetect(const pj_stun_nat_detect_result *res);
 @property (nonatomic, copy) SWAccountStateChangeBlock accountStateChangeBlock;
 @property (nonatomic, copy) SWCallStateChangeBlock callStateChangeBlock;
 @property (nonatomic, copy) SWCallMediaStateChangeBlock callMediaStateChangeBlock;
-@property (nonatomic) NSInteger ringbackSlot;
-@property (nonatomic) pjmedia_port *ringbackPort;
-@property (nonatomic) NSInteger ringbackCount;
+@property (nonatomic) pj_thread_t *thread;
 
 @end
 
@@ -69,7 +70,7 @@ static SWEndpoint *_sharedEndpoint = nil;
 }
 
 -(instancetype)init {
-
+    
     if (_sharedEndpoint) {
         return _sharedEndpoint;
     }
@@ -81,7 +82,9 @@ static SWEndpoint *_sharedEndpoint = nil;
     }
     
     _accounts = [[NSMutableArray alloc] init];
-
+    
+    [self registerThread];
+    
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(handleEnteredBackground:) name: UIApplicationDidEnterBackgroundNotification object:nil];
@@ -94,7 +97,7 @@ static SWEndpoint *_sharedEndpoint = nil;
     // fileLogger.maximumFileSize = 0;
     
     // [DDLog addLogger:fileLogger];
-
+    
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         
         [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
@@ -106,8 +109,12 @@ static SWEndpoint *_sharedEndpoint = nil;
 }
 
 -(void)dealloc {
- 
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
+    [self reset:^(NSError *error) {
+        if (error) NSLog(@"%@", [error description]);
+    }];
 }
 
 -(void)handleEnteredBackground:(NSNotification *)notification {
@@ -126,27 +133,23 @@ static SWEndpoint *_sharedEndpoint = nil;
     if (pjsua_get_state() != PJSUA_STATE_RUNNING) {
         return;
     }
-    
-    if (!pj_thread_is_registered()) {
-        static pj_thread_desc thread_desc;
-        static pj_thread_t *thread;
-        pj_thread_register("swig", thread_desc, &thread);
-    }
-    
+
+    [self registerThread];
+
     for (SWAccount *account in self.accounts) {
-    
+        
         if (account.isValid) {
             
             [account connect:^(NSError *error) {
-               
+                
                 // if (error) DDLogDebug(@"%@",[error description]);
             }];
         }
-    
+        
         else {
             
             [account disconnect:^(NSError *error) {
-               
+                
                 // if (error) DDLogDebug(@"%@",[error description]);
             }];
         }
@@ -205,7 +208,7 @@ static SWEndpoint *_sharedEndpoint = nil;
     
     media_cfg.clock_rate = (unsigned int)self.endpointConfiguration.clockRate;
     media_cfg.snd_clock_rate = (unsigned int)self.endpointConfiguration.sndClockRate;
-
+    
     status = pjsua_init(&ua_cfg, &log_cfg, &media_cfg);
     
     if (status != PJ_SUCCESS) {
@@ -272,6 +275,23 @@ static SWEndpoint *_sharedEndpoint = nil;
     }
 }
 
+-(void)registerThread {
+    
+    if (!pj_thread_is_registered()) {
+        pj_thread_register("swig", NULL, &thread);
+    }
+    
+    else {
+        thread = pj_thread_this();
+    }
+    
+    if (!_pjPool) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _pjPool = pjsua_pool_create("swig-pjsua", 512, 512);
+        });
+    }
+}
+
 -(void)start:(void(^)(NSError *error))handler {
     
     pj_status_t status = pjsua_start();
@@ -295,6 +315,13 @@ static SWEndpoint *_sharedEndpoint = nil;
 -(void)reset:(void(^)(NSError *error))handler {
     
     //TODO shutdown agent correctly. stop all calls, destroy all accounts
+    
+    for (SWAccount *account in self.accounts) {
+        
+        [account endAllCalls];
+    }
+    
+    [self.accounts removeAllObjects];
     
     pj_status_t status = pjsua_destroy();
     
@@ -393,6 +420,8 @@ static void SWOnIncomingCall(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_r
         
         [account addCall:call];
         
+        [call callStateChanged];
+
         if ([SWEndpoint sharedEndpoint].incomingCallBlock) {
             [SWEndpoint sharedEndpoint].incomingCallBlock(account, call);
         }
@@ -405,11 +434,11 @@ static void SWOnCallState(pjsua_call_id call_id, pjsip_event *e) {
     pjsua_call_get_info(call_id, &callInfo);
     
     SWAccount *account = [[SWEndpoint sharedEndpoint] lookupAccount:callInfo.acc_id];
-
+    
     if (account) {
         
         SWCall *call = [account lookupCall:call_id];
-    
+        
         [call callStateChanged];
         
         if (call) {
@@ -420,10 +449,8 @@ static void SWOnCallState(pjsua_call_id call_id, pjsip_event *e) {
         }
         
         if (call.callState == SWCallStateDisconnected) {
-            
-            [call hangup:^(NSError *error) {
-                // if (error) DDLogDebug(@"%@", [error description]);
-            }];
+            [call hangup:nil];
+            [account removeCall:call.callId];
         }
     }
 }
@@ -461,6 +488,13 @@ static void SWOnCallReplaced(pjsua_call_id old_call_id, pjsua_call_id new_call_i
 
 static void SWOnNatDetect(const pj_stun_nat_detect_result *res){
     
+}
+
+#pragma Setters/Getters
+
+-(void)setPjPool:(pj_pool_t *)pjPool {
+    
+    _pjPool = pjPool;
 }
 
 @end

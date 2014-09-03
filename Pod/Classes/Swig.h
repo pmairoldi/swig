@@ -15,16 +15,13 @@
 #import "SWTransportConfiguration.h"
 
 //Account
+#import "SWAccountProtocol.h"
 #import "SWAccount.h"
 #import "SWAccountConfiguration.h"
 
 //Call
+#import "SWCallProtocol.h"
 #import "SWCall.h"
-
-//#import "SWUserAgent.h"
-//#import "SWEndpoint.h"
-//#import "SWAccount.h"
-//#import "SWCall.h"
-//#import "SWAccountConfiguration.h"
+#import "SWRingback.h"
 
 #endif

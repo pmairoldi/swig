@@ -12,18 +12,6 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_Reachability 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking_Reachability 1
 
-// Expecta
-#define COCOAPODS_POD_AVAILABLE_Expecta
-#define COCOAPODS_VERSION_MAJOR_Expecta 0
-#define COCOAPODS_VERSION_MINOR_Expecta 3
-#define COCOAPODS_VERSION_PATCH_Expecta 1
-
-// Specta
-#define COCOAPODS_POD_AVAILABLE_Specta
-#define COCOAPODS_VERSION_MAJOR_Specta 0
-#define COCOAPODS_VERSION_MINOR_Specta 2
-#define COCOAPODS_VERSION_PATCH_Specta 1
-
 // Swig
 #define COCOAPODS_POD_AVAILABLE_Swig
 #define COCOAPODS_VERSION_MAJOR_Swig 0

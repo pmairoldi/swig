@@ -96,7 +96,7 @@
     
     else {
         acc_cfg.proxy_cnt = 1;
-        acc_cfg.proxy[0] = [[self.accountConfiguration.proxy stringByAppendingString:tcpSuffix] pjString];
+        acc_cfg.proxy[0] = [[SWUriFormatter sipUri:[self.accountConfiguration.proxy stringByAppendingString:tcpSuffix]] pjString];
     }
     
     pj_status_t status;
@@ -272,6 +272,13 @@
     
     else {
         return nil;
+    }
+}
+
+-(void)endAllCalls {
+    
+    for (SWCall *call in self.calls) {
+        [call hangup:nil];
     }
 }
 

@@ -30,12 +30,6 @@
                location = "group:SWEndpointConfiguration.m">
             </FileRef>
             <FileRef
-               location = "group:SWRingback.h">
-            </FileRef>
-            <FileRef
-               location = "group:SWRingback.m">
-            </FileRef>
-            <FileRef
                location = "group:SWTransportConfiguration.h">
             </FileRef>
             <FileRef
@@ -72,6 +66,12 @@
             </FileRef>
             <FileRef
                location = "group:SWCall.m">
+            </FileRef>
+            <FileRef
+               location = "group:SWRingback.h">
+            </FileRef>
+            <FileRef
+               location = "group:SWRingback.m">
             </FileRef>
          </Group>
          <Group
