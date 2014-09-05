@@ -8,16 +8,23 @@
 
 #import "SWRingtone.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface SWRingtone ()
 
-@property (nonatomic, strong) NSURL *fileURL;
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @property (nonatomic, strong) NSTimer *virbateTimer;
 
 @end
 
 @implementation SWRingtone
+
+-(instancetype)init {
+    
+    NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Ringtone" ofType:@"aif"]];
+    
+    return [self initWithFileAtPath:fileURL];
+}
 
 -(instancetype)initWithFileAtPath:(NSURL *)path {
     
@@ -57,8 +64,12 @@
     
     if (!self.audioPlayer.isPlaying) {
         [self.audioPlayer prepareToPlay];
+        
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient withOptions:0 error:nil];
+        
         [self.audioPlayer play];
         
+        //TODO: fix vibrate
         [self.virbateTimer fire];
         [[NSRunLoop currentRunLoop] addTimer:self.virbateTimer forMode:NSRunLoopCommonModes];
     }

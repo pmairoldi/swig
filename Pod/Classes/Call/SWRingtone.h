@@ -14,6 +14,7 @@
 
 @property (nonatomic, readonly) BOOL isPlaying;
 @property (nonatomic) CGFloat volume;
+@property (nonatomic, strong, readonly) NSURL *fileURL;
 
 -(instancetype)initWithFileAtPath:(NSURL *)path;
 

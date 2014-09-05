@@ -100,7 +100,7 @@ static SWEndpoint *_sharedEndpoint = nil;
     
     [self registerThread];
     
-    [self configureAudioSession];
+//    [self configureAudioSession];
     
     NSURL *fileURL = [[NSBundle mainBundle] URLForResource:@"Ringtone" withExtension:@"aif"];
     
@@ -110,17 +110,25 @@ static SWEndpoint *_sharedEndpoint = nil;
     
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         
-        [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
+        if ([AFNetworkReachabilityManager sharedManager].reachableViaWiFi) {
+            [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
+        }
+        
+        else if ([AFNetworkReachabilityManager sharedManager].reachableViaWWAN) {
+            [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
+        }
+        
+        else {
+            //offline
+        }
     }];
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(handleEnteredBackground:) name: UIApplicationDidEnterBackgroundNotification object:nil];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(audioSessionInterrupted:) name: AVAudioSessionInterruptionNotification object:nil];
-//
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(audioSessionRouteChanged:) name: AVAudioSessionRouteChangeNotification object:nil];
-    
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(hangdleApplicationWillTeminate:) name: UIApplicationWillTerminateNotification object:nil];
+
     return self;
 }
 
@@ -128,9 +136,7 @@ static SWEndpoint *_sharedEndpoint = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
 
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:nil];
-//    
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionRouteChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
 
     [self reset:^(NSError *error) {
         if (error) NSLog(@"%@", [error description]);
@@ -153,15 +159,15 @@ static SWEndpoint *_sharedEndpoint = nil;
     }];
 }
 
-//-(void)audioSessionInterrupted:(NSNotification *)notifcation {
-//    
-//    NSLog([notifcation description]);
-//}
-//
-//-(void)audioSessionRouteChanged:(NSNotification *)notifcation {
-//    
-//    NSLog([notifcation description]);
-//}
+-(void)hangdleApplicationWillTeminate:(NSNotification *)notification {
+    
+    UIApplication *application = (UIApplication *)notification.object;
+
+    //TODO hangup all calls
+    //TODO reset endpoint
+    
+    [application setApplicationIconBadgeNumber:0];
+}
 
 -(void)keepAlive {
     
@@ -367,7 +373,7 @@ static SWEndpoint *_sharedEndpoint = nil;
     if (![audioSession setActive:YES error:&activationError]) {
         
     }
-    
+
     self.detector = [SharkfoodMuteSwitchDetector shared];
     
     if (self.detector.isMute) {

@@ -45,6 +45,9 @@
     //configure ringback
     
     _ringback = [SWRingback new];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(returnFromBackground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(returnToBackground:) name:UIApplicationWillResignActiveNotification object:nil];
 
     return self;
 }
@@ -52,8 +55,6 @@
 +(instancetype)callWithId:(NSInteger)callId accountId:(NSInteger)accountId {
     
     SWCall *call = [[SWCall alloc] initWithCallId:callId accountId:accountId];
-    
-    [call createLocalNotification];
     
     return call;
 }
@@ -69,6 +70,7 @@
     
     _notification = [[UILocalNotification alloc] init];
     _notification.repeatInterval = 0;
+    _notification.soundName = [[[SWEndpoint sharedEndpoint].ringtone.fileURL path] lastPathComponent];
     
     pj_status_t status;
     
@@ -77,7 +79,7 @@
     status = pjsua_call_get_info((int)self.callId, &info);
     
     if (status == PJ_TRUE) {
-        _notification.alertBody = [NSString stringWithFormat:@"Incoming call from %@", [NSString stringWithPJString:info.remote_contact]];
+        _notification.alertBody = [NSString stringWithFormat:@"Incoming call from %@", [NSString stringWithPJString:info.call_id]];
     }
     
     else {
@@ -90,12 +92,14 @@
 }
 
 -(void)dealloc {
-        
+
     [[UIApplication sharedApplication] cancelLocalNotification:_notification];
-    
+
     if (_callState != SWCallStateDisconnected && _callId != PJSUA_INVALID_ID) {
         pjsua_call_hangup((int)_callId, 0, NULL, NULL);
     }
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 -(void)setCallId:(NSInteger)callId {
@@ -262,6 +266,22 @@
     
     if (handler) {
         handler(error);
+    }
+}
+
+#pragma Application Methods
+
+-(void)returnFromBackground:(NSNotification *)notification {
+    
+    if (self.callState == SWCallStateIncoming) {
+        [[SWEndpoint sharedEndpoint].ringtone start];
+    }
+}
+
+-(void)returnToBackground:(NSNotificationCenter *)notification {
+    
+    if (self.callState == SWCallStateIncoming) {
+        [self createLocalNotification];
     }
 }
 
