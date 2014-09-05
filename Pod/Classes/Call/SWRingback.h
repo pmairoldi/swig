@@ -8,13 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <pjsua.h>
+#import "SWPlayableProtocol.h"
 
-@interface SWRingback : NSObject
+@interface SWRingback : NSObject <SWPlayableProtocol>
 
 @property (nonatomic, readonly) NSInteger ringbackSlot;
 @property (nonatomic, readonly) pjmedia_port *ringbackPort;
-
--(void)start;
--(void)stop;
 
 @end

@@ -42,7 +42,7 @@
     _sndClockRate = kSWSndClockRate;
     
     _transportConfigurations = [NSArray new];
-    
+        
     return self;
 }
 

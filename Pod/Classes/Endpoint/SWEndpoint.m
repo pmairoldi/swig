@@ -16,6 +16,8 @@
 #import "pjsua.h"
 #import "NSString+PJString.h"
 #import <AFNetworkReachabilityManager.h>
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 #define KEEP_ALIVE_INTERVAL 600
 
@@ -81,14 +83,8 @@ static SWEndpoint *_sharedEndpoint = nil;
         return nil;
     }
     
-    _accounts = [[NSMutableArray alloc] init];
-    
-    [self registerThread];
-    
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(handleEnteredBackground:) name: UIApplicationDidEnterBackgroundNotification object:nil];
-    
+
     // [DDLog addLogger:[DDASLLogger sharedInstance]];
     // [DDLog addLogger:[DDTTYLogger sharedInstance]];
     
@@ -98,6 +94,16 @@ static SWEndpoint *_sharedEndpoint = nil;
     
     // [DDLog addLogger:fileLogger];
     
+    _accounts = [[NSMutableArray alloc] init];
+    
+    [self registerThread];
+    
+    [self registerAudioSession];
+    
+    NSURL *fileURL = [[NSBundle mainBundle] URLForResource:@"Ringtone" withExtension:@"aif"];
+    
+    _ringtone = [[SWRingtone alloc] initWithFileAtPath:fileURL];
+        
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         
         [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
@@ -105,6 +111,8 @@ static SWEndpoint *_sharedEndpoint = nil;
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(handleEnteredBackground:) name: UIApplicationDidEnterBackgroundNotification object:nil];
+
     return self;
 }
 
@@ -120,6 +128,9 @@ static SWEndpoint *_sharedEndpoint = nil;
 -(void)handleEnteredBackground:(NSNotification *)notification {
     
     UIApplication *application = (UIApplication *)notification.object;
+    
+    [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     
     [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
     
@@ -161,6 +172,23 @@ static SWEndpoint *_sharedEndpoint = nil;
     [self willChangeValueForKey:@"endpointConfiguration"];
     _endpointConfiguration = endpointConfiguration;
     [self didChangeValueForKey:@"endpointConfiguration"];
+}
+
+-(void)setRingtone:(SWRingtone *)ringtone {
+    
+    [self willChangeValueForKey:@"ringtone"];
+
+    if (_ringtone.isPlaying) {
+        [_ringtone stop];
+        _ringtone = ringtone;
+        [_ringtone start];
+    }
+    
+    else {
+        _ringtone = ringtone;
+    }
+    
+    [self didChangeValueForKey:@"ringtone"];
 }
 
 -(void)configure:(SWEndpointConfiguration *)configuration completionHandler:(void(^)(NSError *error))handler {
@@ -289,6 +317,23 @@ static SWEndpoint *_sharedEndpoint = nil;
         dispatch_async(dispatch_get_main_queue(), ^{
             _pjPool = pjsua_pool_create("swig-pjsua", 512, 512);
         });
+    }
+}
+
+-(void)registerAudioSession {
+    
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    
+    NSError *setCategoryError;
+    
+    if (![audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&setCategoryError]) {
+        
+    }
+    
+    NSError *activationError;
+    
+    if (![audioSession setActive:YES error:&activationError]) {
+        
     }
 }
 

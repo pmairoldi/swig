@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "SWCallProtocol.h"
 #import "pjsua.h"
-#import <SWRingback.h>
+#import "SWRingback.h"
+#import "SWRingtone.h"
+
 //TODO: remove call from calls when disconnected
 //TODO: move to 2 sublclasses (incoming/outgoing)
 
@@ -38,7 +40,6 @@ typedef NS_ENUM(NSInteger, SWMediaState) {
 @property (nonatomic, readonly) NSInteger accountId;
 @property (nonatomic, readonly) SWCallState callState;
 @property (nonatomic, readonly) SWMediaState mediaState;
-@property (nonatomic, readonly, strong) SWRingback *ringback;
 
 -(instancetype)initWithCallId:(NSUInteger)callId accountId:(NSInteger)accountId;
 +(instancetype)callWithId:(NSInteger)callId accountId:(NSInteger)accountId;

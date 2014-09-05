@@ -18,6 +18,7 @@
         return nil;
     }
     
+    _displayName = nil;
     _address = nil;
     _domain = nil;
     _proxy = nil;

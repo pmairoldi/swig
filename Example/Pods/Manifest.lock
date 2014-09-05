@@ -1,5 +1,5 @@
 PODS:
-  - AFNetworking/Reachability (2.3.1)
+  - AFNetworking/Reachability (2.4.1)
   - pjsip-ios (0.1.0)
   - Swig (0.1.0):
     - AFNetworking/Reachability (~> 2.3)
@@ -13,8 +13,8 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
+  AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   pjsip-ios: 565f6dbe79bf764e522c9b30dd42910704657d46
-  Swig: c10eb260375db66e50cc77fad6f109554d12f8ea
+  Swig: f625cc5197d3a21d2d03335a3758f4c2ccb9d213
 
 COCOAPODS: 0.33.1

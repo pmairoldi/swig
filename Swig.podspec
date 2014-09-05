@@ -23,6 +23,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '7.0'
   s.requires_arc = true
 
+  s.resources = 'Pod/Assets/*'
   s.source_files = 'Pod/Classes/**/*{h,m}'
   s.preserve_paths = 'Pod/Classes/**/*{h,m}'
 

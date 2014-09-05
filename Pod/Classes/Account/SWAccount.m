@@ -15,6 +15,8 @@
 
 #import "pjsua.h"
 
+#define kRegTimeout 800
+
 @interface SWAccount ()
 
 @property (nonatomic, strong) SWAccountConfiguration *configuration;
@@ -77,11 +79,11 @@
     pjsua_acc_config acc_cfg;
     pjsua_acc_config_default(&acc_cfg);
     
-    acc_cfg.id = [[SWUriFormatter sipUri:[self.accountConfiguration.address stringByAppendingString:tcpSuffix]] pjString];
+    acc_cfg.id = [[SWUriFormatter sipUri:[self.accountConfiguration.address stringByAppendingString:tcpSuffix] withDisplayName:self.accountConfiguration.displayName] pjString];
     acc_cfg.reg_uri = [[SWUriFormatter sipUri:[self.accountConfiguration.domain stringByAppendingString:tcpSuffix]] pjString];
     acc_cfg.register_on_acc_add = self.accountConfiguration.registerOnAdd ? PJ_TRUE : PJ_FALSE;;
     acc_cfg.publish_enabled = self.accountConfiguration.publishEnabled ? PJ_TRUE : PJ_FALSE;
-    acc_cfg.reg_timeout = 3600; //TODO test if bg stays alive max value is 3600
+    acc_cfg.reg_timeout = kRegTimeout;
     
     acc_cfg.cred_count = 1;
     acc_cfg.cred_info[0].scheme = [self.accountConfiguration.authScheme pjString];

@@ -10,6 +10,7 @@
 
 @interface SWAccountConfiguration : NSObject
 
+@property (nonatomic, strong) NSString *displayName;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *domain;
 @property (nonatomic, strong) NSString *proxy;
@@ -21,4 +22,5 @@
 @property (nonatomic) BOOL publishEnabled;
 
 +(NSString *)addressFromUsername:(NSString *)username domain:(NSString *)domain;
+
 @end

@@ -21,7 +21,9 @@
 
 //Call
 #import "SWCallProtocol.h"
+#import "SWPlayableProtocol.h"
 #import "SWCall.h"
 #import "SWRingback.h"
+#import "SWRingtone.h"
 
 #endif

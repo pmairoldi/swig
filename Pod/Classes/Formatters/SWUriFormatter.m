@@ -39,4 +39,20 @@
     return sipUri;
 }
 
+
++(NSString *)sipUri:(NSString *)uri withDisplayName:(NSString *)displayName {
+    
+    NSString *sipUri = uri;
+    
+    if (![sipUri hasPrefix:@"sip:"]) {
+        sipUri = [NSString stringWithFormat:@"sip:%@", sipUri];
+    }
+    
+    if (displayName) {
+        sipUri = [NSString stringWithFormat:@"\"%@\" <%@>", displayName, sipUri];
+    }
+    
+    return sipUri;
+}
+
 @end

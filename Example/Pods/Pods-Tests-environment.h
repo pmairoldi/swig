@@ -9,7 +9,7 @@
 // AFNetworking/Reachability
 #define COCOAPODS_POD_AVAILABLE_AFNetworking_Reachability
 #define COCOAPODS_VERSION_MAJOR_AFNetworking_Reachability 2
-#define COCOAPODS_VERSION_MINOR_AFNetworking_Reachability 3
+#define COCOAPODS_VERSION_MINOR_AFNetworking_Reachability 4
 #define COCOAPODS_VERSION_PATCH_AFNetworking_Reachability 1
 
 // Swig

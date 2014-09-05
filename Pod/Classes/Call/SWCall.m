@@ -17,6 +17,7 @@
 @interface SWCall ()
 
 @property (nonatomic, strong) UILocalNotification *notification;
+@property (nonatomic, strong) SWRingback *ringback;
 
 @end
 
@@ -141,12 +142,12 @@
         } break;
             
         case PJSIP_INV_STATE_INCOMING: {
-            [self.ringback start];
+            [[SWEndpoint sharedEndpoint].ringtone start];
             self.callState = SWCallStateIncoming;
         } break;
             
         case PJSIP_INV_STATE_CALLING: {
-//            [self.ringback start];
+            [self.ringback start];
             self.callState = SWCallStateCalling;
         } break;
             
@@ -159,11 +160,13 @@
         } break;
             
         case PJSIP_INV_STATE_CONFIRMED: {
+            [[SWEndpoint sharedEndpoint].ringtone stop];
             self.callState = SWCallStateConnected;
         } break;
             
         case PJSIP_INV_STATE_DISCONNECTED: {
             [self.ringback stop];
+            [[SWEndpoint sharedEndpoint].ringtone stop];
             self.callState = SWCallStateDisconnected;
         } break;
     }

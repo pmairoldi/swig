@@ -59,6 +59,9 @@
             location = "group:Call"
             name = "Call">
             <FileRef
+               location = "group:SWPlayableProtocol.h">
+            </FileRef>
+            <FileRef
                location = "group:SWCallProtocol.h">
             </FileRef>
             <FileRef
@@ -72,6 +75,12 @@
             </FileRef>
             <FileRef
                location = "group:SWRingback.m">
+            </FileRef>
+            <FileRef
+               location = "group:SWRingtone.h">
+            </FileRef>
+            <FileRef
+               location = "group:SWRingtone.m">
             </FileRef>
          </Group>
          <Group

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SWAccount.h"
 #import <pjsua.h>
+#import "SWRingtone.h"
 
 @class SWEndpointConfiguration, SWAccount, SWCall;
 
@@ -17,6 +18,7 @@
 @property (nonatomic, strong, readonly) SWEndpointConfiguration *endpointConfiguration;
 @property (nonatomic, readonly) pj_pool_t *pjPool;
 @property (nonatomic, strong, readonly) NSMutableArray *accounts;
+@property (nonatomic, strong) SWRingtone *ringtone;
 
 +(instancetype)sharedEndpoint;
 
