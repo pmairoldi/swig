@@ -9,6 +9,9 @@
 #import "SWRingtone.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
+#import "SharkfoodMuteSwitchDetector.h"
+
+#define kVibrateDuration 2.0
 
 @interface SWRingtone ()
 
@@ -45,15 +48,42 @@
         NSLog(@"%@", [error description]);
     }
     
-    _virbateTimer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(vibrate) userInfo:nil repeats:YES];
+    self.virbateTimer = [NSTimer timerWithTimeInterval:kVibrateDuration target:self selector:@selector(vibrate) userInfo:nil repeats:YES];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(handleEnteredBackground:) name: UIApplicationDidEnterBackgroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(handleEnteredForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+
+    @weakify(self);
+    [SharkfoodMuteSwitchDetector shared].silentNotify = ^(BOOL silent){
+        
+        @strongify(self);
+        
+        if (silent) {
+            
+            self.volume = 0.0;
+        }
+        
+        else {
+            
+            self.volume = 1.0;
+        }
+    };
     
     return self;
 }
 
 -(void)dealloc {
     
+    [_audioPlayer stop];
+    _audioPlayer = nil;
+    
     [_virbateTimer invalidate];
     _virbateTimer = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 -(BOOL)isPlaying {
@@ -63,15 +93,16 @@
 -(void)start {
     
     if (!self.audioPlayer.isPlaying) {
+        
         [self.audioPlayer prepareToPlay];
         
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient withOptions:0 error:nil];
-        
+        [self configureAudioSession];
+
         [self.audioPlayer play];
         
-        //TODO: fix vibrate
-        [self.virbateTimer fire];
-        [[NSRunLoop currentRunLoop] addTimer:self.virbateTimer forMode:NSRunLoopCommonModes];
+        [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+        [[NSRunLoop mainRunLoop] addTimer:self.virbateTimer forMode:NSRunLoopCommonModes];
+//        [self.virbateTimer s];
     }
 }
 
@@ -110,6 +141,49 @@
     
     NSLog(@"\n\n\n\nvibrate\n\n\n\n");
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+}
+
+-(void)configureAudioSession {
+    
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    
+    NSError *setCategoryError;
+    
+    if (![audioSession setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDuckOthers|AVAudioSessionCategoryOptionAllowBluetooth error:&setCategoryError]) {
+        
+    }
+    
+    NSError *overrideError;
+    
+    if ([audioSession overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&overrideError]) {
+        
+    }
+    
+    NSError *activationError;
+    
+    if (![audioSession setActive:YES error:&activationError]) {
+        
+    }
+
+}
+
+#pragma Notification Methods
+
+-(void)handleEnteredBackground:(NSNotification *)notification {
+    
+    self.volume = 0.0;
+    
+}
+
+-(void)handleEnteredForeground:(NSNotification *)notification {
+    
+    if ([SharkfoodMuteSwitchDetector shared].isMute) {
+        self.volume = 0.0;
+    }
+    
+    else {
+        self.volume = 1.0;
+    }
 }
 
 @end

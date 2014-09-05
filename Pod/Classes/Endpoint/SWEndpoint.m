@@ -18,7 +18,6 @@
 #import <AFNetworkReachabilityManager.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import "SharkfoodMuteSwitchDetector.h"
 
 #define KEEP_ALIVE_INTERVAL 600
 
@@ -54,7 +53,6 @@ static void SWOnNatDetect(const pj_stun_nat_detect_result *res);
 @property (nonatomic, copy) SWCallStateChangeBlock callStateChangeBlock;
 @property (nonatomic, copy) SWCallMediaStateChangeBlock callMediaStateChangeBlock;
 @property (nonatomic) pj_thread_t *thread;
-@property (nonatomic, strong) SharkfoodMuteSwitchDetector *detector;
 
 @end
 
@@ -97,10 +95,8 @@ static SWEndpoint *_sharedEndpoint = nil;
     // [DDLog addLogger:fileLogger];
     
     _accounts = [[NSMutableArray alloc] init];
-    
+
     [self registerThread];
-    
-//    [self configureAudioSession];
     
     NSURL *fileURL = [[NSBundle mainBundle] URLForResource:@"Ringtone" withExtension:@"aif"];
     
@@ -126,8 +122,8 @@ static SWEndpoint *_sharedEndpoint = nil;
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(handleEnteredBackground:) name: UIApplicationDidEnterBackgroundNotification object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(hangdleApplicationWillTeminate:) name: UIApplicationWillTerminateNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(hangdleApplicationWillTeminate:) name:UIApplicationWillTerminateNotification object:nil];
 
     return self;
 }
@@ -151,6 +147,8 @@ static SWEndpoint *_sharedEndpoint = nil;
     
     [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+
+    self.ringtone.volume = 0.0;
     
     [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
     
@@ -350,61 +348,6 @@ static SWEndpoint *_sharedEndpoint = nil;
             _pjPool = pjsua_pool_create("swig-pjsua", 512, 512);
         });
     }
-}
-
--(void)configureAudioSession {
-    
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    
-    NSError *setCategoryError;
-    
-    if (![audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDuckOthers|AVAudioSessionCategoryOptionAllowBluetooth error:&setCategoryError]) {
-        
-    }
-    
-    NSError *modeError;
-    
-    if ([audioSession setMode:AVAudioSessionModeVoiceChat error:&modeError]) {
-        
-    }
-    
-    NSError *activationError;
-    
-    if (![audioSession setActive:YES error:&activationError]) {
-        
-    }
-
-    self.detector = [SharkfoodMuteSwitchDetector shared];
-    
-    if (self.detector.isMute) {
-        self.ringtone.volume = 0.0;
-    }
-    
-    else {
-        self.ringtone.volume = 1.0;
-    }
-    
-    //TODO make sure this works in the background
-    @weakify(self);
-    self.detector.silentNotify = ^(BOOL silent){
-        
-        @strongify(self);
-        
-        if (silent) {
-            
-            self.ringtone.volume = 0.0;
-        }
-        
-        else {
-            
-            self.ringtone.volume = 1.0;
-        }
-    };
-    
-    [audioSession requestRecordPermission:^(BOOL granted) {
-       
-        //TODO stop app from working if granted is NO
-    }];
 }
 
 -(void)start:(void(^)(NSError *error))handler {

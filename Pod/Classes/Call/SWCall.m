@@ -46,7 +46,6 @@
     
     _ringback = [SWRingback new];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(returnFromBackground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(returnToBackground:) name:UIApplicationWillResignActiveNotification object:nil];
 
     return self;
@@ -93,13 +92,15 @@
 
 -(void)dealloc {
 
-    [[UIApplication sharedApplication] cancelLocalNotification:_notification];
-
+    if (_notification) {
+        [[UIApplication sharedApplication] cancelLocalNotification:_notification];
+    }
+    
     if (_callState != SWCallStateDisconnected && _callId != PJSUA_INVALID_ID) {
         pjsua_call_hangup((int)_callId, 0, NULL, NULL);
     }
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
 
 -(void)setCallId:(NSInteger)callId {
@@ -270,13 +271,6 @@
 }
 
 #pragma Application Methods
-
--(void)returnFromBackground:(NSNotification *)notification {
-    
-    if (self.callState == SWCallStateIncoming) {
-        [[SWEndpoint sharedEndpoint].ringtone start];
-    }
-}
 
 -(void)returnToBackground:(NSNotificationCenter *)notification {
     
