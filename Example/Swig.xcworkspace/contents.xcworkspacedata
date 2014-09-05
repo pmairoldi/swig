@@ -104,6 +104,22 @@
             </FileRef>
          </Group>
       </Group>
+      <Group
+         location = "group:SoundSwitch"
+         name = "SoundSwitch">
+         <FileRef
+            location = "group:License.txt">
+         </FileRef>
+         <FileRef
+            location = "group:mute.caf">
+         </FileRef>
+         <FileRef
+            location = "group:SharkfoodMuteSwitchDetector.h">
+         </FileRef>
+         <FileRef
+            location = "group:SharkfoodMuteSwitchDetector.m">
+         </FileRef>
+      </Group>
    </Group>
    <FileRef
       location = "group:Swig.xcodeproj">

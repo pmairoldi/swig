@@ -147,7 +147,7 @@
         } break;
             
         case PJSIP_INV_STATE_CALLING: {
-            [self.ringback start];
+            [self.ringback start]; //TODO probably not needed
             self.callState = SWCallStateCalling;
         } break;
             
@@ -160,6 +160,7 @@
         } break;
             
         case PJSIP_INV_STATE_CONFIRMED: {
+            [self.ringback stop];
             [[SWEndpoint sharedEndpoint].ringtone stop];
             self.callState = SWCallStateConnected;
         } break;

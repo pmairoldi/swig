@@ -1,18 +1,19 @@
 //
 //  SWRingtone.m
-//  
+//
 //
 //  Created by Pierre-Marc Airoldi on 2014-09-04.
 //
 //
 
 #import "SWRingtone.h"
-#import <AVFoundation/AVAudioPlayer.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface SWRingtone ()
 
 @property (nonatomic, strong) NSURL *fileURL;
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+@property (nonatomic, strong) NSTimer *virbateTimer;
 
 @end
 
@@ -37,7 +38,15 @@
         NSLog(@"%@", [error description]);
     }
     
+    _virbateTimer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(vibrate) userInfo:nil repeats:YES];
+    
     return self;
+}
+
+-(void)dealloc {
+    
+    [_virbateTimer invalidate];
+    _virbateTimer = nil;
 }
 
 -(BOOL)isPlaying {
@@ -45,11 +54,13 @@
 }
 
 -(void)start {
- 
+    
     if (!self.audioPlayer.isPlaying) {
-        [_audioPlayer prepareToPlay];
-        [self.audioPlayer setCurrentTime:0];
+        [self.audioPlayer prepareToPlay];
         [self.audioPlayer play];
+        
+        [self.virbateTimer fire];
+        [[NSRunLoop currentRunLoop] addTimer:self.virbateTimer forMode:NSRunLoopCommonModes];
     }
 }
 
@@ -57,7 +68,37 @@
     
     if (self.audioPlayer.isPlaying) {
         [self.audioPlayer stop];
+        [self.virbateTimer invalidate];
     }
+    
+    [self.audioPlayer setCurrentTime:0];
+}
+
+-(void)setVolume:(CGFloat)volume {
+    
+    [self willChangeValueForKey:@"volume"];
+    
+    if (volume < 0.0) {
+        _volume = 0.0;
+    }
+    
+    else if (volume > 0.0) {
+        _volume = 1.0;
+    }
+    
+    else {
+        _volume = volume;
+    }
+    
+    [self didChangeValueForKey:@"volume"];
+ 
+    self.audioPlayer.volume = _volume;
+}
+
+-(void)vibrate {
+    
+    NSLog(@"\n\n\n\nvibrate\n\n\n\n");
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
 @end

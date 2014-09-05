@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "SWPlayableProtocol.h"
+#import <AVFoundation/AVAudioPlayer.h>
 
 @interface SWRingtone : NSObject <SWPlayableProtocol>
 
 @property (nonatomic, readonly) BOOL isPlaying;
+@property (nonatomic) CGFloat volume;
 
 -(instancetype)initWithFileAtPath:(NSURL *)path;
 

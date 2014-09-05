@@ -3,3 +3,4 @@
 #endif
 
 #import "Pods-Swig-environment.h"
+#import <libextobjc/extobjc.h>

@@ -18,6 +18,7 @@
 #import <AFNetworkReachabilityManager.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import "SharkfoodMuteSwitchDetector.h"
 
 #define KEEP_ALIVE_INTERVAL 600
 
@@ -53,6 +54,7 @@ static void SWOnNatDetect(const pj_stun_nat_detect_result *res);
 @property (nonatomic, copy) SWCallStateChangeBlock callStateChangeBlock;
 @property (nonatomic, copy) SWCallMediaStateChangeBlock callMediaStateChangeBlock;
 @property (nonatomic) pj_thread_t *thread;
+@property (nonatomic, strong) SharkfoodMuteSwitchDetector *detector;
 
 @end
 
@@ -98,12 +100,14 @@ static SWEndpoint *_sharedEndpoint = nil;
     
     [self registerThread];
     
-    [self registerAudioSession];
+    [self configureAudioSession];
     
     NSURL *fileURL = [[NSBundle mainBundle] URLForResource:@"Ringtone" withExtension:@"aif"];
     
     _ringtone = [[SWRingtone alloc] initWithFileAtPath:fileURL];
-        
+    
+    //TODO check if the reachability happens in background
+    
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         
         [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
@@ -112,18 +116,28 @@ static SWEndpoint *_sharedEndpoint = nil;
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(handleEnteredBackground:) name: UIApplicationDidEnterBackgroundNotification object:nil];
-
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(audioSessionInterrupted:) name: AVAudioSessionInterruptionNotification object:nil];
+//
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(audioSessionRouteChanged:) name: AVAudioSessionRouteChangeNotification object:nil];
+    
     return self;
 }
 
 -(void)dealloc {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-    
+
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionRouteChangeNotification object:nil];
+
     [self reset:^(NSError *error) {
         if (error) NSLog(@"%@", [error description]);
     }];
 }
+
+#pragma Notification Methods
 
 -(void)handleEnteredBackground:(NSNotification *)notification {
     
@@ -138,6 +152,16 @@ static SWEndpoint *_sharedEndpoint = nil;
         [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
     }];
 }
+
+//-(void)audioSessionInterrupted:(NSNotification *)notifcation {
+//    
+//    NSLog([notifcation description]);
+//}
+//
+//-(void)audioSessionRouteChanged:(NSNotification *)notifcation {
+//    
+//    NSLog([notifcation description]);
+//}
 
 -(void)keepAlive {
     
@@ -166,6 +190,8 @@ static SWEndpoint *_sharedEndpoint = nil;
         }
     }
 }
+
+#pragma Endpoint Methods
 
 -(void)setEndpointConfiguration:(SWEndpointConfiguration *)endpointConfiguration {
     
@@ -320,13 +346,19 @@ static SWEndpoint *_sharedEndpoint = nil;
     }
 }
 
--(void)registerAudioSession {
+-(void)configureAudioSession {
     
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     
     NSError *setCategoryError;
     
-    if (![audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&setCategoryError]) {
+    if (![audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDuckOthers|AVAudioSessionCategoryOptionAllowBluetooth error:&setCategoryError]) {
+        
+    }
+    
+    NSError *modeError;
+    
+    if ([audioSession setMode:AVAudioSessionModeVoiceChat error:&modeError]) {
         
     }
     
@@ -335,6 +367,38 @@ static SWEndpoint *_sharedEndpoint = nil;
     if (![audioSession setActive:YES error:&activationError]) {
         
     }
+    
+    self.detector = [SharkfoodMuteSwitchDetector shared];
+    
+    if (self.detector.isMute) {
+        self.ringtone.volume = 0.0;
+    }
+    
+    else {
+        self.ringtone.volume = 1.0;
+    }
+    
+    //TODO make sure this works in the background
+    @weakify(self);
+    self.detector.silentNotify = ^(BOOL silent){
+        
+        @strongify(self);
+        
+        if (silent) {
+            
+            self.ringtone.volume = 0.0;
+        }
+        
+        else {
+            
+            self.ringtone.volume = 1.0;
+        }
+    };
+    
+    [audioSession requestRecordPermission:^(BOOL granted) {
+       
+        //TODO stop app from working if granted is NO
+    }];
 }
 
 -(void)start:(void(^)(NSError *error))handler {

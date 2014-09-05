@@ -23,18 +23,20 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '7.0'
   s.requires_arc = true
 
-  s.resources = 'Pod/Assets/*'
-  s.source_files = 'Pod/Classes/**/*{h,m}'
-  s.preserve_paths = 'Pod/Classes/**/*{h,m}'
+  s.resources = 'Pod/Assets/*', 'Pod/SoundSwitch/*.caf'
+  s.source_files = 'Pod/Classes/**/*{h,m}', 'Pod/SoundSwitch/*{h,m}'
+  s.preserve_paths = 'Pod/Classes/**/*{h,m}', 'Pod/SoundSwitch/*{h,m}'
 
   s.dependency 'AFNetworking/Reachability', '~> 2.3'
+  s.dependency 'libextobjc', '~> 0.4'
   s.dependency 'pjsip-ios', '~> 0.1'
 
-  s.header_mappings_dir = 'Pod/Classes'
-  
+  s.prefix_header_contents = '#import <libextobjc/extobjc.h>'
+
   s.xcconfig = {
     'GCC_PREPROCESSOR_DEFINITIONS' => 'PJ_AUTOCONF=1',
     'HEADER_SEARCH_PATHS'  => '$(PODS_ROOT)/pjsip-ios/Pod/pjsip-include',
     'LIBRARY_SEARCH_PATHS' => '$(PODS_ROOT)/pjsip-ios/Pod/pjsip-lib'
   }
+
 end
