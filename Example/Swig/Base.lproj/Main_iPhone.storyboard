@@ -26,8 +26,8 @@
                                     <action selector="makeCall:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Z4f-l5-Yv1"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVz-Jc-0Ai">
-                                <rect key="frame" x="145" y="381" width="35" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVz-Jc-0Ai">
+                                <rect key="frame" x="143" y="381" width="35" height="30"/>
                                 <state key="normal" title="mute">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -44,8 +44,11 @@
                                     <action selector="speaker:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="EJ9-gu-ZpJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XcU-Gt-Vcf">
-                                <rect key="frame" x="119" y="343" width="82" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XcU-Gt-Vcf">
+                                <rect key="frame" x="121" y="343" width="78" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="78" id="drQ-7w-BVK"/>
+                                </constraints>
                                 <state key="normal" title="answer">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -56,20 +59,19 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="lko-2m-603" firstAttribute="centerX" secondItem="vVz-Jc-0Ai" secondAttribute="centerX" id="0R6-Bq-dqX"/>
+                            <constraint firstAttribute="centerX" secondItem="lko-2m-603" secondAttribute="centerX" id="0Wg-Yp-jIQ"/>
+                            <constraint firstItem="lko-2m-603" firstAttribute="top" secondItem="vVz-Jc-0Ai" secondAttribute="bottom" constant="8" symbolic="YES" id="0bp-zQ-zIm"/>
                             <constraint firstAttribute="centerX" secondItem="Wt9-JU-rAf" secondAttribute="centerX" id="1EM-Ks-2V5"/>
-                            <constraint firstItem="lko-2m-603" firstAttribute="centerX" secondItem="2fi-mo-0CV" secondAttribute="centerX" id="2lb-h4-Fij"/>
-                            <constraint firstAttribute="centerX" secondItem="vVz-Jc-0Ai" secondAttribute="centerX" id="4Jz-M5-x1Y"/>
-                            <constraint firstItem="XcU-Gt-Vcf" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="119" id="5zD-8N-j1F"/>
                             <constraint firstItem="Wt9-JU-rAf" firstAttribute="centerX" secondItem="jyV-Pf-zRb" secondAttribute="centerX" id="B6a-VQ-fbX"/>
-                            <constraint firstAttribute="centerX" secondItem="XcU-Gt-Vcf" secondAttribute="centerX" id="Gem-Ob-PVV"/>
-                            <constraint firstAttribute="centerX" secondItem="lko-2m-603" secondAttribute="centerX" id="IEC-NM-q9I"/>
-                            <constraint firstItem="lko-2m-603" firstAttribute="top" secondItem="vVz-Jc-0Ai" secondAttribute="bottom" constant="8" symbolic="YES" id="M2B-w0-1Gj"/>
-                            <constraint firstItem="vVz-Jc-0Ai" firstAttribute="centerX" secondItem="XcU-Gt-Vcf" secondAttribute="centerX" constant="2.5" id="QcL-uu-BLN"/>
+                            <constraint firstAttribute="centerX" secondItem="XcU-Gt-Vcf" secondAttribute="centerX" id="BSp-DO-pEa"/>
+                            <constraint firstAttribute="centerX" secondItem="vVz-Jc-0Ai" secondAttribute="centerX" id="MI8-Z3-Mcb"/>
                             <constraint firstAttribute="centerY" secondItem="Wt9-JU-rAf" secondAttribute="centerY" id="Xvc-3C-JdW"/>
-                            <constraint firstItem="vVz-Jc-0Ai" firstAttribute="top" secondItem="XcU-Gt-Vcf" secondAttribute="bottom" constant="8" symbolic="YES" id="d1K-9U-HH8"/>
-                            <constraint firstItem="XcU-Gt-Vcf" firstAttribute="top" secondItem="Wt9-JU-rAf" secondAttribute="bottom" constant="44" id="e6q-2e-d8S"/>
+                            <constraint firstItem="XcU-Gt-Vcf" firstAttribute="top" secondItem="Wt9-JU-rAf" secondAttribute="bottom" constant="44" id="j75-Sl-W4e"/>
                             <constraint firstItem="Wt9-JU-rAf" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="ji3-tZ-iab"/>
+                            <constraint firstItem="lko-2m-603" firstAttribute="centerX" secondItem="2fi-mo-0CV" secondAttribute="centerX" id="mcx-4J-oPi"/>
                             <constraint firstAttribute="centerX" secondItem="Wt9-JU-rAf" secondAttribute="centerX" id="oVN-XL-mVI"/>
+                            <constraint firstItem="vVz-Jc-0Ai" firstAttribute="top" secondItem="XcU-Gt-Vcf" secondAttribute="bottom" constant="8" symbolic="YES" id="pkv-GN-nsH"/>
                         </constraints>
                     </view>
                 </viewController>

@@ -429,6 +429,17 @@ static SWEndpoint *_sharedEndpoint = nil;
         return nil;
     }
 }
+-(SWAccount *)firstAccount {
+    
+    if (self.accounts > 0) {
+        return self.accounts[0];
+    }
+    
+    else {
+        return nil;
+    }
+}
+
 
 #pragma Block Parameters
 

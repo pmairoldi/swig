@@ -29,7 +29,7 @@
 
 -(IBAction)makeCall:(id)sender {
  
-    SWAccount *account = [[SWEndpoint sharedEndpoint] lookupAccount:0];
+    SWAccount *account = [[SWEndpoint sharedEndpoint] firstAccount];
     
     [account makeCall:@"trac@getonsip.com" completionHandler:^(NSError *error) {
        
@@ -41,9 +41,9 @@
 
 -(IBAction)answer:(id)sender {
     
-    SWAccount *account = [[SWEndpoint sharedEndpoint] lookupAccount:0];
+    SWAccount *account = [[SWEndpoint sharedEndpoint] firstAccount];
 
-    SWCall *call = [account lookupCall:0];
+    SWCall *call = [account firstCall];
     
     if (call) {
         [call answer:^(NSError *error) {
@@ -54,9 +54,9 @@
 
 -(IBAction)mute:(id)sender {
     
-    SWAccount *account = [[SWEndpoint sharedEndpoint] lookupAccount:0];
+    SWAccount *account = [[SWEndpoint sharedEndpoint] firstAccount];
     
-    SWCall *call = [account lookupCall:0];
+    SWCall *call = [account firstCall];
 
     if (call) {
         
@@ -68,9 +68,9 @@
 
 -(IBAction)speaker:(id)sender {
     
-    SWAccount *account = [[SWEndpoint sharedEndpoint] lookupAccount:0];
+    SWAccount *account = [[SWEndpoint sharedEndpoint] firstAccount];
     
-    SWCall *call = [account lookupCall:0];
+    SWCall *call = [account firstCall];
     
     if (call) {
         

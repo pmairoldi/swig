@@ -277,6 +277,17 @@
     }
 }
 
+-(SWCall *)firstCall {
+    
+    if (self.calls > 0) {
+        return self.calls[0];
+    }
+    
+    else {
+        return nil;
+    }
+}
+
 -(void)endAllCalls {
     
     for (SWCall *call in self.calls) {

@@ -34,6 +34,8 @@ typedef NS_ENUM(NSInteger, SWAccountState) {
 -(void)addCall:(SWCall *)call;
 -(void)removeCall:(NSUInteger)callId;
 -(SWCall *)lookupCall:(NSInteger)callId;
+-(SWCall *)firstCall;
+
 -(void)endAllCalls;
 
 -(void)makeCall:(NSString *)URI completionHandler:(void(^)(NSError *error))handler;
