@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.9" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
     </dependencies>
     <scenes>
@@ -25,11 +26,48 @@
                                     <action selector="makeCall:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Z4f-l5-Yv1"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVz-Jc-0Ai">
+                                <rect key="frame" x="145" y="381" width="35" height="30"/>
+                                <state key="normal" title="mute">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="mute:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="jGh-3S-B57"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lko-2m-603">
+                                <rect key="frame" x="133" y="419" width="55" height="30"/>
+                                <state key="normal" title="speaker">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="speaker:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="EJ9-gu-ZpJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XcU-Gt-Vcf">
+                                <rect key="frame" x="119" y="343" width="82" height="30"/>
+                                <state key="normal" title="answer">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="answer:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="1CC-zj-6S7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="Wt9-JU-rAf" secondAttribute="centerX" id="1EM-Ks-2V5"/>
+                            <constraint firstItem="lko-2m-603" firstAttribute="centerX" secondItem="2fi-mo-0CV" secondAttribute="centerX" id="2lb-h4-Fij"/>
+                            <constraint firstAttribute="centerX" secondItem="vVz-Jc-0Ai" secondAttribute="centerX" id="4Jz-M5-x1Y"/>
+                            <constraint firstItem="XcU-Gt-Vcf" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="119" id="5zD-8N-j1F"/>
                             <constraint firstItem="Wt9-JU-rAf" firstAttribute="centerX" secondItem="jyV-Pf-zRb" secondAttribute="centerX" id="B6a-VQ-fbX"/>
+                            <constraint firstAttribute="centerX" secondItem="XcU-Gt-Vcf" secondAttribute="centerX" id="Gem-Ob-PVV"/>
+                            <constraint firstAttribute="centerX" secondItem="lko-2m-603" secondAttribute="centerX" id="IEC-NM-q9I"/>
+                            <constraint firstItem="lko-2m-603" firstAttribute="top" secondItem="vVz-Jc-0Ai" secondAttribute="bottom" constant="8" symbolic="YES" id="M2B-w0-1Gj"/>
+                            <constraint firstItem="vVz-Jc-0Ai" firstAttribute="centerX" secondItem="XcU-Gt-Vcf" secondAttribute="centerX" constant="2.5" id="QcL-uu-BLN"/>
                             <constraint firstAttribute="centerY" secondItem="Wt9-JU-rAf" secondAttribute="centerY" id="Xvc-3C-JdW"/>
+                            <constraint firstItem="vVz-Jc-0Ai" firstAttribute="top" secondItem="XcU-Gt-Vcf" secondAttribute="bottom" constant="8" symbolic="YES" id="d1K-9U-HH8"/>
+                            <constraint firstItem="XcU-Gt-Vcf" firstAttribute="top" secondItem="Wt9-JU-rAf" secondAttribute="bottom" constant="44" id="e6q-2e-d8S"/>
                             <constraint firstItem="Wt9-JU-rAf" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="ji3-tZ-iab"/>
                             <constraint firstAttribute="centerX" secondItem="Wt9-JU-rAf" secondAttribute="centerX" id="oVN-XL-mVI"/>
                         </constraints>

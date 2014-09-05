@@ -11,5 +11,8 @@
 @interface SWViewController : UIViewController
 
 -(IBAction)makeCall:(id)sender;
+-(IBAction)answer:(id)sender;
+-(IBAction)mute:(id)sender;
+-(IBAction)speaker:(id)sender;
 
 @end

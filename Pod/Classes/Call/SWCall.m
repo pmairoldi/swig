@@ -13,11 +13,14 @@
 #import "SWUriFormatter.h"
 #import "NSString+PJString.h"
 #import "pjsua.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface SWCall ()
 
 @property (nonatomic, strong) UILocalNotification *notification;
 @property (nonatomic, strong) SWRingback *ringback;
+@property (nonatomic) BOOL speaker;
+@property (nonatomic) BOOL mute;
 
 @end
 
@@ -186,12 +189,6 @@
     if (callInfo.media_status == PJSUA_CALL_MEDIA_ACTIVE || callInfo.media_status == PJSUA_CALL_MEDIA_REMOTE_HOLD) {
         pjsua_conf_connect(callInfo.conf_slot, 0);
         pjsua_conf_connect(0, callInfo.conf_slot);
-        
-        //FIX: add if the error shows up all the time
-        //        NSArray *availableInputs = [[AVAudioSession sharedInstance] availableInputs];
-        //        AVAudioSessionPortDescription *port = [availableInputs objectAtIndex:0];
-        //        NSError *portErr = nil;
-        //        [[AVAudioSession sharedInstance] setPreferredInput:port error:&portErr];
     }
     
     pjsua_call_media_status mediaStatus = callInfo.media_status;
@@ -252,6 +249,35 @@
 //-(void)reinvite:(void(^)(NSError *error))handler;
 //-(void)transferCall:(NSString *)destination completionHandler:(void(^)(NSError *error))handler;
 //-(void)replaceCall:(SWCall *)call completionHandler:(void (^)(NSError *))handler;
+
+-(void)toggleMute:(void(^)(NSError *error))handler {
+
+    pjsua_call_info callInfo;
+    pjsua_call_get_info((int)self.callId, &callInfo);
+    
+    if (!self.mute) {
+        pjsua_conf_disconnect(0, callInfo.conf_slot);
+        self.mute = YES;
+    }
+    
+    else {
+        pjsua_conf_connect(0, callInfo.conf_slot);
+        self.mute = NO;
+    }
+}
+
+-(void)toggleSpeaker:(void(^)(NSError *error))handler {
+    
+    if (!self.speaker) {
+        [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+        self.speaker = YES;
+    }
+    
+    else {
+        [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
+        self.speaker = NO;
+    }
+}
 
 -(void)sendDTMF:(NSString *)dtmf handler:(void(^)(NSError *error))handler {
     

@@ -39,4 +39,45 @@
     }];
 }
 
+-(IBAction)answer:(id)sender {
+    
+    SWAccount *account = [[SWEndpoint sharedEndpoint] lookupAccount:0];
+
+    SWCall *call = [account lookupCall:0];
+    
+    if (call) {
+        [call answer:^(NSError *error) {
+            
+        }];
+    }
+}
+
+-(IBAction)mute:(id)sender {
+    
+    SWAccount *account = [[SWEndpoint sharedEndpoint] lookupAccount:0];
+    
+    SWCall *call = [account lookupCall:0];
+
+    if (call) {
+        
+        [call toggleMute:^(NSError *error) {
+
+        }];
+    }
+}
+
+-(IBAction)speaker:(id)sender {
+    
+    SWAccount *account = [[SWEndpoint sharedEndpoint] lookupAccount:0];
+    
+    SWCall *call = [account lookupCall:0];
+    
+    if (call) {
+        
+        [call toggleSpeaker:^(NSError *error) {
+
+        }];
+    }
+}
+
 @end

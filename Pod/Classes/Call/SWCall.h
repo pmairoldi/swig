@@ -12,6 +12,7 @@
 #import "SWRingback.h"
 #import "SWRingtone.h"
 
+//TODO: reshow notificaiton if the call is still incoming
 //TODO: remove call from calls when disconnected
 //TODO: move to 2 sublclasses (incoming/outgoing)
 
@@ -55,6 +56,8 @@ typedef NS_ENUM(NSInteger, SWMediaState) {
 //-(void)transferCall:(NSString *)destination completionHandler:(void(^)(NSError *error))handler;
 //-(void)replaceCall:(SWCall *)call completionHandler:(void (^)(NSError *))handler;
 
+-(void)toggleMute:(void(^)(NSError *error))handler;
+-(void)toggleSpeaker:(void(^)(NSError *error))handler;
 -(void)sendDTMF:(NSString *)dtmf handler:(void(^)(NSError *error))handler;
 
 @end
