@@ -11,9 +11,8 @@
 #import "pjsua.h"
 #import "SWRingback.h"
 #import "SWRingtone.h"
+#import "SWContact.h"
 
-//TODO: reshow notificaiton if the call is still incoming
-//TODO: remove call from calls when disconnected
 //TODO: move to 2 sublclasses (incoming/outgoing)
 
 @class SWAccount;
@@ -37,6 +36,7 @@ typedef NS_ENUM(NSInteger, SWMediaState) {
 
 @interface SWCall : NSObject <SWCallProtocol>
 
+@property (nonatomic, readonly, strong) SWContact *contact;
 @property (nonatomic, readonly) NSInteger callId;
 @property (nonatomic, readonly) NSInteger accountId;
 @property (nonatomic, readonly) SWCallState callState;

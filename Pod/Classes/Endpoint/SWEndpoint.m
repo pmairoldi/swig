@@ -103,6 +103,7 @@ static SWEndpoint *_sharedEndpoint = nil;
     _ringtone = [[SWRingtone alloc] initWithFileAtPath:fileURL];
     
     //TODO check if the reachability happens in background
+    //FIX make sure connect doesnt get called too often
     
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         
@@ -123,7 +124,7 @@ static SWEndpoint *_sharedEndpoint = nil;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(handleEnteredBackground:) name: UIApplicationDidEnterBackgroundNotification object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(hangdleApplicationWillTeminate:) name:UIApplicationWillTerminateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(handleApplicationWillTeminate:) name:UIApplicationWillTerminateNotification object:nil];
 
     return self;
 }
@@ -157,12 +158,41 @@ static SWEndpoint *_sharedEndpoint = nil;
     }];
 }
 
--(void)hangdleApplicationWillTeminate:(NSNotification *)notification {
+-(void)handleApplicationWillTeminate:(NSNotification *)notification {
     
     UIApplication *application = (UIApplication *)notification.object;
 
     //TODO hangup all calls
+    //TODO remove all accounts
+    //TODO close all transports
     //TODO reset endpoint
+    
+    for (int i = 0; i < [self.accounts count]; ++i) {
+       
+        SWAccount *account = [self.accounts objectAtIndex:i];
+        
+        dispatch_semaphore_t semaphone = dispatch_semaphore_create(0);
+        
+        @weakify(account);
+        [account disconnect:^(NSError *error) {
+            
+            @strongify(account);
+            account = nil;
+        
+            dispatch_semaphore_signal(semaphone);
+        }];
+        
+        dispatch_semaphore_wait(semaphone, DISPATCH_TIME_FOREVER);
+    }
+    
+    [self.accounts removeAllObjects];
+    
+    [self reset:^(NSError *error) {
+    
+        if (error) {
+            NSLog(@"%@", [error description]);
+        }
+    }];
     
     [application setApplicationIconBadgeNumber:0];
 }
@@ -172,8 +202,6 @@ static SWEndpoint *_sharedEndpoint = nil;
     if (pjsua_get_state() != PJSUA_STATE_RUNNING) {
         return;
     }
-
-    [self registerThread];
 
     for (SWAccount *account in self.accounts) {
         
@@ -285,15 +313,13 @@ static SWEndpoint *_sharedEndpoint = nil;
     for (SWTransportConfiguration *transport in self.endpointConfiguration.transportConfigurations) {
         
         pjsua_transport_config transportConfig;
-        
+        pjsua_transport_id transportId;
+
         pjsua_transport_config_default(&transportConfig);
-        
-        transportConfig.port = (unsigned int)transport.port;
-        transportConfig.port_range = (unsigned int)transport.portRange;
         
         pjsip_transport_type_e transportType = (pjsip_transport_type_e)transport.transportType;
         
-        status = pjsua_transport_create(transportType, &transportConfig, NULL);
+        status = pjsua_transport_create(transportType, &transportConfig, &transportId);
         
         if (status != PJ_SUCCESS) {
             
@@ -404,7 +430,9 @@ static SWEndpoint *_sharedEndpoint = nil;
 
 -(void)addAccount:(SWAccount *)account {
     
-    [self.accounts addObject:account];
+    if (![self lookupAccount:account.accountId]) {
+        [self.accounts addObject:account];
+    }
     
 }
 

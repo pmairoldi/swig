@@ -82,6 +82,12 @@
             <FileRef
                location = "group:SWRingtone.m">
             </FileRef>
+            <FileRef
+               location = "group:SWContact.h">
+            </FileRef>
+            <FileRef
+               location = "group:SWContact.m">
+            </FileRef>
          </Group>
          <Group
             location = "group:Categories"

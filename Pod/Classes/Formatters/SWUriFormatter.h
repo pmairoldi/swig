@@ -10,12 +10,13 @@
 
 //TODO actually make it an nsformatter
 
-@class SWAccount;
+@class SWAccount, SWContact;
 
 @interface SWUriFormatter : NSFormatter
 
 +(NSString *)sipUri:(NSString *)uri;
 +(NSString *)sipUri:(NSString *)uri fromAccount:(SWAccount *)account;
 +(NSString *)sipUri:(NSString *)uri withDisplayName:(NSString *)displayName;
++(SWContact *)contactFromURI:(NSString *)uri;
 
 @end

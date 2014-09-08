@@ -20,7 +20,7 @@
 @interface SWAccount ()
 
 @property (nonatomic, strong) SWAccountConfiguration *configuration;
-@property (nonatomic, strong) NSMutableArray *calls; //more than one call can have value of -1
+@property (nonatomic, strong) NSMutableArray *calls;
 
 @end
 
@@ -104,10 +104,11 @@
     pj_status_t status;
     
     int accountId = (int)self.accountId;
+    
     status = pjsua_acc_add(&acc_cfg, PJ_TRUE, &accountId);
     
     if (status != PJ_SUCCESS) {
-
+        
         NSError *error = [NSError errorWithDomain:@"Error adding account" code:status userInfo:nil];
         
         if (handler) {
@@ -116,8 +117,12 @@
         
         return;
     }
-
-    if (self.accountConfiguration.registerOnAdd) {
+    
+    else {
+        [[SWEndpoint sharedEndpoint] addAccount:self];
+    }
+    
+    if (!self.accountConfiguration.registerOnAdd) {
         [self connect:handler];
     }
     
@@ -131,8 +136,10 @@
 
 -(void)connect:(void(^)(NSError *error))handler {
     
+    //FIX: registering too often will cause the server to possibly return error
+    
     pj_status_t status;
-
+    
     status = pjsua_acc_set_registration((int)self.accountId, PJ_TRUE);
     
     if (status != PJ_SUCCESS) {
@@ -145,7 +152,7 @@
         
         return;
     }
-
+    
     status = pjsua_acc_set_online_status((int)self.accountId, PJ_TRUE);
     
     if (status != PJ_SUCCESS) {
@@ -180,7 +187,7 @@
         
         return;
     }
-
+    
     status = pjsua_acc_set_registration((int)self.accountId, PJ_FALSE);
     
     if (status != PJ_SUCCESS) {
@@ -203,9 +210,9 @@
     
     pjsua_acc_info accountInfo;
     pjsua_acc_get_info((int)self.accountId, &accountInfo);
- 
+    
     pjsip_status_code code = accountInfo.status;
- 
+    
     //TODO make status offline/online instead of offline/connect
     //status would be disconnected, online, and offline, isConnected could return true if online/offline
     

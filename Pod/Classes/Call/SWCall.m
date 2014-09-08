@@ -49,6 +49,9 @@
     
     _ringback = [SWRingback new];
     
+    [self contactChanged];
+    
+    //TODO: move to account to fix multiple call problem
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(returnToBackground:) name:UIApplicationWillResignActiveNotification object:nil];
 
     return self;
@@ -80,6 +83,7 @@
     
     status = pjsua_call_get_info((int)self.callId, &info);
     
+#warning move to swcontact
     if (status == PJ_TRUE) {
         _notification.alertBody = [NSString stringWithFormat:@"Incoming call from %@", [NSString stringWithPJString:info.call_id]];
     }
@@ -136,7 +140,16 @@
 
 -(void)setRingback:(SWRingback *)ringback {
     
+    [self willChangeValueForKey:@"ringback"];
     _ringback = ringback;
+    [self didChangeValueForKey:@"ringback"];
+}
+
+-(void)setContact:(SWContact *)contact {
+    
+    [self willChangeValueForKey:@"contact"];
+    _contact = contact;
+    [self didChangeValueForKey:@"contact"];
 }
 
 -(void)callStateChanged {
@@ -179,6 +192,8 @@
             self.callState = SWCallStateDisconnected;
         } break;
     }
+    
+    [self contactChanged];
 }
 
 -(void)mediaStateChanged {
@@ -202,6 +217,16 @@
     pjsua_call_get_info((int)self.callId, &info);
     
     return [[SWEndpoint sharedEndpoint] lookupAccount:info.acc_id];
+}
+
+-(void)contactChanged {
+ 
+    pjsua_call_info info;
+    pjsua_call_get_info((int)self.callId, &info);
+    
+    NSString *remoteURI = [NSString stringWithPJString:info.remote_info];
+    
+    self.contact = [SWUriFormatter contactFromURI:remoteURI];
 }
 
 #pragma Call Management

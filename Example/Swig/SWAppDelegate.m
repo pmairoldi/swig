@@ -17,7 +17,6 @@
     
     [self configureEndpoint];
     [self addSIPAccount];
-    //    [self addDIDAccount];
     
     return YES;
 }
@@ -52,10 +51,10 @@
 -(void)configureEndpoint {
     
     SWTransportConfiguration *udp = [SWTransportConfiguration configurationWithTransportType:SWTransportTypeUDP];
-    //    udp.port = 0;
+//    udp.port = 5060;
     
     SWTransportConfiguration *tcp = [SWTransportConfiguration configurationWithTransportType:SWTransportTypeTCP];
-    //    tcp.port = 0;
+//    tcp.port = 5060;
     
     SWEndpointConfiguration *endpointConfiguration = [SWEndpointConfiguration configurationWithTransportConfigurations:@[udp]];
     
@@ -95,32 +94,6 @@
     }];
 }
 
--(void)addDIDAccount {
-    
-    SWAccount *account = [SWAccount new];
-    
-    SWAccountConfiguration *configuration = [SWAccountConfiguration new];
-    configuration.username = @"161672_6001";
-    configuration.password = @"Asdf6001";
-    configuration.domain = @"toronto3.voip.ms";
-    
-    [account configure:configuration completionHandler:^(NSError *error) {
-        
-        if (error) {
-            NSLog(@"%@", [error description]);
-        }
-        
-        else {
-            
-            [account connect:^(NSError *error) {
-                NSLog(@"%@", [error description]);
-                
-                [[SWEndpoint sharedEndpoint] addAccount:account];
-            }];
-        }
-    }];
-}
-
 -(void)addSIPAccount {
     
     SWAccount *account = [SWAccount new];
@@ -131,6 +104,7 @@
     configuration.domain = @"getonsip.com";
     configuration.address = [SWAccountConfiguration addressFromUsername:@"mobila" domain:configuration.domain];
     configuration.proxy = @"sip.onsip.com";
+    configuration.registerOnAdd = YES;
     
     [account configure:configuration completionHandler:^(NSError *error) {
         
@@ -138,14 +112,6 @@
             NSLog(@"%@", [error description]);
         }
         
-        else {
-            
-            [account connect:^(NSError *error) {
-                if (error) NSLog(@"%@", [error description]);
-                
-                [[SWEndpoint sharedEndpoint] addAccount:account];
-            }];
-        }
     }];
 }
 
