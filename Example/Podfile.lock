@@ -35,7 +35,7 @@ PODS:
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.4)
   - libextobjc/UmbrellaHeader (0.4)
-  - pjsip-ios (0.1.0)
+  - pjsip-ios (0.1.1)
   - Swig (0.1.0):
     - AFNetworking/Reachability (~> 2.3)
     - libextobjc (~> 0.4)
@@ -51,7 +51,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   libextobjc: ba42e4111f433273a886cd54f0ddaddb7f62f82f
-  pjsip-ios: 565f6dbe79bf764e522c9b30dd42910704657d46
+  pjsip-ios: ac9d57f516f1eafbdfab6569a5fa6e32e351981f
   Swig: dbf37249c5cca91b962bb15598f469a1eb132b24
 
 COCOAPODS: 0.33.1

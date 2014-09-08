@@ -83,9 +83,8 @@
     
     status = pjsua_call_get_info((int)self.callId, &info);
     
-#warning move to swcontact
     if (status == PJ_TRUE) {
-        _notification.alertBody = [NSString stringWithFormat:@"Incoming call from %@", [NSString stringWithPJString:info.call_id]];
+        _notification.alertBody = [NSString stringWithFormat:@"Incoming call from %@", self.contact.name];
     }
     
     else {

@@ -41,7 +41,7 @@
 
     NSUInteger samplesPerFrame = (kSWAudioFramePtime * endpoint.endpointConfiguration.clockRate * kSWChannelCount) / 1000;
     
-    status = pjmedia_tonegen_create2([endpoint pjPool], &name, endpoint.endpointConfiguration.clockRate, kSWChannelCount, samplesPerFrame, 16, PJMEDIA_TONEGEN_LOOP, &(_ringbackPort));
+    status = pjmedia_tonegen_create2([endpoint pjPool], &name, (unsigned int)endpoint.endpointConfiguration.clockRate, kSWChannelCount, (unsigned int)samplesPerFrame, 16, PJMEDIA_TONEGEN_LOOP, &_ringbackPort);
     
     if (status != PJ_SUCCESS) {
         NSLog(@"Error creating ringback tones");
@@ -61,7 +61,7 @@
     
     pjmedia_tonegen_play(self.ringbackPort, kSWRingbackCount, tone, PJMEDIA_TONEGEN_LOOP);
     
-    status = pjsua_conf_add_port([endpoint pjPool], [self ringbackPort], &_ringbackSlot);
+    status = pjsua_conf_add_port([endpoint pjPool], [self ringbackPort], (int *)&_ringbackSlot);
     
     if (status != PJ_SUCCESS) {
         NSLog(@"Error adding media port for ringback tones");
@@ -73,16 +73,16 @@
 
 -(void)dealloc {
     
-    pjsua_conf_remove_port(_ringbackSlot);
+    pjsua_conf_remove_port((int)_ringbackSlot);
     pjmedia_port_destroy(_ringbackPort);
 }
 
 -(void)start {
-   pjsua_conf_connect(self.ringbackSlot, 0);
+   pjsua_conf_connect((int)self.ringbackSlot, 0);
 }
 
 -(void)stop {
-    pjsua_conf_disconnect(self.ringbackSlot, 0);
+    pjsua_conf_disconnect((int)self.ringbackSlot, 0);
     pjmedia_tonegen_rewind(self.ringbackPort);
 }
 

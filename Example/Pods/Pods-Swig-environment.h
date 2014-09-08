@@ -100,5 +100,5 @@
 #define COCOAPODS_POD_AVAILABLE_pjsip_ios
 #define COCOAPODS_VERSION_MAJOR_pjsip_ios 0
 #define COCOAPODS_VERSION_MINOR_pjsip_ios 1
-#define COCOAPODS_VERSION_PATCH_pjsip_ios 0
+#define COCOAPODS_VERSION_PATCH_pjsip_ios 1
 
