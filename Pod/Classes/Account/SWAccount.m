@@ -137,7 +137,7 @@
 -(void)connect:(void(^)(NSError *error))handler {
     
     //FIX: registering too often will cause the server to possibly return error
-    
+        
     pj_status_t status;
     
     status = pjsua_acc_set_registration((int)self.accountId, PJ_TRUE);
@@ -319,7 +319,7 @@
     
     else {
         
-        SWCall *call = [SWCall callWithId:callIdentifier accountId:self.accountId];
+        SWCall *call = [SWCall callWithId:callIdentifier accountId:self.accountId inBound:NO];
         
         [self addCall:call];
     }

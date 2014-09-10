@@ -41,10 +41,10 @@ typedef NS_ENUM(NSInteger, SWMediaState) {
 @property (nonatomic, readonly) NSInteger accountId;
 @property (nonatomic, readonly) SWCallState callState;
 @property (nonatomic, readonly) SWMediaState mediaState;
+@property (nonatomic, readonly) BOOL inbound;
 
--(instancetype)initWithCallId:(NSUInteger)callId accountId:(NSInteger)accountId;
-+(instancetype)callWithId:(NSInteger)callId accountId:(NSInteger)accountId;
-+(instancetype)callFromAccountId:(NSInteger)accountId;
+-(instancetype)initWithCallId:(NSUInteger)callId accountId:(NSInteger)accountId inBound:(BOOL)inbound;
++(instancetype)callWithId:(NSInteger)callId accountId:(NSInteger)accountId inBound:(BOOL)inbound;
 
 -(SWAccount *)getAccount;
 

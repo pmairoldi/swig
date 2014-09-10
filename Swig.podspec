@@ -30,8 +30,10 @@ Pod::Spec.new do |s|
   s.dependency 'AFNetworking/Reachability', '~> 2.3'
   s.dependency 'libextobjc', '~> 0.4'
   s.dependency 'pjsip-ios', '~> 0.1'
+  s.dependency 'CocoaLumberjack', '2.0.0-beta'
 
-  s.prefix_header_contents = '#import <libextobjc/extobjc.h>'
+  s.prefix_header_contents = '#import <libextobjc/extobjc.h>', '#import <CocoaLumberjack/CocoaLumberjack.h>',
+   '#ifdef DEBUG', 'static const int ddLogLevel = LOG_LEVEL_VERBOSE;', '#else', 'static const int ddLogLevel = LOG_LEVEL_OFF;', '#endif'
 
   s.xcconfig = {
     'GCC_PREPROCESSOR_DEFINITIONS' => 'PJ_AUTOCONF=1',

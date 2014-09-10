@@ -85,14 +85,14 @@ static SWEndpoint *_sharedEndpoint = nil;
     
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
 
-    // [DDLog addLogger:[DDASLLogger sharedInstance]];
-    // [DDLog addLogger:[DDTTYLogger sharedInstance]];
+     [DDLog addLogger:[DDASLLogger sharedInstance]];
+     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     
-    // DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
-    // fileLogger.rollingFrequency = 0;
-    // fileLogger.maximumFileSize = 0;
+     DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
+     fileLogger.rollingFrequency = 0;
+     fileLogger.maximumFileSize = 0;
     
-    // [DDLog addLogger:fileLogger];
+     [DDLog addLogger:fileLogger];
     
     _accounts = [[NSMutableArray alloc] init];
 
@@ -104,10 +104,12 @@ static SWEndpoint *_sharedEndpoint = nil;
     
     //TODO check if the reachability happens in background
     //FIX make sure connect doesnt get called too often
+    //IP Change logic
     
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         
         if ([AFNetworkReachabilityManager sharedManager].reachableViaWiFi) {
+            
             [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
         }
         
@@ -119,7 +121,8 @@ static SWEndpoint *_sharedEndpoint = nil;
             //offline
         }
     }];
-    
+
+
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(handleEnteredBackground:) name: UIApplicationDidEnterBackgroundNotification object:nil];
@@ -513,7 +516,7 @@ static void SWOnIncomingCall(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_r
     
     if (account) {
         
-        SWCall *call = [SWCall callWithId:call_id accountId:acc_id];
+        SWCall *call = [SWCall callWithId:call_id accountId:acc_id inBound:YES];
         
         [account addCall:call];
         

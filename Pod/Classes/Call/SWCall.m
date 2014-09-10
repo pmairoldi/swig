@@ -33,7 +33,7 @@
     return nil;
 }
 
--(instancetype)initWithCallId:(NSUInteger)callId accountId:(NSInteger)accountId {
+-(instancetype)initWithCallId:(NSUInteger)callId accountId:(NSInteger)accountId inBound:(BOOL)inbound {
     
     self = [super init];
     
@@ -41,6 +41,7 @@
         return nil;
     }
     
+    _inbound = inbound;
     _callState = SWCallStateReady;
     _callId = callId;
     _accountId = accountId;
@@ -57,16 +58,9 @@
     return self;
 }
 
-+(instancetype)callWithId:(NSInteger)callId accountId:(NSInteger)accountId {
++(instancetype)callWithId:(NSInteger)callId accountId:(NSInteger)accountId inBound:(BOOL)inbound {
     
-    SWCall *call = [[SWCall alloc] initWithCallId:callId accountId:accountId];
-    
-    return call;
-}
-
-+(instancetype)callFromAccountId:(NSInteger)accountId {
-    
-    SWCall *call = [SWCall callWithId:PJSUA_INVALID_ID accountId:accountId];
+    SWCall *call = [[SWCall alloc] initWithCallId:callId accountId:accountId inBound:inbound];
     
     return call;
 }
@@ -93,7 +87,9 @@
     
     _notification.alertAction = @"Activate app";
     
-    [[UIApplication sharedApplication] presentLocalNotificationNow:_notification];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] presentLocalNotificationNow:_notification];
+    });
 }
 
 -(void)dealloc {
