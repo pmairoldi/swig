@@ -42,6 +42,7 @@ typedef NS_ENUM(NSInteger, SWMediaState) {
 @property (nonatomic, readonly) SWCallState callState;
 @property (nonatomic, readonly) SWMediaState mediaState;
 @property (nonatomic, readonly) BOOL inbound;
+@property (nonatomic, readonly) BOOL missed;
 
 -(instancetype)initWithCallId:(NSUInteger)callId accountId:(NSInteger)accountId inBound:(BOOL)inbound;
 +(instancetype)callWithId:(NSInteger)callId accountId:(NSInteger)accountId inBound:(BOOL)inbound;

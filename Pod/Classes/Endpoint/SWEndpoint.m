@@ -84,18 +84,18 @@ static SWEndpoint *_sharedEndpoint = nil;
     }
     
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-
-     [DDLog addLogger:[DDASLLogger sharedInstance]];
-     [DDLog addLogger:[DDTTYLogger sharedInstance]];
     
-     DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
-     fileLogger.rollingFrequency = 0;
-     fileLogger.maximumFileSize = 0;
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
     
-     [DDLog addLogger:fileLogger];
+    DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
+    fileLogger.rollingFrequency = 0;
+    fileLogger.maximumFileSize = 0;
+    
+    [DDLog addLogger:fileLogger];
     
     _accounts = [[NSMutableArray alloc] init];
-
+    
     [self registerThread];
     
     NSURL *fileURL = [[NSBundle mainBundle] URLForResource:@"Ringtone" withExtension:@"aif"];
@@ -121,23 +121,23 @@ static SWEndpoint *_sharedEndpoint = nil;
             //offline
         }
     }];
-
-
+    
+    
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(handleEnteredBackground:) name: UIApplicationDidEnterBackgroundNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(handleApplicationWillTeminate:) name:UIApplicationWillTerminateNotification object:nil];
-
+    
     return self;
 }
 
 -(void)dealloc {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
-
+    
     [self reset:^(NSError *error) {
         if (error) NSLog(@"%@", [error description]);
     }];
@@ -151,7 +151,7 @@ static SWEndpoint *_sharedEndpoint = nil;
     
     [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-
+    
     self.ringtone.volume = 0.0;
     
     [self performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
@@ -164,14 +164,14 @@ static SWEndpoint *_sharedEndpoint = nil;
 -(void)handleApplicationWillTeminate:(NSNotification *)notification {
     
     UIApplication *application = (UIApplication *)notification.object;
-
+    
     //TODO hangup all calls
     //TODO remove all accounts
     //TODO close all transports
     //TODO reset endpoint
     
     for (int i = 0; i < [self.accounts count]; ++i) {
-       
+        
         SWAccount *account = [self.accounts objectAtIndex:i];
         
         dispatch_semaphore_t semaphone = dispatch_semaphore_create(0);
@@ -181,7 +181,7 @@ static SWEndpoint *_sharedEndpoint = nil;
             
             @strongify(account);
             account = nil;
-        
+            
             dispatch_semaphore_signal(semaphone);
         }];
         
@@ -191,7 +191,7 @@ static SWEndpoint *_sharedEndpoint = nil;
     [self.accounts removeAllObjects];
     
     [self reset:^(NSError *error) {
-    
+        
         if (error) {
             NSLog(@"%@", [error description]);
         }
@@ -205,23 +205,31 @@ static SWEndpoint *_sharedEndpoint = nil;
     if (pjsua_get_state() != PJSUA_STATE_RUNNING) {
         return;
     }
-
+    
     for (SWAccount *account in self.accounts) {
         
         if (account.isValid) {
             
+            dispatch_semaphore_t semaphone = dispatch_semaphore_create(0);
+            
             [account connect:^(NSError *error) {
                 
-                // if (error) DDLogDebug(@"%@",[error description]);
+                dispatch_semaphore_signal(semaphone);
             }];
+            
+            dispatch_semaphore_wait(semaphone, DISPATCH_TIME_FOREVER);
         }
         
         else {
             
+            dispatch_semaphore_t semaphone = dispatch_semaphore_create(0);
+            
             [account disconnect:^(NSError *error) {
                 
-                // if (error) DDLogDebug(@"%@",[error description]);
+                dispatch_semaphore_signal(semaphone);
             }];
+            
+            dispatch_semaphore_wait(semaphone, DISPATCH_TIME_FOREVER);
         }
     }
 }
@@ -238,7 +246,7 @@ static SWEndpoint *_sharedEndpoint = nil;
 -(void)setRingtone:(SWRingtone *)ringtone {
     
     [self willChangeValueForKey:@"ringtone"];
-
+    
     if (_ringtone.isPlaying) {
         [_ringtone stop];
         _ringtone = ringtone;
@@ -317,7 +325,7 @@ static SWEndpoint *_sharedEndpoint = nil;
         
         pjsua_transport_config transportConfig;
         pjsua_transport_id transportId;
-
+        
         pjsua_transport_config_default(&transportConfig);
         
         pjsip_transport_type_e transportType = (pjsip_transport_type_e)transport.transportType;
@@ -518,12 +526,15 @@ static void SWOnIncomingCall(pjsua_acc_id acc_id, pjsua_call_id call_id, pjsip_r
         
         SWCall *call = [SWCall callWithId:call_id accountId:acc_id inBound:YES];
         
-        [account addCall:call];
-        
-        [call callStateChanged];
-
-        if ([SWEndpoint sharedEndpoint].incomingCallBlock) {
-            [SWEndpoint sharedEndpoint].incomingCallBlock(account, call);
+        if (call) {
+            
+            [account addCall:call];
+            
+            [call callStateChanged];
+            
+            if ([SWEndpoint sharedEndpoint].incomingCallBlock) {
+                [SWEndpoint sharedEndpoint].incomingCallBlock(account, call);
+            }
         }
     }
 }
@@ -539,18 +550,17 @@ static void SWOnCallState(pjsua_call_id call_id, pjsip_event *e) {
         
         SWCall *call = [account lookupCall:call_id];
         
-        [call callStateChanged];
-        
         if (call) {
+            
+            [call callStateChanged];
             
             if ([SWEndpoint sharedEndpoint].callStateChangeBlock) {
                 [SWEndpoint sharedEndpoint].callStateChangeBlock(account, call);
             }
-        }
-        
-        if (call.callState == SWCallStateDisconnected) {
-            [call hangup:nil];
-            [account removeCall:call.callId];
+            
+            if (call.callState == SWCallStateDisconnected) {
+                [account removeCall:call.callId];
+            }
         }
     }
 }
@@ -566,9 +576,9 @@ static void SWOnCallMediaState(pjsua_call_id call_id) {
         
         SWCall *call = [account lookupCall:call_id];
         
-        [call mediaStateChanged];
-        
         if (call) {
+            
+            [call mediaStateChanged];
             
             if ([SWEndpoint sharedEndpoint].callMediaStateChangeBlock) {
                 [SWEndpoint sharedEndpoint].callMediaStateChangeBlock(account, call);

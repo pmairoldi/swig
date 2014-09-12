@@ -42,6 +42,11 @@
     }
     
     _inbound = inbound;
+    
+    if (_inbound) {
+        _missed = YES;
+    }
+    
     _callState = SWCallStateReady;
     _callId = callId;
     _accountId = accountId;
@@ -147,6 +152,13 @@
     [self didChangeValueForKey:@"contact"];
 }
 
+-(void)setMissed:(BOOL)missed {
+    
+    [self willChangeValueForKey:@"missed"];
+    _missed = missed;
+    [self didChangeValueForKey:@"missed"];
+}
+
 -(void)callStateChanged {
     
     pjsua_call_info callInfo;
@@ -238,6 +250,10 @@
         error = [NSError errorWithDomain:@"Error answering up call" code:0 userInfo:nil];
     }
     
+    else {
+        self.missed = NO;
+    }
+    
     if (handler) {
         handler(error);
     }
@@ -255,6 +271,9 @@
         if (status != PJ_SUCCESS) {
             
             error = [NSError errorWithDomain:@"Error hanging up call" code:0 userInfo:nil];
+        }
+        else {
+            self.missed = NO;
         }
     }
     

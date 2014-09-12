@@ -139,7 +139,6 @@
 
 -(void)vibrate {
     
-    NSLog(@"\n\n\n\nvibrate\n\n\n\n");
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
