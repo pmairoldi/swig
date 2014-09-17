@@ -60,6 +60,11 @@
 
 +(SWContact *)contactFromURI:(NSString *)uri {
     
+    if ([uri rangeOfString:@"<"].location == NSNotFound && [uri rangeOfString:@">"].location == NSNotFound) {
+        
+        return uri;
+    }
+    
     NSRange nameRange;
     
     if ([uri rangeOfString:@" <"].location != NSNotFound) {
@@ -71,7 +76,6 @@
         
         nameRange =  NSMakeRange(0, [uri rangeOfString:@"<"].location);
     }
-    
     
     NSString *name = [[uri substringWithRange:nameRange] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     

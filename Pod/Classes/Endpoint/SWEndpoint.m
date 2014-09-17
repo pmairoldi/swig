@@ -576,6 +576,8 @@ static void SWOnCallState(pjsua_call_id call_id, pjsip_event *e) {
             
             if (call.callState == SWCallStateDisconnected) {
                 [account removeCall:call.callId];
+        
+                [[SWEndpoint sharedEndpoint] performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
             }
         }
     }
