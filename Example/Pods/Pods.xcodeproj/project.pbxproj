@@ -33,7 +33,6 @@
 		1FD53B2907724E50B052689B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 644F5C806CE4449F99490363 /* Foundation.framework */; };
 		20D2EA94905048AC81F1B43D /* libPods-Tests-libextobjc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C05FCADB66E48B6BF3E6E45 /* libPods-Tests-libextobjc.a */; };
 		20F625B27C964887BB40237A /* Pods-Swig-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E2F53BD2204B149F6F03F3 /* Pods-Swig-dummy.m */; };
-		219301017F184FFD8C7D84C1 /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D9C75E73B84F158E009B85 /* CocoaLumberjack.h */; };
 		23E7297848274069A07E4ED4 /* SWAccountConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B310FF889694D1CA4FE18CD /* SWAccountConfiguration.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		25BE332FB3754317BCD3BEF6 /* Swig.h in Headers */ = {isa = PBXBuildFile; fileRef = 654F620955EC40A1A7FDBECE /* Swig.h */; };
 		2B22461B88B349E4AF8BC04B /* CLIColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A550631022F4FF7B86CDD04 /* CLIColor.h */; };
@@ -171,7 +170,6 @@
 		DD11E67412404594A909A792 /* Pods-Tests-Swig-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B2D6D5192A4D54ABA46E9D /* Pods-Tests-Swig-dummy.m */; };
 		DD150A55DB1B496BBA12FDB7 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 1584457946504AB7AA38426D /* DDLog.h */; };
 		DE80D42851F249419D28D0F1 /* NSInvocation+EXT.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD5BF9C21AE47A993581326 /* NSInvocation+EXT.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
-		E0B7C676361A465CA4482F07 /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D9C75E73B84F158E009B85 /* CocoaLumberjack.h */; };
 		E116EA74E3D547F3804D084C /* SWCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 313A52AE6CA1423386C9BC15 /* SWCall.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		E146584819E24730AD74E19E /* SWUriFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D962CE4CC8A54AFF80925232 /* SWUriFormatter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		E164020FFCAA44C68B74D1FF /* SWMutableContact.h in Headers */ = {isa = PBXBuildFile; fileRef = EBEDEEB75F2945C49CE1B898 /* SWMutableContact.h */; };
@@ -1096,7 +1094,6 @@
 			files = (
 				2B22461B88B349E4AF8BC04B /* CLIColor.h in Headers */,
 				91888BBCF94B4FB292ED6FDE /* CocoaLumberjack.h in Headers */,
-				E0B7C676361A465CA4482F07 /* CocoaLumberjack.h in Headers */,
 				3493EB3AF3164AB29244FE5E /* DDASLLogCapture.h in Headers */,
 				84B9B74B52A44C7BB90C6F58 /* DDASLLogger.h in Headers */,
 				67A96B95DEF144C69047FF56 /* DDAbstractDatabaseLogger.h in Headers */,
@@ -1138,7 +1135,6 @@
 			files = (
 				FCF6220CADDC4C63A275A18E /* CLIColor.h in Headers */,
 				60FE9BEA0FC84070AE3BBA48 /* CocoaLumberjack.h in Headers */,
-				219301017F184FFD8C7D84C1 /* CocoaLumberjack.h in Headers */,
 				4052AAE09E8D4EEA87DC34DD /* DDASLLogCapture.h in Headers */,
 				86DD421D1546439C85B7F80F /* DDASLLogger.h in Headers */,
 				010F34EA2D294739BD90C593 /* DDAbstractDatabaseLogger.h in Headers */,
@@ -1434,7 +1430,7 @@
 		AD1F994CAEC747B5B7863D16 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 			};
 			buildConfigurationList = 14735040B64E4C999E3C0B95 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
