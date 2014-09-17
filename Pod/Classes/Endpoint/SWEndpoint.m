@@ -206,6 +206,8 @@ static SWEndpoint *_sharedEndpoint = nil;
         return;
     }
     
+    [self registerThread];
+    
     for (SWAccount *account in self.accounts) {
         
         if (account.isValid) {
@@ -371,6 +373,10 @@ static SWEndpoint *_sharedEndpoint = nil;
 }
 
 -(void)registerThread {
+    
+    if (pjsua_get_state() != PJSUA_STATE_RUNNING) {
+        return;
+    }
     
     if (!pj_thread_is_registered()) {
         pj_thread_register("swig", NULL, &thread);
