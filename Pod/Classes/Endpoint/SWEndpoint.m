@@ -47,7 +47,6 @@ static void SWOnNatDetect(const pj_stun_nat_detect_result *res);
 
 @interface SWEndpoint ()
 
-@property (nonatomic, strong) NSMutableArray *accounts; //TODO change to array?
 @property (nonatomic, copy) SWIncomingCallBlock incomingCallBlock;
 @property (nonatomic, copy) SWAccountStateChangeBlock accountStateChangeBlock;
 @property (nonatomic, copy) SWCallStateChangeBlock callStateChangeBlock;
@@ -188,7 +187,11 @@ static SWEndpoint *_sharedEndpoint = nil;
         dispatch_semaphore_wait(semaphone, DISPATCH_TIME_FOREVER);
     }
     
-    [self.accounts removeAllObjects];
+    NSMutableArray *mutableAccounts = [self.accounts mutableCopy];
+    
+    [mutableAccounts removeAllObjects];
+    
+    self.accounts = mutableAccounts;
     
     [self reset:^(NSError *error) {
         
@@ -422,7 +425,11 @@ static SWEndpoint *_sharedEndpoint = nil;
         [account endAllCalls];
     }
     
-    [self.accounts removeAllObjects];
+    NSMutableArray *mutableArray = [self.accounts mutableCopy];
+    
+    [mutableArray removeAllObjects];
+    
+    self.accounts = mutableArray;
     
     pj_status_t status = pjsua_destroy();
     
@@ -448,9 +455,12 @@ static SWEndpoint *_sharedEndpoint = nil;
 -(void)addAccount:(SWAccount *)account {
     
     if (![self lookupAccount:account.accountId]) {
-        [self.accounts addObject:account];
+        
+        NSMutableArray *mutableArray = [self.accounts mutableCopy];
+        [mutableArray addObject:account];
+        
+        self.accounts = mutableArray;
     }
-    
 }
 
 -(SWAccount *)lookupAccount:(NSInteger)accountId {
@@ -611,6 +621,13 @@ static void SWOnNatDetect(const pj_stun_nat_detect_result *res){
 -(void)setPjPool:(pj_pool_t *)pjPool {
     
     _pjPool = pjPool;
+}
+
+-(void)setAccounts:(NSArray *)accounts {
+    
+    [self willChangeValueForKey:@"accounts"];
+    _accounts = accounts;
+    [self didChangeValueForKey:@"accounts"];
 }
 
 @end

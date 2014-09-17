@@ -17,7 +17,7 @@
 
 @property (nonatomic, strong, readonly) SWEndpointConfiguration *endpointConfiguration;
 @property (nonatomic, readonly) pj_pool_t *pjPool;
-@property (nonatomic, strong, readonly) NSMutableArray *accounts;
+@property (nonatomic, strong, readonly) NSArray *accounts;
 @property (nonatomic, strong) SWRingtone *ringtone;
 
 +(instancetype)sharedEndpoint;
