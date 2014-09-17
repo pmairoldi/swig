@@ -14,6 +14,7 @@
 #import "NSString+PJString.h"
 #import "pjsua.h"
 #import <AVFoundation/AVFoundation.h>
+#import "SWMutableCall.h"
 
 @interface SWCall ()
 
@@ -61,6 +62,38 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(returnToBackground:) name:UIApplicationWillResignActiveNotification object:nil];
 
     return self;
+}
+
+-(instancetype)copyWithZone:(NSZone *)zone {
+    
+    SWCall *call = [[SWCall allocWithZone:zone] init];
+    call.contact = [self.contact copyWithZone:zone];
+    call.callId = self.callId;
+    call.accountId = self.accountId;
+    call.callState = self.callState;
+    call.mediaState = self.mediaState;
+    call.inbound = self.inbound;
+    call.missed = self.missed;
+    call.date = [self.date copyWithZone:zone];
+    call.duration = self.duration;
+
+    return call;
+}
+
+-(instancetype)mutableCopyWithZone:(NSZone *)zone {
+    
+    SWMutableCall *call = [[SWMutableCall  allocWithZone:zone] init];
+    call.contact = [self.contact copyWithZone:zone];
+    call.callId = self.callId;
+    call.accountId = self.accountId;
+    call.callState = self.callState;
+    call.mediaState = self.mediaState;
+    call.inbound = self.inbound;
+    call.missed = self.missed;
+    call.date = [self.date copyWithZone:zone];
+    call.duration = self.duration;
+
+    return call;
 }
 
 +(instancetype)callWithId:(NSInteger)callId accountId:(NSInteger)accountId inBound:(BOOL)inbound {
@@ -157,6 +190,27 @@
     [self willChangeValueForKey:@"missed"];
     _missed = missed;
     [self didChangeValueForKey:@"missed"];
+}
+
+-(void)setInbound:(BOOL)inbound {
+    
+    [self willChangeValueForKey:@"inbound"];
+    _inbound = inbound;
+    [self didChangeValueForKey:@"inbound"];
+}
+
+-(void)setDate:(NSDate *)date {
+    
+    [self willChangeValueForKey:@"date"];
+    _date = date;
+    [self didChangeValueForKey:@"date"];
+}
+
+-(void)setDuration:(NSTimeInterval)duration {
+    
+    [self willChangeValueForKey:@"duration"];
+    _duration = duration;
+    [self didChangeValueForKey:@"duration"];
 }
 
 -(void)callStateChanged {

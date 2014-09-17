@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, SWMediaState) {
     SWMediaStateRemoteHole = PJSUA_CALL_MEDIA_REMOTE_HOLD
 };
 
-@interface SWCall : NSObject <SWCallProtocol>
+@interface SWCall : NSObject <SWCallProtocol, NSCopying, NSMutableCopying>
 
 @property (nonatomic, readonly, strong) SWContact *contact;
 @property (nonatomic, readonly) NSInteger callId;
@@ -43,6 +43,8 @@ typedef NS_ENUM(NSInteger, SWMediaState) {
 @property (nonatomic, readonly) SWMediaState mediaState;
 @property (nonatomic, readonly) BOOL inbound;
 @property (nonatomic, readonly) BOOL missed;
+@property (nonatomic, readonly) NSDate *date;
+@property (nonatomic, readonly) NSTimeInterval duration; //TODO: update with timer
 
 -(instancetype)initWithCallId:(NSUInteger)callId accountId:(NSInteger)accountId inBound:(BOOL)inbound;
 +(instancetype)callWithId:(NSInteger)callId accountId:(NSInteger)accountId inBound:(BOOL)inbound;

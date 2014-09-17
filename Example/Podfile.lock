@@ -45,7 +45,7 @@ PODS:
   - libextobjc/RuntimeExtensions (0.4)
   - libextobjc/UmbrellaHeader (0.4)
   - pjsip-ios (0.1.1)
-  - Swig (0.1.1):
+  - Swig (0.1.2):
     - AFNetworking/Reachability (~> 2.3)
     - CocoaLumberjack (= 2.0.0-beta)
     - libextobjc (~> 0.4)
@@ -63,6 +63,6 @@ SPEC CHECKSUMS:
   CocoaLumberjack: aadc76d7bd6c839ca84b38ed50cbf89d7cf8c693
   libextobjc: ba42e4111f433273a886cd54f0ddaddb7f62f82f
   pjsip-ios: ac9d57f516f1eafbdfab6569a5fa6e32e351981f
-  Swig: b7ef759ef08be0954405a22b80a4316afb2128a4
+  Swig: 2f295f9199924107dc65c66c992ad981f743bbaa
 
 COCOAPODS: 0.33.1

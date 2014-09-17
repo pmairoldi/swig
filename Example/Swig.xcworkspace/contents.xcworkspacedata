@@ -88,6 +88,18 @@
             <FileRef
                location = "group:SWContact.m">
             </FileRef>
+            <FileRef
+               location = "group:SWMutableContact.h">
+            </FileRef>
+            <FileRef
+               location = "group:SWMutableContact.m">
+            </FileRef>
+            <FileRef
+               location = "group:SWMutableCall.h">
+            </FileRef>
+            <FileRef
+               location = "group:SWMutableCall.m">
+            </FileRef>
          </Group>
          <Group
             location = "group:Categories"
