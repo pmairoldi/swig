@@ -286,7 +286,7 @@
 
 -(SWCall *)firstCall {
     
-    if (self.calls > 0) {
+    if (self.calls.count > 0) {
         return self.calls[0];
     }
     

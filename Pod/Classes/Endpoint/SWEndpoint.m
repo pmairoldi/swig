@@ -470,7 +470,7 @@ static SWEndpoint *_sharedEndpoint = nil;
 }
 -(SWAccount *)firstAccount {
     
-    if (self.accounts > 0) {
+    if (self.accounts.count > 0) {
         return self.accounts[0];
     }
     
