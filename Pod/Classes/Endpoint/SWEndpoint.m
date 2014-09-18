@@ -423,31 +423,38 @@ static SWEndpoint *_sharedEndpoint = nil;
     for (SWAccount *account in self.accounts) {
         
         [account endAllCalls];
+        
+        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+        
+        [account disconnect:^(NSError *error) {
+            dispatch_semaphore_signal(sema);
+        }];
+        
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
     }
     
-    NSMutableArray *mutableArray = [self.accounts mutableCopy];
+//    NSMutableArray *mutableArray = [self.accounts mutableCopy];
+//    
+//    [mutableArray removeAllObjects];
+//    
+//    self.accounts = mutableArray;
     
-    [mutableArray removeAllObjects];
-    
-    self.accounts = mutableArray;
-    
-    pj_status_t status = pjsua_destroy();
-    
-    if (status != PJ_SUCCESS) {
-        
-        NSError *error = [NSError errorWithDomain:@"Error destroying pjsua" code:status userInfo:nil];
-        
-        if (handler) {
-            handler(error);
-        }
-        
-        return;
-    }
-    
-    if (handler) {
-        handler(nil);
-    }
-    
+//    pj_status_t status = pjsua_destroy();
+//    
+//    if (status != PJ_SUCCESS) {
+//        
+//        NSError *error = [NSError errorWithDomain:@"Error destroying pjsua" code:status userInfo:nil];
+//        
+//        if (handler) {
+//            handler(error);
+//        }
+//        
+//        return;
+//    }
+//    
+//    if (handler) {
+//        handler(nil);
+//    }    
 }
 
 #pragma Account Management
@@ -458,6 +465,17 @@ static SWEndpoint *_sharedEndpoint = nil;
         
         NSMutableArray *mutableArray = [self.accounts mutableCopy];
         [mutableArray addObject:account];
+        
+        self.accounts = mutableArray;
+    }
+}
+
+-(void)removeAccount:(SWAccount *)account {
+ 
+    if ([self lookupAccount:account.accountId]) {
+    
+        NSMutableArray *mutableArray = [self.accounts mutableCopy];
+        [mutableArray removeObject:account];
         
         self.accounts = mutableArray;
     }
@@ -531,6 +549,10 @@ static void SWOnRegState(pjsua_acc_id acc_id) {
         if ([SWEndpoint sharedEndpoint].accountStateChangeBlock) {
             [SWEndpoint sharedEndpoint].accountStateChangeBlock(account);
         }
+        
+        if (account.accountState == SWAccountStateDisconnected) {
+            [[SWEndpoint sharedEndpoint] removeAccount:account];
+        }
     }
 }
 
@@ -576,8 +598,6 @@ static void SWOnCallState(pjsua_call_id call_id, pjsip_event *e) {
             
             if (call.callState == SWCallStateDisconnected) {
                 [account removeCall:call.callId];
-        
-                [[SWEndpoint sharedEndpoint] performSelectorOnMainThread:@selector(keepAlive) withObject:nil waitUntilDone:YES];
             }
         }
     }

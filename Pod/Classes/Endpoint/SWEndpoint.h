@@ -28,6 +28,7 @@
 -(void)reset:(void(^)(NSError *error))handler; //reset endpoint
 
 -(void)addAccount:(SWAccount *)account;
+-(void)removeAccount:(SWAccount *)account;
 -(SWAccount *)lookupAccount:(NSInteger)accountId;
 -(SWAccount *)firstAccount;
 

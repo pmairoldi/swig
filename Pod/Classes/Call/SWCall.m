@@ -235,6 +235,7 @@
             
         case PJSIP_INV_STATE_EARLY: {
             [self.ringback start];
+            self.callState = SWCallStateCalling;
         } break;
             
         case PJSIP_INV_STATE_CONNECTING: {

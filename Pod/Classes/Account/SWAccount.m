@@ -216,11 +216,7 @@
     //TODO make status offline/online instead of offline/connect
     //status would be disconnected, online, and offline, isConnected could return true if online/offline
     
-    if (accountInfo.online_status == PJ_FALSE) {
-        self.accountState = SWAccountStateOffline;
-    }
-    
-    else if (code == 0) {
+    if (code == 0 || accountInfo.expires == -1) {
         self.accountState = SWAccountStateDisconnected;
     }
     
