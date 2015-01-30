@@ -2,6 +2,10 @@ target 'Swig', :exclusive => true do
   pod "Swig", :path => "../"
 end
 
+target 'Swig-Swift', :exclusive => true do
+  pod "Swig", :path => "../"
+end
+
 target 'Tests', :exclusive => true do
   pod "Swig", :path => "../"
 end

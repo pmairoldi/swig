@@ -62,7 +62,7 @@
     
     if ([uri rangeOfString:@"<"].location == NSNotFound && [uri rangeOfString:@">"].location == NSNotFound) {
         
-        return uri;
+        return [[SWContact alloc] initWithName:nil address:uri];
     }
     
     NSRange nameRange;

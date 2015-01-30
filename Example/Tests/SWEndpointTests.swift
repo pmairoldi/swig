@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import XCTest
 
-class SWEndpointTests: Tests {
+class SWEndpointTests: XCTestCase {
 
     override func setUp() {
         super.setUp()

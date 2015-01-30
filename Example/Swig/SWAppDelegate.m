@@ -53,7 +53,7 @@
     SWTransportConfiguration *udp = [SWTransportConfiguration configurationWithTransportType:SWTransportTypeUDP];
 //    udp.port = 5060;
     
-    SWTransportConfiguration *tcp = [SWTransportConfiguration configurationWithTransportType:SWTransportTypeTCP];
+//    SWTransportConfiguration *tcp = [SWTransportConfiguration configurationWithTransportType:SWTransportTypeTCP];
 //    tcp.port = 5060;
     
     SWEndpointConfiguration *endpointConfiguration = [SWEndpointConfiguration configurationWithTransportConfigurations:@[udp]];
@@ -99,10 +99,10 @@
     SWAccount *account = [SWAccount new];
     
     SWAccountConfiguration *configuration = [SWAccountConfiguration new];
-    configuration.username = @"getonsip_mobila";
-    configuration.password = @"NQFxmwxw4wQMEfp3";
+    configuration.username = @"getonsip_swig";
+    configuration.password = @"ggV4CUoHmXa9BaXG";
     configuration.domain = @"getonsip.com";
-    configuration.address = [SWAccountConfiguration addressFromUsername:@"mobila" domain:configuration.domain];
+    configuration.address = [SWAccountConfiguration addressFromUsername:@"swig" domain:configuration.domain];
     configuration.proxy = @"sip.onsip.com";
     configuration.registerOnAdd = YES;
     

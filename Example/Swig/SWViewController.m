@@ -31,7 +31,7 @@
  
     SWAccount *account = [[SWEndpoint sharedEndpoint] firstAccount];
     
-    [account makeCall:@"trac@getonsip.com" completionHandler:^(NSError *error) {
+    [account makeCall:@"swig_2@getonsip.com" completionHandler:^(NSError *error) {
        
         if (error) {
             NSLog(@"%@",[error description]);
