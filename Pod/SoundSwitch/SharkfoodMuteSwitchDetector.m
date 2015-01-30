@@ -7,6 +7,7 @@
 
 #import "SharkfoodMuteSwitchDetector.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import <UIKit/UIKit.h>
 
 /**
  Sound completion proc - this is the real magic, we simply calculate how long it took for the sound to finish playing

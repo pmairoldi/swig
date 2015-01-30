@@ -60,32 +60,58 @@
 
 +(SWContact *)contactFromURI:(NSString *)uri {
     
+    //TODO rewrite this. it is overly complex
+    
+    if ([uri length] == 0) {
+        return [[SWContact alloc] initWithName:nil address:nil];
+    }
+    
+    NSCharacterSet *spaceSet = [NSCharacterSet characterSetWithCharactersInString:@" "];
+    
+    uri = [uri stringByTrimmingCharactersInSet:spaceSet];
+    
+    if ([uri rangeOfString:@"\"<"].location != NSNotFound && [uri rangeOfString:@">\""].location != NSNotFound) {
+        
+        NSRange leftBraceOriginal = [uri rangeOfString:@"\"<"];
+        
+        if (leftBraceOriginal.location != NSNotFound) {
+            uri = [uri stringByReplacingCharactersInRange:leftBraceOriginal withString:@"\""];
+        }
+        
+        NSRange rightBraceOriginal = [uri rangeOfString:@">\""];
+        
+        if (rightBraceOriginal.location != NSNotFound) {
+            uri = [uri stringByReplacingCharactersInRange:rightBraceOriginal withString:@"\""];
+        }
+    }
+
     if ([uri rangeOfString:@"<"].location == NSNotFound && [uri rangeOfString:@">"].location == NSNotFound) {
         
-        return [[SWContact alloc] initWithName:nil address:uri];
+        return [[SWContact alloc] initWithName:nil address:[[uri stringByReplacingOccurrencesOfString:@"sip:" withString:@""] stringByReplacingOccurrencesOfString:@"\"" withString:@""]];
     }
     
     NSRange nameRange;
+    NSUInteger addressLocation;
     
-    if ([uri rangeOfString:@" <"].location != NSNotFound) {
+    if ([uri rangeOfString:@"<sip:"].location != NSNotFound) {
         
-        nameRange = NSMakeRange(0, [uri rangeOfString:@" <"].location);
+        nameRange = NSMakeRange(0, [uri rangeOfString:@"<sip:"].location);
+        addressLocation = [uri rangeOfString:@"<sip:"].location + [uri rangeOfString:@"<sip:"].length;
     }
     
     else {
         
         nameRange =  NSMakeRange(0, [uri rangeOfString:@"<"].location);
+        addressLocation = [uri rangeOfString:@"<"].location + [uri rangeOfString:@"<"].length;
     }
     
     NSString *name = [[uri substringWithRange:nameRange] stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-    
-    NSUInteger addressLocation = [uri rangeOfString:@"<sip:"].location + [uri rangeOfString:@"<sip:"].length;
     
     NSRange addressRange = NSMakeRange(addressLocation, [uri rangeOfString:@">"].location - addressLocation);
     
     NSString *address = [uri substringWithRange:addressRange];
     
-    return [[SWContact alloc] initWithName:name address:address];
+    return [[SWContact alloc] initWithName:[name stringByTrimmingCharactersInSet:spaceSet] address:[address stringByTrimmingCharactersInSet:spaceSet]];
 }
 
 @end

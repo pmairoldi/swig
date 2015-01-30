@@ -10,6 +10,8 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 #import "SharkfoodMuteSwitchDetector.h"
+#import <UIKit/UIKit.h>
+#import <libextobjc/extobjc.h>
 
 #define kVibrateDuration 2.0
 
@@ -116,7 +118,7 @@
     [self.audioPlayer setCurrentTime:0];
 }
 
--(void)setVolume:(CGFloat)volume {
+-(void)setVolume:(float)volume {
     
     [self willChangeValueForKey:@"volume"];
     

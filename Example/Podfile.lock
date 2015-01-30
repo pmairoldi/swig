@@ -47,13 +47,17 @@ PODS:
   - OpenSSL-Universal (1.0.1.k)
   - pjsip-ios (0.1.3):
     - OpenSSL-Universal (= 1.0.1.k)
-  - Swig (0.1.5):
+  - Swig (0.1.6):
     - AFNetworking/Reachability (~> 2.3)
     - CocoaLumberjack (= 2.0.0-beta)
     - libextobjc (~> 0.4)
     - pjsip-ios (~> 0.1)
 
 DEPENDENCIES:
+  - AFNetworking/Reachability (~> 2.3)
+  - CocoaLumberjack (= 2.0.0-beta)
+  - libextobjc (~> 0.4)
+  - pjsip-ios (~> 0.1)
   - Swig (from `../`)
 
 EXTERNAL SOURCES:
@@ -66,6 +70,6 @@ SPEC CHECKSUMS:
   libextobjc: d6146fce3ebea986b7f75fcb4c967639200b88b0
   OpenSSL-Universal: 60ee5ddf6530100c0aa702c2e0c9881cfd4a89a5
   pjsip-ios: 9fae04e5a783b4b416302e8dd9b0b107eaeee374
-  Swig: dedeac1449cd0e5ccc687fb44938036c8e396490
+  Swig: 5d18131ed6f6f262459df184b7f4341462f1e8ef
 
 COCOAPODS: 0.35.0

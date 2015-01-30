@@ -6,6 +6,13 @@ target 'Swig-Swift', :exclusive => true do
   pod "Swig", :path => "../"
 end
 
-target 'Tests', :exclusive => true do
-  pod "Swig", :path => "../"
+target 'Swig-Pod', :exclusive => true do
+  pod 'AFNetworking/Reachability', '~> 2.3'
+  pod 'libextobjc', '~> 0.4'
+  pod 'pjsip-ios', '~> 0.1'
+  pod 'CocoaLumberjack', '2.0.0-beta'
+end
+
+target 'Swig-PodTests', :exclusive => true do
+  pod 'pjsip-ios', '~> 0.1'
 end

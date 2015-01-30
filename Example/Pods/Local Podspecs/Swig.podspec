@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "Swig"
-  s.version          = "0.1.5"
+  s.version          = "0.1.6"
   s.summary          = "PJSIP Wrapper for ios"
   s.description      = <<-DESC
                        Simplifing the use of pjsip on ios
@@ -32,13 +32,9 @@ Pod::Spec.new do |s|
   s.dependency 'pjsip-ios', '~> 0.1'
   s.dependency 'CocoaLumberjack', '2.0.0-beta'
 
-  s.prefix_header_contents = '#import <libextobjc/extobjc.h>', '#import <CocoaLumberjack/CocoaLumberjack.h>',
-   '#ifdef DEBUG', 'static const int ddLogLevel = LOG_LEVEL_VERBOSE;', '#else', 'static const int ddLogLevel = LOG_LEVEL_OFF;', '#endif'
-
   s.xcconfig = {
-    'GCC_PREPROCESSOR_DEFINITIONS' => 'PJ_AUTOCONF=1',
-    'HEADER_SEARCH_PATHS'  => '$(PODS_ROOT)/pjsip-ios/Pod/pjsip-include',
-    'LIBRARY_SEARCH_PATHS' => '$(PODS_ROOT)/pjsip-ios/Pod/pjsip-lib'
+    'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) PJ_AUTOCONF=1',
+    'HEADER_SEARCH_PATHS'  => '$(inherited) $(PODS_ROOT)/pjsip-ios/Pod/pjsip-include $(SOURCE_ROOT)/../Pod/pjsip-include'
   }
 
 end

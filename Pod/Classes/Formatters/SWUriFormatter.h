@@ -12,7 +12,7 @@
 
 @class SWAccount, SWContact;
 
-@interface SWUriFormatter : NSFormatter
+@interface SWUriFormatter : NSObject
 
 +(NSString *)sipUri:(NSString *)uri;
 +(NSString *)sipUri:(NSString *)uri fromAccount:(SWAccount *)account;

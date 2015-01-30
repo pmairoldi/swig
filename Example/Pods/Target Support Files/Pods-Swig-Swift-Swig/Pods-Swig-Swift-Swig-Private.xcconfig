@@ -1,6 +1,5 @@
 #include "Pods-Swig-Swift-Swig.xcconfig"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1 ${PODS_SWIG_SWIFT_SWIG_GCC_PREPROCESSOR_DEFINITIONS}
 HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/Swig" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/CocoaLumberjack" "${PODS_ROOT}/Headers/Public/OpenSSL-Universal" "${PODS_ROOT}/Headers/Public/OpenSSL-Universal/openssl" "${PODS_ROOT}/Headers/Public/Swig" "${PODS_ROOT}/Headers/Public/libextobjc" "${PODS_ROOT}/Headers/Public/pjsip-ios" "${PODS_ROOT}/Headers/Public/pjsip-ios/pjsip-include" ${PODS_SWIG_SWIFT_SWIG_HEADER_SEARCH_PATHS}
-LIBRARY_SEARCH_PATHS = ${PODS_SWIG_SWIFT_SWIG_LIBRARY_SEARCH_PATHS}
 OTHER_LDFLAGS = -ObjC
 PODS_ROOT = ${SRCROOT}

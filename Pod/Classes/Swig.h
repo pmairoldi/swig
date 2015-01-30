@@ -26,4 +26,7 @@
 #import "SWRingback.h"
 #import "SWRingtone.h"
 
+//Formatter
+#import "SWUriFormatter.h"
+
 #endif

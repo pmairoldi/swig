@@ -25,8 +25,21 @@
         return nil;
     }
     
-    _name = name;
-    _address = address;
+    if (!name) {
+        _name = @"";
+    }
+    
+    else {
+        _name = name;
+    }
+    
+    if (!address) {
+        _address = @"";
+    }
+    
+    else {
+        _address = address;
+    }
     
     return self;
 }

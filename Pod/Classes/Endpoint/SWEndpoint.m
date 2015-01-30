@@ -19,6 +19,15 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#ifdef DEBUG
+    __unused static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#else
+    __unused static const int ddLogLevel = LOG_LEVEL_OFF;
+#endif
+
+#import <libextobjc/extobjc.h>
+
 #define KEEP_ALIVE_INTERVAL 600
 
 typedef void (^SWAccountStateChangeBlock)(SWAccount *account);
@@ -92,6 +101,8 @@ static SWEndpoint *_sharedEndpoint = nil;
     fileLogger.maximumFileSize = 0;
     
     [DDLog addLogger:fileLogger];
+    
+    DDLogDebug(@"test__");
     
     _accounts = [[NSMutableArray alloc] init];
     

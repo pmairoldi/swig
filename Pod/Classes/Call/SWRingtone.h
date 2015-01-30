@@ -13,7 +13,7 @@
 @interface SWRingtone : NSObject <SWPlayableProtocol>
 
 @property (nonatomic, readonly) BOOL isPlaying;
-@property (nonatomic) CGFloat volume;
+@property (nonatomic) float volume;
 @property (nonatomic, strong, readonly) NSURL *fileURL;
 
 -(instancetype)initWithFileAtPath:(NSURL *)path;
