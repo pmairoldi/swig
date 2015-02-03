@@ -18,15 +18,8 @@
 #import <AFNetworkReachabilityManager.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-
-#import <CocoaLumberjack/CocoaLumberjack.h>
-#ifdef DEBUG
-    __unused static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-#else
-    __unused static const int ddLogLevel = LOG_LEVEL_OFF;
-#endif
-
 #import <libextobjc/extobjc.h>
+#import "Logger.h"
 
 #define KEEP_ALIVE_INTERVAL 600
 
@@ -102,8 +95,6 @@ static SWEndpoint *_sharedEndpoint = nil;
     
     [DDLog addLogger:fileLogger];
     
-    DDLogDebug(@"test__");
-    
     _accounts = [[NSMutableArray alloc] init];
     
     [self registerThread];
@@ -149,7 +140,7 @@ static SWEndpoint *_sharedEndpoint = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
     
     [self reset:^(NSError *error) {
-        if (error) NSLog(@"%@", [error description]);
+        if (error) DDLogDebug(@"%@", [error description]);
     }];
 }
 
@@ -207,7 +198,7 @@ static SWEndpoint *_sharedEndpoint = nil;
     [self reset:^(NSError *error) {
         
         if (error) {
-            NSLog(@"%@", [error description]);
+            DDLogDebug(@"%@", [error description]);
         }
     }];
     

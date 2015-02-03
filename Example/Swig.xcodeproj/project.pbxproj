@@ -116,6 +116,7 @@
 		065D235F1A7B5B22008A280F /* SWEndpointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWEndpointTests.swift; sourceTree = "<group>"; };
 		065D23601A7B5B22008A280F /* SWUriFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWUriFormatterTests.swift; sourceTree = "<group>"; };
 		06998A1419B6D6F5003D3586 /* Swig-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Swig-Bridging-Header.h"; sourceTree = "<group>"; };
+		06EBAB041A808921001A840C /* Logger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		0F08AE48C39B4D60B3F5EAB9 /* Swig.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Swig.podspec; path = ../Swig.podspec; sourceTree = "<group>"; };
 		13CE19D474FB9E04E5A83B66 /* Pods-Swig.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swig.release.xcconfig"; path = "Pods/Target Support Files/Pods-Swig/Pods-Swig.release.xcconfig"; sourceTree = "<group>"; };
 		163C5DB0825CCFE532D353C7 /* Pods-Swig.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swig.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Swig/Pods-Swig.debug.xcconfig"; sourceTree = "<group>"; };
@@ -260,6 +261,7 @@
 				065D23401A7B5B01008A280F /* Endpoint */,
 				065D23471A7B5B01008A280F /* Formatters */,
 				065D234A1A7B5B01008A280F /* Swig.h */,
+				06EBAB041A808921001A840C /* Logger.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

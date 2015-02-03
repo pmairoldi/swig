@@ -9,6 +9,7 @@
 #import "SWRingback.h"
 #import "SWEndpoint.h"
 #import "SWEndpointConfiguration.h"
+#import "Logger.h"
 
 #define kSWRingbackFrequency1 440
 #define kSWRingbackFrequency2 480
@@ -44,7 +45,7 @@
     status = pjmedia_tonegen_create2([endpoint pjPool], &name, (unsigned int)endpoint.endpointConfiguration.clockRate, kSWChannelCount, (unsigned int)samplesPerFrame, 16, PJMEDIA_TONEGEN_LOOP, &_ringbackPort);
     
     if (status != PJ_SUCCESS) {
-        NSLog(@"Error creating ringback tones");
+        DDLogDebug(@"Error creating ringback tones");
         return nil;
     }
     
@@ -64,7 +65,7 @@
     status = pjsua_conf_add_port([endpoint pjPool], [self ringbackPort], (int *)&_ringbackSlot);
     
     if (status != PJ_SUCCESS) {
-        NSLog(@"Error adding media port for ringback tones");
+        DDLogDebug(@"Error adding media port for ringback tones");
         return nil;
     }
     

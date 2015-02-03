@@ -12,6 +12,7 @@
 #import "SharkfoodMuteSwitchDetector.h"
 #import <UIKit/UIKit.h>
 #import <libextobjc/extobjc.h>
+#import "Logger.h"
 
 #define kVibrateDuration 2.0
 
@@ -47,7 +48,7 @@
     _audioPlayer.numberOfLoops = -1;
     
     if (error) {
-        NSLog(@"%@", [error description]);
+        DDLogDebug(@"%@", [error description]);
     }
     
     self.virbateTimer = [NSTimer timerWithTimeInterval:kVibrateDuration target:self selector:@selector(vibrate) userInfo:nil repeats:YES];

@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "Swig"
-  s.version          = "0.1.6"
+  s.version          = "0.2.0"
   s.summary          = "PJSIP Wrapper for ios"
   s.description      = <<-DESC
                        Simplifing the use of pjsip on ios
@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
   s.dependency 'AFNetworking/Reachability', '~> 2.3'
   s.dependency 'libextobjc', '~> 0.4'
   s.dependency 'pjsip-ios', '~> 0.1'
-  s.dependency 'CocoaLumberjack', '2.0.0-beta'
+  s.dependency 'CocoaLumberjack', '2.0.0-rc'
 
   s.xcconfig = {
     'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) PJ_AUTOCONF=1',

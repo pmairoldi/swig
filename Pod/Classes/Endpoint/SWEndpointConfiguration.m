@@ -9,8 +9,9 @@
 #import "SWEndpointConfiguration.h"
 #import "SWTransportConfiguration.h"
 #include "pj/file_io.h"
+#import "Logger.h"
 
-#define kSWMaxCalls 4
+#define kSWMaxCalls 30
 #define kSWLogLevel 5
 #define kSWLogConsoleLevel 4
 #define kSWLogFilename nil
@@ -65,7 +66,7 @@
 -(void)setLogLevel:(NSUInteger)logLevel {
     
     if (logLevel <= 0) {
-        NSLog(@"log level has to be greater than 0. Setting it to the default.");
+        DDLogDebug(@"log level has to be greater than 0. Setting it to the default.");
         _logLevel = kSWLogLevel;
     }
     
@@ -77,7 +78,7 @@
 -(void)setLogConsoleLevel:(NSUInteger)logConsoleLevel {
     
     if (logConsoleLevel <= 0) {
-        NSLog(@"log console level has to be greater than 0. Setting it to the default.");
+        DDLogDebug(@"log console level has to be greater than 0. Setting it to the default.");
         _logConsoleLevel = kSWLogConsoleLevel;
     }
     

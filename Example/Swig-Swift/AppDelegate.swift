@@ -79,12 +79,12 @@ extension AppDelegate {
         
         endpoint.setAccountStateChangeBlock { (account) in
         
-            print("\n\nAccount State : \(account.accountState)\n\n")
+            print("\n\nAccount State : \(account.accountState.rawValue)\n\n")
         }
         
         endpoint.setCallStateChangeBlock { (account, call) in
             
-            print("\n\nCall State : \(call.callState)\n\n")
+            print("\n\nCall State : \(call.callState.rawValue)\n\n")
         }
         
         endpoint.setCallMediaStateChangeBlock { (account, call) in

@@ -7,7 +7,7 @@
 //
 
 #import "SWAppDelegate.h"
-#import <Swig.h>
+#import <Swig/Swig.h>
 
 @implementation SWAppDelegate
 
