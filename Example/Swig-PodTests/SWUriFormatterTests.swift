@@ -146,4 +146,11 @@ class SWUriFormatterTests: XCTestCase {
         
         XCTAssert((testReturn.name == "name" && testReturn.address == "test@sip.com"), "epected: {name = \"\", address = \"name\"} actual: {name = \(testReturn.name), address = \(testReturn.address)}")
     }
+    
+    func testSipStringInAddress() {
+        
+        let testReturn = SWUriFormatter.contactFromURI("sip:00498009377546@sip.easybell.de")
+        
+        XCTAssert((testReturn.name == "" && testReturn.address == "00498009377546@sip.easybell.de"), "epected: {name = \"\", address = \"00498009377546@sip.easybell.de\"} actual: {name = \(testReturn.name), address = \(testReturn.address)}")
+    }
 }
